@@ -196,59 +196,95 @@
       gap: 10px;
     }
 
-    /* Estilos para a Navegação Principal */
+    /* Redesign da Navegação Principal (Botões) */
     .main-nav {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 10px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin: 20px 0 30px;
     }
 
     .nav-btn {
-      background: #fff;
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: 20px;
+      padding: 18px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-btn i {
-      font-size: 20px;
-      color: var(--primary);
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -2px rgba(0, 0, 0, 0.05),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
     }
 
     .nav-btn span {
-      font-weight: 900;
-      font-size: 14px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      color: var(--text);
+      color: #334155;
       text-align: center;
+      line-height: 1.2;
+      transition: color 0.3s ease;
+      z-index: 1;
+    }
+
+    .nav-btn small {
+      color: #64748b;
+      font-weight: 500;
+      font-size: 11px !important;
+      margin-top: 4px;
+      opacity: 0.8;
+      transition: color 0.3s ease;
     }
 
     .nav-btn:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      background: #ffffff;
       border-color: var(--primary);
-      box-shadow: 0 15px 30px rgba(37, 99, 235, 0.15);
+      box-shadow:
+        0 20px 25px -5px rgba(37, 99, 235, 0.1),
+        0 8px 10px -6px rgba(37, 99, 235, 0.1);
     }
 
     .nav-btn.active {
-      background: var(--primary) !important;
-      border-color: var(--primary) !important;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+      background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+      border-color: #1e40af !important;
+      box-shadow:
+        0 10px 20px -5px rgba(37, 99, 235, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
     }
 
-    .nav-btn.active i,
-    .nav-btn.active span {
-      color: #fff !important;
+    .nav-btn.active span,
+    .nav-btn.active small {
+      color: #ffffff !important;
+      opacity: 1;
+    }
+
+    /* Efeito de brilho sutil no hover */
+    .nav-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent);
+      transition: 0.5s;
+    }
+
+    .nav-btn:hover::after {
+      left: 100%;
     }
 
     .hidden {
@@ -413,9 +449,10 @@
     }
 
     .doc-title-contrato {
-      color: #075985;
-      background: rgba(95, 168, 255, 0.12);
-      border-color: rgba(95, 168, 255, 0.32);
+      color: #1d4e89;
+      background: #ffffff;
+      border-color: #1d4e89;
+      box-shadow: 0 4px 12px rgba(29, 78, 137, 0.08);
     }
 
     /* ===== DEPÓSITO PARA TERCEIROS ===== */
@@ -1314,6 +1351,63 @@
         size: a4;
       }
     }
+
+    /* ===== ESTILOS LINKS ÚTEIS (CORES ELEGANTES) ===== */
+    .link-section-estoques .section-title {
+      color: #1e3a8a !important;
+    }
+
+    .link-section-estoques .cover-doc-pill {
+      color: #1e3a8a !important;
+      border-color: rgba(30, 58, 138, 0.25) !important;
+    }
+
+    .link-section-estoques .cover-btn:hover {
+      background: rgba(30, 58, 138, 0.04) !important;
+      border-color: #1e3a8a !important;
+    }
+
+    .link-section-consultas .section-title {
+      color: #065f46 !important;
+    }
+
+    .link-section-consultas .cover-doc-pill {
+      color: #065f46 !important;
+      border-color: rgba(6, 95, 70, 0.25) !important;
+    }
+
+    .link-section-consultas .cover-btn:hover {
+      background: rgba(6, 95, 70, 0.04) !important;
+      border-color: #065f46 !important;
+    }
+
+    .link-section-plataformas .section-title {
+      color: #3730a3 !important;
+    }
+
+    .link-section-plataformas .cover-doc-pill {
+      color: #3730a3 !important;
+      border-color: rgba(55, 48, 163, 0.25) !important;
+    }
+
+    .link-section-plataformas .cover-btn:hover {
+      background: rgba(55, 48, 163, 0.04) !important;
+      border-color: #3730a3 !important;
+    }
+
+    .link-section-ferramentas .section-title {
+      color: #9a3412 !important;
+    }
+
+    .link-section-ferramentas .cover-doc-pill {
+      color: #9a3412 !important;
+      border-color: rgba(154, 52, 18, 0.25) !important;
+    }
+
+    .link-section-ferramentas .cover-btn:hover {
+      background: rgba(154, 52, 18, 0.04) !important;
+      border-color: #9a3412 !important;
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1350,9 +1444,10 @@
 
     <!-- Seção: Gerador de Documentos (Submenu) -->
     <div class="cover hidden" id="secao-gerador">
-      <div class="section-title"
-        style="border-top: none; margin-top: 0; padding-top: 0; font-size: 13px; margin-bottom: 12px; text-align: center;">
-        SELECIONE O DOCUMENTO
+      <div style="text-align: center; margin-bottom: 18px; margin-top: 10px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 15px; padding: 10px 28px;">
+          SELECIONE O DOCUMENTO
+        </div>
       </div>
       <div class="cover-grid">
         <button class="cover-btn" id="btn-doc-recebimento" type="button" onclick="abrirDocumento('doc-recebimento')">
@@ -2168,143 +2263,127 @@
            10) LINKS ÚTEIS
            ========================= -->
       <div class="doc-card hidden" id="doc-links">
-        <div class="head">
-          <div class="doc-title-pill"
-            style="color: #1e40af; background: rgba(30, 64, 175, 0.1); border-color: rgba(30, 64, 175, 0.3);">
-            LINKS ÚTEIS</div>
-        </div>
+        <div style="height: 10px;"></div>
 
         <!-- CATEGORIA 1: ESTOQUES E VENDAS -->
-        <div class="section-title"
-          style="border-top: none; margin-top: 10px; padding-top: 0; text-align: center; margin-bottom: 15px; font-size: 13px; color: #1e40af;">
-          ESTOQUES</div>
-        <div class="cover-grid" style="margin-bottom: 30px;">
-          <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              ESTOQUE DE SEMINOVOS</div>
-          </a>
-          <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              ESTOQUE OUTLET</div>
-          </a>
+        <div class="link-section-estoques">
+          <div class="section-title"
+            style="border-top: none; margin-top: 10px; padding-top: 0; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            ESTOQUES</div>
+          <div class="cover-grid" style="margin-bottom: 30px;">
+            <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE DE SEMINOVOS</div>
+            </a>
+            <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE OUTLET</div>
+            </a>
+          </div>
         </div>
 
         <!-- CATEGORIA 2: CONSULTAS -->
-        <div class="section-title"
-          style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px; color: #1e40af;">
-          CONSULTAS</div>
-        <div class="cover-grid" style="margin-bottom: 30px;">
-          <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              VALOR DE IPVA</div>
-          </a>
-          <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              SITUAÇÃO DO DETRAN</div>
-          </a>
-          <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
-            class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              CARTÃO CNPJ</div>
-          </a>
-          <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
-            class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              CERTIDÃO JUDICIAL</div>
-          </a>
-          <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              CERTIDÃO TRABALHISTA</div>
-          </a>
-          <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
-            target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              ANTECEDENTES TJRS</div>
-          </a>
-          <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              CERTIDÕES TRT4</div>
-          </a>
+        <div class="link-section-consultas">
+          <div class="section-title"
+            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            CONSULTAS</div>
+          <div class="cover-grid" style="margin-bottom: 30px;">
+            <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">VALOR DE IPVA</div>
+            </a>
+            <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">SITUAÇÃO DO DETRAN</div>
+            </a>
+            <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CARTÃO CNPJ</div>
+            </a>
+            <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO JUDICIAL</div>
+            </a>
+            <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO TRABALHISTA</div>
+            </a>
+            <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
+              target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">ANTECEDENTES TJRS</div>
+            </a>
+            <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÕES TRT4</div>
+            </a>
+          </div>
         </div>
 
         <!-- CATEGORIA 3: PLATAFORMAS E SISTEMAS -->
-        <div class="section-title"
-          style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px; color: #1e40af;">
-          PLATAFORMAS E SISTEMAS</div>
-        <div class="cover-grid" style="margin-bottom: 30px;">
-          <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              NBS GOLD</div>
-          </a>
-          <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              NBS SHOTCUT</div>
-          </a>
-          <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              DOCUSIGN</div>
-          </a>
-          <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              AUTOAVALIAR</div>
-          </a>
-          <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              CHECKLIST de ENTREGA (Seminovo)</div>
-          </a>
-          <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
-            target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              ROBÔ DE ANÚNCIOS</div>
-          </a>
-          <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              PORTAL GESTAUTO</div>
-          </a>
-          <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
-            target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              AUTOCORP</div>
-          </a>
-          <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              DUGESTÃO</div>
-          </a>
-          <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              DULEADS</div>
-          </a>
+        <div class="link-section-plataformas">
+          <div class="section-title"
+            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            PLATAFORMAS E SISTEMAS</div>
+          <div class="cover-grid" style="margin-bottom: 30px;">
+            <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">NBS GOLD</div>
+            </a>
+            <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">NBS SHOTCUT</div>
+            </a>
+            <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">DOCUSIGN</div>
+            </a>
+            <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">AUTOAVALIAR</div>
+            </a>
+            <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CHECKLIST de ENTREGA (Seminovo)</div>
+            </a>
+            <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
+              target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">ROBÔ DE ANÚNCIOS</div>
+            </a>
+            <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">PORTAL GESTAUTO</div>
+            </a>
+            <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
+              target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">AUTOCORP</div>
+            </a>
+            <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">DUGESTÃO</div>
+            </a>
+            <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">DULEADS</div>
+            </a>
+          </div>
         </div>
 
         <!-- CATEGORIA 4: FERRAMENTAS E APOIO -->
-        <div class="section-title"
-          style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px; color: #1e40af;">
-          FERRAMENTAS E APOIO</div>
-        <div class="cover-grid">
-          <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              TABELA FIPE</div>
-          </a>
-          <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              HP12C ONLINE</div>
-          </a>
-          <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
-            style="text-decoration: none;">
-            <div class="cover-doc-pill" style="color: #1e40af; border-color: #1e40af; font-size: 11px;">
-              TERMO DE REPASSE PARA FUNCIONÁRIO</div>
-          </a>
+        <div class="link-section-ferramentas">
+          <div class="section-title"
+            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            FERRAMENTAS E APOIO</div>
+          <div class="cover-grid">
+            <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">TABELA FIPE</div>
+            </a>
+            <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">HP12C ONLINE</div>
+            </a>
+            <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
+            </a>
+          </div>
         </div>
       </div>
 
