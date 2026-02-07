@@ -239,7 +239,7 @@
     .nav-btn small {
       color: #64748b;
       font-weight: 500;
-      font-size: 11px !important;
+      font-size: 13px !important;
       margin-top: 4px;
       opacity: 0.8;
       transition: color 0.3s ease;
@@ -1509,8 +1509,25 @@
       </button>
       <button class="nav-btn" id="btn-calculadora" onclick="alternarSecao('calculadora')">
         <span>CALCULADORA<br><small
-            style="font-style: italic; font-size: 0.85em; text-transform: lowercase !important; font-weight: normal;">(taxa
+            style="font-style: italic; font-size: 13px; text-transform: lowercase !important; font-weight: normal;">(taxa
             do cartão)</small></span>
+      </button>
+      <button class="nav-btn" id="btn-bancos" onclick="alternarSecao('bancos')">
+        <span>BANCOS</span>
+      </button>
+      <button class="nav-btn" id="btn-certidoes" onclick="alternarSecao('certidoes')">
+        <span>CERTIDÕES</span>
+      </button>
+      <button class="nav-btn" id="btn-venda-direta" onclick="alternarSecao('venda-direta')">
+        <span>VENDA DIRETA</span>
+      </button>
+      <button class="nav-btn" id="btn-plataformas" onclick="alternarSecao('plataformas')">
+        <span>PLATAFORMAS</span>
+      </button>
+      <button class="nav-btn" id="btn-cartas" onclick="alternarSecao('cartas')">
+        <span>MONTADORA<br><small
+            style="font-style: italic; font-size: 13px; text-transform: lowercase !important; font-weight: normal;">(gama
+            e cartas do mês)</small></span>
       </button>
       <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
         <span>LINKS ÚTEIS</span>
@@ -1566,6 +1583,168 @@
             <div class="cover-doc-pill">ORÇAMENTO DE DETRAN</div>
           </div>
         </button>
+      </div>
+    </div>
+
+    <!-- Seção: Bancos (Submenu) -->
+    <div class="cover hidden" id="secao-bancos" style="margin-top: 20px;">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
+          PORTAIS BANCÁRIOS
+        </div>
+      </div>
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="https://autofacil.stellantisfinanciamentos.com.br/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">PSA (Stellantis)</div>
+        </a>
+        <a href="https://digital.bancovw.com.br/FrontEnd/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">VOLKS</div>
+        </a>
+        <a href="https://www.credlineitau.com.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">ITAÚ CREDLINE</div>
+        </a>
+        <a href="https://financiamentos.bradesco/financiamentos/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BRADESCO</div>
+        </a>
+        <a href="https://financeira.safra.com.br/portal-veiculos/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">SAFRA</div>
+        </a>
+        <a href="https://c6auto.com.br/originacaolojista/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">C6 AUTO</div>
+        </a>
+        <a href="https://parceiro.bv.com.br/ng-gpar-base-login/#" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BV FINANCEIRA</div>
+        </a>
+        <a href="https://veiculos.bancopan.com.br/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BANCO PAN</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção: Certidões (Submenu) -->
+    <div class="cover hidden" id="secao-certidoes" style="margin-top: 20px;">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
+          EMISSÃO DE CERTIDÕES
+        </div>
+      </div>
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
+          class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO JUDICIAL</div>
+        </a>
+        <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO TRABALHISTA</div>
+        </a>
+        <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
+          target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">ANTECEDENTES TJRS</div>
+        </a>
+        <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÕES TRT4</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção: Venda Direta (Submenu) -->
+    <div class="cover hidden" id="secao-venda-direta" style="margin-top: 20px;">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
+          APOIO A VENDA DIRETA
+        </div>
+      </div>
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
+          class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CARTÃO CNPJ</div>
+        </a>
+        <a href="https://www.sefaz.rs.gov.br/consultas/contribuinte" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">INSCRIÇÃO ESTADUAL</div>
+        </a>
+        <a href="https://dfe-portal.svrs.rs.gov.br/cte/ccc?origem=2" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">IE PRODUTOR RURAL</div>
+        </a>
+        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04281040" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BNDES FIORINO</div>
+        </a>
+        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04260579" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA FREEDOM</div>
+        </a>
+        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA ENDURANCE</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção: Plataformas (Submenu) -->
+    <div class="cover hidden" id="secao-plataformas" style="margin-top: 20px;">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
+          PLATAFORMAS E SISTEMAS
+        </div>
+      </div>
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">NBS GOLD</div>
+        </a>
+        <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">DOCUSIGN</div>
+        </a>
+        <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">AUTOAVALIAR</div>
+        </a>
+        <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CHECKLIST de ENTREGA (Seminovo)</div>
+        </a>
+        <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
+          target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">ROBÔ DE ANÚNCIOS</div>
+        </a>
+        <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">DUGESTÃO</div>
+        </a>
+        <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">DULEADS</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção: Cartas do Mês (Submenu) -->
+    <div class="cover hidden" id="secao-cartas" style="margin-top: 20px;">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
+          MONTADORA
+        </div>
+      </div>
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="https://albertomateus10.github.io/pdfsdomes/cartafiat.pdf" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CARTA DO MÊS (Montadora)</div>
+        </a>
+        <a href="https://albertomateus10.github.io/pdfsdomes/cartabanco.pdf" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">CARTA DO MÊS (Banco)</div>
+        </a>
+        <a href="https://albertomateus10.github.io/pdfsdomes/gama.pdf" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">GAMA ATUALIZADA</div>
+        </a>
       </div>
     </div>
 
@@ -2357,125 +2536,7 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 2: CARTAS DO MÊS -->
-        <div class="link-section link-section-cartas">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            CARTAS DO MÊS</div>
-          <div class="cover-grid">
-            <a href="https://albertomateus10.github.io/pdfsdomes/cartafiat.pdf" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CARTA DO MÊS (Montadora)</div>
-            </a>
-            <a href="https://albertomateus10.github.io/pdfsdomes/cartabanco.pdf" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CARTA DO MÊS (Banco)</div>
-            </a>
-            <a href="https://albertomateus10.github.io/pdfsdomes/gama.pdf" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">GAMA ATUALIZADA</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 3: EMISSÃO DE CERTIDÕES -->
-        <div class="link-section link-section-certidoes">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            EMISSÃO DE CERTIDÕES</div>
-          <div class="cover-grid">
-            <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO JUDICIAL</div>
-            </a>
-            <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO TRABALHISTA</div>
-            </a>
-            <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
-              target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">ANTECEDENTES TJRS</div>
-            </a>
-            <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÕES TRT4</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 4: APOIO A VENDA DIRETA -->
-        <div class="link-section link-section-venda-direta">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            APOIO A VENDA DIRETA</div>
-          <div class="cover-grid">
-            <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CARTÃO CNPJ</div>
-            </a>
-            <a href="https://www.sefaz.rs.gov.br/consultas/contribuinte" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">INSCRIÇÃO ESTADUAL</div>
-            </a>
-            <a href="https://dfe-portal.svrs.rs.gov.br/cte/ccc?origem=2" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">IE PRODUTOR RURAL</div>
-            </a>
-            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04281040" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BNDES FIORINO</div>
-            </a>
-            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04260579" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA FREEDOM</div>
-            </a>
-            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA ENDURANCE</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 5: BANCOS -->
-        <div class="link-section link-section-bancos">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            BANCOS</div>
-          <div class="cover-grid">
-            <a href="https://autofacil.stellantisfinanciamentos.com.br/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">PSA</div>
-            </a>
-            <a href="https://digital.bancovw.com.br/FrontEnd/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">VOLKS</div>
-            </a>
-            <a href="https://www.credlineitau.com.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">ITAÚ CREDLINE</div>
-            </a>
-            <a href="https://financiamentos.bradesco/financiamentos/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BRADESCO</div>
-            </a>
-            <a href="https://financeira.safra.com.br/portal-veiculos/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">SAFRA</div>
-            </a>
-            <a href="https://c6auto.com.br/originacaolojista/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">C6</div>
-            </a>
-            <a href="https://parceiro.bv.com.br/ng-gpar-base-login/#" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BV</div>
-            </a>
-            <a href="https://veiculos.bancopan.com.br/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BANCO PAN</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 6: CONSULTAS DIVERSAS -->
+        <!-- CATEGORIA 2: CONSULTAS DIVERSAS -->
         <div class="link-section link-section-consultas">
           <div class="section-title"
             style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
@@ -2495,44 +2556,7 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 7: PLATAFORMAS E SISTEMAS -->
-        <div class="link-section link-section-plataformas">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            PLATAFORMAS E SISTEMAS</div>
-          <div class="cover-grid">
-            <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">NBS GOLD</div>
-            </a>
-            <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">DOCUSIGN</div>
-            </a>
-            <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">AUTOAVALIAR</div>
-            </a>
-            <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CHECKLIST de ENTREGA (Seminovo)</div>
-            </a>
-            <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
-              target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">ROBÔ DE ANÚNCIOS</div>
-            </a>
-            <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">DUGESTÃO</div>
-            </a>
-            <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">DULEADS</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 8: FERRAMENTAS E APOIO -->
+        <!-- CATEGORIA 3: FERRAMENTAS E APOIO -->
         <div class="link-section link-section-ferramentas">
           <div class="section-title"
             style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
@@ -2552,7 +2576,7 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 9: APOIO AO GESTOR -->
+        <!-- CATEGORIA 4: APOIO AO GESTOR -->
         <div class="link-section link-section-gestor">
           <div class="section-title"
             style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
@@ -2623,6 +2647,11 @@
       document.getElementById('doc-calculadora').classList.add('hidden');
       document.getElementById('doc-contrato').classList.add('hidden');
       document.getElementById('doc-links').classList.add('hidden');
+      document.getElementById('secao-bancos').classList.add('hidden');
+      document.getElementById('secao-certidoes').classList.add('hidden');
+      document.getElementById('secao-venda-direta').classList.add('hidden');
+      document.getElementById('secao-plataformas').classList.add('hidden');
+      document.getElementById('secao-cartas').classList.add('hidden');
       document.getElementById('dados-cliente-global').classList.add('hidden');
 
       // Esconder todos os cards de documentos individuais
@@ -2633,6 +2662,11 @@
       document.getElementById('btn-gerador').classList.remove('active');
       document.getElementById('btn-calculadora').classList.remove('active');
       document.getElementById('btn-links').classList.remove('active');
+      document.getElementById('btn-bancos').classList.remove('active');
+      document.getElementById('btn-certidoes').classList.remove('active');
+      document.getElementById('btn-venda-direta').classList.remove('active');
+      document.getElementById('btn-plataformas').classList.remove('active');
+      document.getElementById('btn-cartas').classList.remove('active');
 
       if (secao === 'gerador') {
         document.getElementById('secao-gerador').classList.remove('hidden');
@@ -2643,6 +2677,21 @@
       } else if (secao === 'links') {
         document.getElementById('doc-links').classList.remove('hidden');
         document.getElementById('btn-links').classList.add('active');
+      } else if (secao === 'bancos') {
+        document.getElementById('secao-bancos').classList.remove('hidden');
+        document.getElementById('btn-bancos').classList.add('active');
+      } else if (secao === 'certidoes') {
+        document.getElementById('secao-certidoes').classList.remove('hidden');
+        document.getElementById('btn-certidoes').classList.add('active');
+      } else if (secao === 'venda-direta') {
+        document.getElementById('secao-venda-direta').classList.remove('hidden');
+        document.getElementById('btn-venda-direta').classList.add('active');
+      } else if (secao === 'plataformas') {
+        document.getElementById('secao-plataformas').classList.remove('hidden');
+        document.getElementById('btn-plataformas').classList.add('active');
+      } else if (secao === 'cartas') {
+        document.getElementById('secao-cartas').classList.remove('hidden');
+        document.getElementById('btn-cartas').classList.add('active');
       }
     }
 
