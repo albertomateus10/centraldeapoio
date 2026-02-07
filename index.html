@@ -168,9 +168,31 @@
 
     h1 {
       text-align: center;
-      margin: 12px 0 22px;
-      font-size: 22px;
-      letter-spacing: 0.2px;
+      margin: 20px auto 40px;
+      width: fit-content;
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border: 2px solid #9ca3af;
+      /* Cinza Médio Calmo */
+      border-radius: 20px;
+      padding: 12px 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 2px 4px -2px rgba(0, 0, 0, 0.05),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+
+      /* Estilo de Texto */
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #334155;
+      line-height: 1.2;
     }
 
     .subtitle {
@@ -183,11 +205,13 @@
     /* ===== CAPA ===== */
     .cover {
       background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
+      border: 2px solid #9ca3af;
+      /* Cinza Médio Calmo */
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       margin-bottom: 12px;
+      transition: all 0.3s ease;
     }
 
     .cover-grid {
@@ -208,7 +232,9 @@
       background: linear-gradient(145deg, #ffffff, #f8fafc);
       border: 1px solid rgba(226, 232, 240, 0.8);
       border-radius: 20px;
-      padding: 18px 12px;
+      padding: 12px 12px;
+      min-height: 75px;
+      /* Garante tamanho uniforme */
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -299,9 +325,11 @@
 
     .cover-btn {
       width: 100%;
+      min-height: 60px;
+      /* Padroniza a altura */
       border: 1px solid rgba(229, 231, 235, 0.95);
       border-radius: 16px;
-      padding: 12px 12px;
+      padding: 10px 12px;
       background: #fff;
       cursor: pointer;
       display: flex;
@@ -315,9 +343,11 @@
     }
 
     .cover-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 22px rgba(17, 24, 39, 0.08);
-      border-color: rgba(37, 99, 235, 0.25);
+      transform: translateY(-2px);
+      box-shadow:
+        0 10px 20px -5px rgba(37, 99, 235, 0.15),
+        0 4px 6px -2px rgba(37, 99, 235, 0.1);
+      border-color: var(--primary) !important;
     }
 
     .cover-left {
@@ -511,8 +541,9 @@
 
     .doc-card {
       background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      border: 2px solid #9ca3af;
+      /* Cinza Médio Calmo */
+      border-radius: 20px;
       padding: var(--card-pad);
       box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
     }
@@ -1482,8 +1513,9 @@
     /* Estilo de Card para as seções de Links Úteis */
     .link-section {
       background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border: 2px solid #9ca3af;
+      /* Cinza Médio Calmo */
+      border-radius: 20px;
       padding: 20px;
       margin-bottom: 25px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -1529,6 +1561,12 @@
             style="font-style: italic; font-size: 13px; text-transform: lowercase !important; font-weight: normal;">(gama
             e cartas do mês)</small></span>
       </button>
+      <button class="nav-btn" id="btn-seminovos" onclick="alternarSecao('seminovos')">
+        <span>SEMINOVOS</span>
+      </button>
+      <button class="nav-btn" id="btn-gestor" onclick="alternarSecao('gestor')">
+        <span>APOIO AO GESTOR</span>
+      </button>
       <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
         <span>LINKS ÚTEIS</span>
       </button>
@@ -1536,63 +1574,39 @@
 
     <!-- Seção: Gerador de Documentos (Submenu) -->
     <div class="cover hidden" id="secao-gerador">
-      <div style="text-align: center; margin-bottom: 18px; margin-top: 10px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          SELECIONE O DOCUMENTO
-        </div>
-      </div>
       <div class="cover-grid">
         <button class="cover-btn" id="btn-doc-recebimento" type="button" onclick="abrirDocumento('doc-recebimento')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
-          </div>
+          <div class="cover-doc-pill">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-acordo" type="button" onclick="abrirDocumento('doc-acordo')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">PROCURAÇÃO DE ACORDO</div>
-          </div>
+          <div class="cover-doc-pill">PROCURAÇÃO DE ACORDO</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-instrumento" type="button" onclick="abrirDocumento('doc-instrumento')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">INSTRUMENTO DE RESPONSABILIDADE</div>
-          </div>
+          <div class="cover-doc-pill">INSTRUMENTO DE RESPONSABILIDADE</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-quitacao" type="button" onclick="abrirDocumento('doc-quitacao')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">TERMO DE QUITAÇÃO (veículo de terceiros)</div>
-          </div>
+          <div class="cover-doc-pill">TERMO DE QUITAÇÃO (veículo de terceiros)</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-residencia" type="button" onclick="abrirDocumento('doc-residencia')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">DECLARAÇÃO DE RESIDÊNCIA</div>
-          </div>
+          <div class="cover-doc-pill">DECLARAÇÃO DE RESIDÊNCIA</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-deposito" type="button" onclick="abrirDocumento('doc-deposito')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
-          </div>
+          <div class="cover-doc-pill">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
         </button>
 
         <button class="cover-btn" id="btn-doc-orcamento" type="button" onclick="abrirDocumento('doc-orcamento')">
-          <div class="cover-left">
-            <div class="cover-doc-pill">ORÇAMENTO DE DETRAN</div>
-          </div>
+          <div class="cover-doc-pill">ORÇAMENTO DE DETRAN</div>
         </button>
       </div>
     </div>
 
     <!-- Seção: Bancos (Submenu) -->
     <div class="cover hidden" id="secao-bancos" style="margin-top: 20px;">
-      <div style="text-align: center; margin-bottom: 25px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          PORTAIS BANCÁRIOS
-        </div>
-      </div>
       <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
         <a href="https://autofacil.stellantisfinanciamentos.com.br/login" target="_blank" class="cover-btn"
           style="text-decoration: none;">
@@ -1630,11 +1644,6 @@
 
     <!-- Seção: Certidões (Submenu) -->
     <div class="cover hidden" id="secao-certidoes" style="margin-top: 20px;">
-      <div style="text-align: center; margin-bottom: 25px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          EMISSÃO DE CERTIDÕES
-        </div>
-      </div>
       <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
         <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
           class="cover-btn" style="text-decoration: none;">
@@ -1656,11 +1665,6 @@
 
     <!-- Seção: Venda Direta (Submenu) -->
     <div class="cover hidden" id="secao-venda-direta" style="margin-top: 20px;">
-      <div style="text-align: center; margin-bottom: 25px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          APOIO A VENDA DIRETA
-        </div>
-      </div>
       <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
         <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
           class="cover-btn" style="text-decoration: none;">
@@ -1691,11 +1695,6 @@
 
     <!-- Seção: Plataformas (Submenu) -->
     <div class="cover hidden" id="secao-plataformas" style="margin-top: 20px;">
-      <div style="text-align: center; margin-bottom: 25px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          PLATAFORMAS E SISTEMAS
-        </div>
-      </div>
       <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
         <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
           style="text-decoration: none;">
@@ -1727,11 +1726,6 @@
 
     <!-- Seção: Cartas do Mês (Submenu) -->
     <div class="cover hidden" id="secao-cartas" style="margin-top: 20px;">
-      <div style="text-align: center; margin-bottom: 25px;">
-        <div class="doc-title-pill doc-title-contrato" style="font-size: 12px; padding: 8px 20px;">
-          MONTADORA
-        </div>
-      </div>
       <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
         <a href="https://albertomateus10.github.io/pdfsdomes/cartafiat.pdf" target="_blank" class="cover-btn"
           style="text-decoration: none;">
@@ -1744,6 +1738,52 @@
         <a href="https://albertomateus10.github.io/pdfsdomes/gama.pdf" target="_blank" class="cover-btn"
           style="text-decoration: none;">
           <div class="cover-doc-pill" style="font-size: 11px;">GAMA ATUALIZADA</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Seção: Seminovos (Submenu) -->
+    <div class="cover hidden" id="secao-seminovos" style="margin-top: 20px;">
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE DE SEMINOVOS</div>
+        </a>
+        <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE OUTLET</div>
+        </a>
+        <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
+        </a>
+        <button class="cover-btn" type="button" onclick="abrirDocumento('doc-contrato')">
+          <div class="cover-doc-pill" style="font-size: 11px;">TEXTO LEGAL (Seminovos/Outlet)</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Seção: Gestor (Submenu) -->
+    <div class="cover hidden" id="secao-gestor" style="margin-top: 20px;">
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">NBS SHOTCUT</div>
+        </a>
+        <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">PORTAL GESTAUTO</div>
+        </a>
+        <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
+          target="_blank" class="cover-btn" style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">AUTOCORP</div>
+        </a>
+        <a href="https://albertomateus10.github.io/avaliacoes/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">BI DE AVALIAÇÕES</div>
+        </a>
+        <a href="https://albertomateus10.github.io/carteiravdusados/" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">USADOS VIA VD</div>
         </a>
       </div>
     </div>
@@ -1865,7 +1905,8 @@
         </div>
 
         <div class="doc-actions">
-          <button class="btn btn-acordo" type="button" onclick="gerarProcuracaoAcordo()"> Gerar Procuração de
+          <button class="btn btn-acordo" type="button" onclick="gerarProcuracaoAcordo()"> Gerar
+            Procuração de
             Acordo</button>
         </div>
       </div>
@@ -1931,7 +1972,8 @@
         </div>
 
         <div class="doc-actions">
-          <button class="btn btn-recebimento" type="button" onclick="gerarProcuracaoRecebimento()"> Gerar Procuração
+          <button class="btn btn-recebimento" type="button" onclick="gerarProcuracaoRecebimento()">
+            Gerar Procuração
             de Recebimento do Usado</button>
         </div>
       </div>
@@ -2035,7 +2077,8 @@
         <p class="helper"><strong></strong></p>
 
         <div class="doc-actions">
-          <button class="btn btn-quitacao" type="button" onclick="gerarTermoQuitacaoTerceiro()"> Gerar Termo de
+          <button class="btn btn-quitacao" type="button" onclick="gerarTermoQuitacaoTerceiro()"> Gerar
+            Termo de
             Quitação (Terceiro)</button>
         </div>
       </div>
@@ -2092,7 +2135,8 @@
           </div>
         </div>
 
-        <p class="helper">Dica: ao digitar apenas números, o sistema coloca as barras/“:” automaticamente (ex.: 10122025
+        <p class="helper">Dica: ao digitar apenas números, o sistema coloca as barras/“:”
+          automaticamente (ex.: 10122025
           → 10/12/2025).</p>
 
         <div class="doc-actions">
@@ -2138,7 +2182,8 @@
         </div>
 
         <div class="doc-actions">
-          <button class="btn btn-residencia" type="button" onclick="gerarDeclaracaoResidencia()"> Gerar Declaração de
+          <button class="btn btn-residencia" type="button" onclick="gerarDeclaracaoResidencia()"> Gerar
+            Declaração de
             Residência</button>
         </div>
       </div>
@@ -2235,7 +2280,8 @@
         <p class="helper"> <strong></strong></p>
 
         <div class="doc-actions">
-          <button class="btn btn-deposito" type="button" onclick="gerarDeclaracaoDepositoTerceiros()"> Gerar
+          <button class="btn btn-deposito" type="button" onclick="gerarDeclaracaoDepositoTerceiros()">
+            Gerar
             Declaração de Depósito para Terceiros</button>
         </div>
       </div>
@@ -2388,16 +2434,22 @@
           </div>
 
           <div class="orc-legal">
-            <div style="color: red; text-align: center; font-weight: 900; margin-bottom: 0.5rem;">É DIREITO DO
+            <div style="color: red; text-align: center; font-weight: 900; margin-bottom: 0.5rem;">É
+              DIREITO DO
               CONSUMIDOR A LIVRE ESCOLHA DE DESPACHANTE.</div>
-            <p>PODE O CLIENTE OPTAR PELA CONTRATAÇÃO DE OUTRO PROFISSIONAL QUE NÃO O INDICADO PELA CONCESSIONÁRIA.</p>
-            <p>CASO O CLIENTE OPTE PELA CONTRATAÇÃO DE OUTRO DESPACHANTE (DIVERSO DO INDICADO), A CONCESSIONÁRIA FICA
+            <p>PODE O CLIENTE OPTAR PELA CONTRATAÇÃO DE OUTRO PROFISSIONAL QUE NÃO O INDICADO PELA
+              CONCESSIONÁRIA.</p>
+            <p>CASO O CLIENTE OPTE PELA CONTRATAÇÃO DE OUTRO DESPACHANTE (DIVERSO DO INDICADO), A
+              CONCESSIONÁRIA FICA
               DESOBRIGADA DAS SEGUINTES RESPONSABILIDADES, CABENDO-AS AO CONSUMIDOR:</p>
             <p>a) AO DESLOCAMENTO, RETIRADA, LOCOMOÇÃO, CONDUTOR E SEGURO DO VEÍCULO;</p>
-            <p>b) PELO FORNECIMENTO DE PLACAS VERDES PARA A CIRCULAÇÃO DO VEÍCULO ADQUIRIDO ANTES DE EMPLACADO,
-              PROVIDÊNCIAS QUE FICARÃO A CARGO DO CLIENTE, INCLUSIVE COM A CONTRATAÇÃO DE GUINCHO/AUTO PLATAFORMAS, CASO
+            <p>b) PELO FORNECIMENTO DE PLACAS VERDES PARA A CIRCULAÇÃO DO VEÍCULO ADQUIRIDO ANTES DE
+              EMPLACADO,
+              PROVIDÊNCIAS QUE FICARÃO A CARGO DO CLIENTE, INCLUSIVE COM A CONTRATAÇÃO DE GUINCHO/AUTO
+              PLATAFORMAS, CASO
               NECESSÁRIA, PARA A RETIRADA DO VEÍCULO DA CONCESSIONÁRIA.</p>
-            <p>A CONCESSIONÁRIA NÃO SE RESPONSABILIZA POR EVENTUAL ATRASO NO REGISTRO E EMPLACAMENTO DO VEÍCULO, BEM
+            <p>A CONCESSIONÁRIA NÃO SE RESPONSABILIZA POR EVENTUAL ATRASO NO REGISTRO E EMPLACAMENTO DO
+              VEÍCULO, BEM
               COMO POR EVENTUAIS PREJUÍZOS E ENTRAVES QUE VENHAM A OCORRER.</p>
           </div>
 
@@ -2443,7 +2495,8 @@
         <textarea class="texto-contratual" id="texto-contratual" readonly></textarea>
 
         <div class="doc-actions">
-          <button class="btn btn-contrato" type="button" onclick="copiarTextoContratual()"> Copiar Texto</button>
+          <button class="btn btn-contrato" type="button" onclick="copiarTextoContratual()"> Copiar
+            Texto</button>
         </div>
       </div>
 
@@ -2484,7 +2537,8 @@
         </div>
 
         <div id="calc_emptyState" class="calc-empty-state">
-          Selecione <strong>REDE</strong> ou <strong>BANRICOMPRAS</strong> para exibir as taxas e o cálculo.
+          Selecione <strong>REDE</strong> ou <strong>BANRICOMPRAS</strong> para exibir as taxas e o
+          cálculo.
         </div>
 
         <div id="calc_content" class="hidden">
@@ -2496,7 +2550,8 @@
                   <th class="center" style="width:14%;">Taxa</th>
                   <th class="center" style="width:14%;">Fator</th>
                   <th class="center" style="width:16%;">Valor a cobrar</th>
-                  <th class="center calc-highlight calc-sep" style="width:12%;">Quantidade de parcelas</th>
+                  <th class="center calc-highlight calc-sep" style="width:12%;">Quantidade de parcelas
+                  </th>
                   <th class="center calc-highlight" style="width:14%;">Valor da parcela</th>
                 </tr>
               </thead>
@@ -2505,7 +2560,8 @@
           </div>
 
           <div class="calc-rotate-note">
-            No celular em <strong>modo retrato</strong>, deslize a tabela para o lado (rolagem horizontal). Se preferir,
+            No celular em <strong>modo retrato</strong>, deslize a tabela para o lado (rolagem
+            horizontal). Se preferir,
             gire a tela para <strong>horizontal</strong> para ver tudo de uma vez.
           </div>
         </div>
@@ -2519,24 +2575,7 @@
       <div class="doc-card hidden" id="doc-links">
         <div style="height: 10px;"></div>
 
-        <!-- CATEGORIA 1: ESTOQUES E VENDAS -->
-        <div class="link-section link-section-estoques">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            ESTOQUES DE SEMINOVOS</div>
-          <div class="cover-grid">
-            <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE DE SEMINOVOS</div>
-            </a>
-            <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE OUTLET</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 2: CONSULTAS DIVERSAS -->
+        <!-- CATEGORIA 1: CONSULTAS DIVERSAS -->
         <div class="link-section link-section-consultas">
           <div class="section-title"
             style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
@@ -2556,7 +2595,7 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 3: FERRAMENTAS E APOIO -->
+        <!-- CATEGORIA 2: FERRAMENTAS E APOIO -->
         <div class="link-section link-section-ferramentas">
           <div class="section-title"
             style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
@@ -2565,37 +2604,6 @@
             <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">HP12C ONLINE</div>
-            </a>
-            <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
-            </a>
-            <button class="cover-btn" type="button" onclick="abrirDocumento('doc-contrato')">
-              <div class="cover-doc-pill" style="font-size: 11px;">TEXTO LEGAL (Seminovos/Outlet)</div>
-            </button>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 4: APOIO AO GESTOR -->
-        <div class="link-section link-section-gestor">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            APOIO AO GESTOR</div>
-          <div class="cover-grid">
-            <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">NBS SHOTCUT</div>
-            </a>
-            <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">PORTAL GESTAUTO</div>
-            </a>
-            <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
-              target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">AUTOCORP</div>
-            </a>
-            <a href="https://albertomateus10.github.io/avaliacoes/" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">BI DE AVALIAÇÕES</div>
             </a>
           </div>
         </div>
@@ -2652,6 +2660,8 @@
       document.getElementById('secao-venda-direta').classList.add('hidden');
       document.getElementById('secao-plataformas').classList.add('hidden');
       document.getElementById('secao-cartas').classList.add('hidden');
+      document.getElementById('secao-seminovos').classList.add('hidden');
+      document.getElementById('secao-gestor').classList.add('hidden');
       document.getElementById('dados-cliente-global').classList.add('hidden');
 
       // Esconder todos os cards de documentos individuais
@@ -2667,6 +2677,8 @@
       document.getElementById('btn-venda-direta').classList.remove('active');
       document.getElementById('btn-plataformas').classList.remove('active');
       document.getElementById('btn-cartas').classList.remove('active');
+      document.getElementById('btn-seminovos').classList.remove('active');
+      document.getElementById('btn-gestor').classList.remove('active');
 
       if (secao === 'gerador') {
         document.getElementById('secao-gerador').classList.remove('hidden');
@@ -2692,6 +2704,12 @@
       } else if (secao === 'cartas') {
         document.getElementById('secao-cartas').classList.remove('hidden');
         document.getElementById('btn-cartas').classList.add('active');
+      } else if (secao === 'seminovos') {
+        document.getElementById('secao-seminovos').classList.remove('hidden');
+        document.getElementById('btn-seminovos').classList.add('active');
+      } else if (secao === 'gestor') {
+        document.getElementById('secao-gestor').classList.remove('hidden');
+        document.getElementById('btn-gestor').classList.add('active');
       }
     }
 
