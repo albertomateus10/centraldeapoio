@@ -199,7 +199,7 @@
     /* Redesign da Navegação Principal (Botões) */
     .main-nav {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       margin: 20px 0 30px;
     }
@@ -1408,6 +1408,58 @@
       background: rgba(154, 52, 18, 0.04) !important;
       border-color: #9a3412 !important;
     }
+
+    .link-section-gestor .section-title {
+      color: #581c87 !important;
+    }
+
+    .link-section-gestor .cover-doc-pill {
+      color: #581c87 !important;
+      border-color: rgba(88, 28, 135, 0.25) !important;
+    }
+
+    .link-section-gestor .cover-btn:hover {
+      background: rgba(88, 28, 135, 0.04) !important;
+      border-color: #581c87 !important;
+    }
+
+    .link-section-certidoes .section-title {
+      color: #0d9488 !important;
+    }
+
+    .link-section-certidoes .cover-doc-pill {
+      color: #0d9488 !important;
+      border-color: rgba(13, 148, 136, 0.25) !important;
+    }
+
+    .link-section-certidoes .cover-btn:hover {
+      background: rgba(13, 148, 136, 0.04) !important;
+      border-color: #0d9488 !important;
+    }
+
+    .link-section-venda-direta .section-title {
+      color: #1e40af !important;
+    }
+
+    .link-section-venda-direta .cover-doc-pill {
+      color: #1e40af !important;
+      border-color: rgba(30, 64, 175, 0.25) !important;
+    }
+
+    .link-section-venda-direta .cover-btn:hover {
+      background: rgba(30, 64, 175, 0.04) !important;
+      border-color: #1e40af !important;
+    }
+
+    /* Estilo de Card para as seções de Links Úteis */
+    .link-section {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1431,11 +1483,6 @@
         <span>CALCULADORA<br><small
             style="font-style: italic; font-size: 0.85em; text-transform: lowercase !important; font-weight: normal;">(taxa
             do cartão)</small></span>
-      </button>
-      <button class="nav-btn" id="btn-texto-legal" onclick="alternarSecao('texto-legal')">
-        <span>TEXTO LEGAL<br><small
-            style="font-style: italic; font-size: 0.85em; text-transform: lowercase !important; font-weight: normal;">(texto
-            garantia em doblo ou outlet)</small></span>
       </button>
       <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
         <span>LINKS ÚTEIS</span>
@@ -2070,7 +2117,7 @@
                   oninput="updateOrcamentoTotal()">0,00</td>
               </tr>
               <tr>
-                <td>Taxa de transferência de propriedade – DETRAN/RS</td>
+                <td>Taxa de EMPLACAMENTO ou TRANSFERÊNCIA de propriedade</td>
                 <td style="text-align: center;"><input type="checkbox" class="orc-check"
                     onchange="updateOrcamentoTotal()" checked></td>
                 <td style="text-align: right;" class="orc-price" contenteditable="true"
@@ -2266,11 +2313,11 @@
         <div style="height: 10px;"></div>
 
         <!-- CATEGORIA 1: ESTOQUES E VENDAS -->
-        <div class="link-section-estoques">
+        <div class="link-section link-section-estoques">
           <div class="section-title"
-            style="border-top: none; margin-top: 10px; padding-top: 0; text-align: center; margin-bottom: 15px; font-size: 13px;">
-            ESTOQUES</div>
-          <div class="cover-grid" style="margin-bottom: 30px;">
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
+            ESTOQUES DE SEMINOVOS</div>
+          <div class="cover-grid">
             <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">ESTOQUE DE SEMINOVOS</div>
@@ -2282,24 +2329,12 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 2: CONSULTAS -->
-        <div class="link-section-consultas">
+        <!-- CATEGORIA 2: EMISSÃO DE CERTIDÕES -->
+        <div class="link-section link-section-certidoes">
           <div class="section-title"
-            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
-            CONSULTAS</div>
-          <div class="cover-grid" style="margin-bottom: 30px;">
-            <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">VALOR DE IPVA</div>
-            </a>
-            <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">SITUAÇÃO DO DETRAN</div>
-            </a>
-            <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">CARTÃO CNPJ</div>
-            </a>
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
+            EMISSÃO DE CERTIDÕES</div>
+          <div class="cover-grid">
             <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
               class="cover-btn" style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">CERTIDÃO JUDICIAL</div>
@@ -2318,18 +2353,68 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 3: PLATAFORMAS E SISTEMAS -->
-        <div class="link-section-plataformas">
+        <!-- CATEGORIA 3: APOIO A VENDA DIRETA -->
+        <div class="link-section link-section-venda-direta">
           <div class="section-title"
-            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
+            APOIO A VENDA DIRETA</div>
+          <div class="cover-grid">
+            <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">CARTÃO CNPJ</div>
+            </a>
+            <a href="https://www.sefaz.rs.gov.br/consultas/contribuinte" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">INSCRIÇÃO ESTADUAL</div>
+            </a>
+            <a href="https://dfe-portal.svrs.rs.gov.br/cte/ccc?origem=2" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">IE PRODUTOR RURAL</div>
+            </a>
+            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04281040" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">BNDES FIORINO</div>
+            </a>
+            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04260579" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA FREEDOM</div>
+            </a>
+            <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">BNDES STRADA ENDURANCE</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 4: CONSULTAS DIVERSAS -->
+        <div class="link-section link-section-consultas">
+          <div class="section-title"
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
+            CONSULTAS DIVERSAS</div>
+          <div class="cover-grid">
+            <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">TABELA FIPE</div>
+            </a>
+            <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">VALOR DE IPVA</div>
+            </a>
+            <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
+              class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">SITUAÇÃO DO DETRAN</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 5: PLATAFORMAS E SISTEMAS -->
+        <div class="link-section link-section-plataformas">
+          <div class="section-title"
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
             PLATAFORMAS E SISTEMAS</div>
-          <div class="cover-grid" style="margin-bottom: 30px;">
+          <div class="cover-grid">
             <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">NBS GOLD</div>
-            </a>
-            <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">NBS SHOTCUT</div>
             </a>
             <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn"
               style="text-decoration: none;">
@@ -2347,14 +2432,6 @@
               target="_blank" class="cover-btn" style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">ROBÔ DE ANÚNCIOS</div>
             </a>
-            <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">PORTAL GESTAUTO</div>
-            </a>
-            <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
-              target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">AUTOCORP</div>
-            </a>
             <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn"
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">DUGESTÃO</div>
@@ -2366,15 +2443,12 @@
           </div>
         </div>
 
-        <!-- CATEGORIA 4: FERRAMENTAS E APOIO -->
-        <div class="link-section-ferramentas">
+        <!-- CATEGORIA 6: FERRAMENTAS E APOIO -->
+        <div class="link-section link-section-ferramentas">
           <div class="section-title"
-            style="border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 15px; text-align: center; margin-bottom: 15px; font-size: 13px;">
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
             FERRAMENTAS E APOIO</div>
           <div class="cover-grid">
-            <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">TABELA FIPE</div>
-            </a>
             <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">HP12C ONLINE</div>
@@ -2383,8 +2457,33 @@
               style="text-decoration: none;">
               <div class="cover-doc-pill" style="font-size: 11px;">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
             </a>
+            <button class="cover-btn" type="button" onclick="abrirDocumento('doc-contrato')">
+              <div class="cover-doc-pill" style="font-size: 11px;">TEXTO LEGAL (Seminovos/Outlet)</div>
+            </button>
           </div>
         </div>
+
+        <!-- CATEGORIA 7: APOIO AO GESTOR -->
+        <div class="link-section link-section-gestor">
+          <div class="section-title"
+            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
+            APOIO AO GESTOR</div>
+          <div class="cover-grid">
+            <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">NBS SHOTCUT</div>
+            </a>
+            <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
+              style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">PORTAL GESTAUTO</div>
+            </a>
+            <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
+              target="_blank" class="cover-btn" style="text-decoration: none;">
+              <div class="cover-doc-pill" style="font-size: 11px;">AUTOCORP</div>
+            </a>
+          </div>
+        </div>
+
+
       </div>
 
     </div>
@@ -2440,7 +2539,6 @@
       // Remover classe active de todos os botões de navegação
       document.getElementById('btn-gerador').classList.remove('active');
       document.getElementById('btn-calculadora').classList.remove('active');
-      document.getElementById('btn-texto-legal').classList.remove('active');
       document.getElementById('btn-links').classList.remove('active');
 
       if (secao === 'gerador') {
@@ -2449,10 +2547,6 @@
       } else if (secao === 'calculadora') {
         document.getElementById('doc-calculadora').classList.remove('hidden');
         document.getElementById('btn-calculadora').classList.add('active');
-      } else if (secao === 'texto-legal') {
-        document.getElementById('doc-contrato').classList.remove('hidden');
-        document.getElementById('btn-texto-legal').classList.add('active');
-        selecionarModalidade('tradicional');
       } else if (secao === 'links') {
         document.getElementById('doc-links').classList.remove('hidden');
         document.getElementById('btn-links').classList.add('active');
