@@ -2642,7 +2642,10 @@
 
     </div>
 
-    <div class="footer">Desenvolvido por Alberto Mateus para o Grupo San Marino</div>
+    <div class="footer">
+      Desenvolvido por Alberto Mateus para o Grupo San Marino
+      | <span style="opacity: 0.85;">Visitas: <span id="visitas-count">...</span></span>
+    </div>
   </div>
 
   <script>
@@ -4114,8 +4117,19 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
 
       // Inicializar na seção do Gerador de Documentos
       alternarSecao('gerador');
-    });
 
+      // Contador de Visitas
+      fetch('https://api.counterapi.dev/v1/albertomateus-sanmarino/visitas/up')
+        .then(res => res.json())
+        .then(data => {
+          const el = document.getElementById('visitas-count');
+          if (el && data.count) el.innerText = data.count.toLocaleString('pt-BR');
+        })
+        .catch(() => {
+          const el = document.getElementById('visitas-count');
+          if (el) el.innerText = '0';
+        });
+    });
   </script>
 </body>
 
