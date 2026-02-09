@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central de Apoio ao Vendedor</title>
+  <title>Central de Apoio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
@@ -233,7 +233,7 @@
       border: 1px solid rgba(226, 232, 240, 0.8);
       border-radius: 20px;
       padding: 12px 12px;
-      min-height: 75px;
+      min-height: 60px;
       /* Garante tamanho uniforme */
       cursor: pointer;
       display: flex;
@@ -1527,7 +1527,7 @@
 
 <body>
   <div class="container">
-    <h1>Central de Apoio ao Vendedor</h1>
+    <h1>Central de Apoio</h1>
 
     <div id="toast-container"></div>
 
@@ -1554,7 +1554,7 @@
         <span>VENDA DIRETA</span>
       </button>
       <button class="nav-btn" id="btn-plataformas" onclick="alternarSecao('plataformas')">
-        <span>PLATAFORMAS</span>
+        <span>PLATAFORMAS e SISTEMAS</span>
       </button>
       <button class="nav-btn" id="btn-cartas" onclick="alternarSecao('cartas')">
         <span>MONTADORA<br><small
@@ -1566,6 +1566,9 @@
       </button>
       <button class="nav-btn" id="btn-gestor" onclick="alternarSecao('gestor')">
         <span>APOIO AO GESTOR</span>
+      </button>
+      <button class="nav-btn" id="btn-pos-vendas" onclick="alternarSecao('pos-vendas')">
+        <span>PÓS VENDAS</span>
       </button>
       <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
         <span>LINKS ÚTEIS</span>
@@ -1785,6 +1788,15 @@
           style="text-decoration: none;">
           <div class="cover-doc-pill" style="font-size: 11px;">USADOS VIA VD</div>
         </a>
+      </div>
+    </div>
+
+    <!-- Seção: Pós Vendas (Submenu) -->
+    <div class="cover hidden" id="secao-pos-vendas" style="margin-top: 20px;">
+      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+        <div class="cover-btn" style="cursor: default; background: #f8fafc;">
+          <div class="cover-doc-pill" style="font-size: 11px;">EM BREVE...</div>
+        </div>
       </div>
     </div>
 
@@ -2659,6 +2671,7 @@
       document.getElementById('secao-cartas').classList.add('hidden');
       document.getElementById('secao-seminovos').classList.add('hidden');
       document.getElementById('secao-gestor').classList.add('hidden');
+      document.getElementById('secao-pos-vendas').classList.add('hidden');
       document.getElementById('dados-cliente-global').classList.add('hidden');
 
       // Esconder todos os cards de documentos individuais
@@ -2676,6 +2689,7 @@
       document.getElementById('btn-cartas').classList.remove('active');
       document.getElementById('btn-seminovos').classList.remove('active');
       document.getElementById('btn-gestor').classList.remove('active');
+      document.getElementById('btn-pos-vendas').classList.remove('active');
 
       if (secao === 'gerador') {
         document.getElementById('secao-gerador').classList.remove('hidden');
@@ -2707,6 +2721,9 @@
       } else if (secao === 'gestor') {
         document.getElementById('secao-gestor').classList.remove('hidden');
         document.getElementById('btn-gestor').classList.add('active');
+      } else if (secao === 'pos-vendas') {
+        document.getElementById('secao-pos-vendas').classList.remove('hidden');
+        document.getElementById('btn-pos-vendas').classList.add('active');
       }
     }
 
