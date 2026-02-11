@@ -1528,6 +1528,27 @@
       margin-bottom: 25px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
+
+    /* Ajustes específicos para tornar os links mais compactos */
+    #doc-links .cover-btn {
+      min-height: 48px;
+      padding: 6px 10px;
+    }
+
+    #doc-links .cover-doc-pill {
+      padding: 5px 12px;
+      font-size: 10px;
+    }
+
+    #doc-links .link-section {
+      margin-bottom: 15px;
+    }
+
+    #doc-links .section-title {
+      margin-bottom: 12px !important;
+      font-size: 11px !important;
+      opacity: 0.8;
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1577,6 +1598,9 @@
       </button>
       <button class="nav-btn" id="btn-pos-vendas" onclick="alternarSecao('pos-vendas')">
         <span>PÓS VENDAS</span>
+      </button>
+      <button class="nav-btn" id="btn-lojas" onclick="alternarSecao('lojas')">
+        <span>LOCALIZAÇÃO DAS LOJAS</span>
       </button>
       <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
         <span>LINKS ÚTEIS</span>
@@ -1732,6 +1756,10 @@
         <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn" style="text-decoration: none;">
           <div class="cover-doc-pill" style="font-size: 11px;">DULEADS</div>
         </a>
+        <a href="https://psa.csod.com/login/render.aspx?id=stellantistraining" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">PORTAL DE TREINAMENTOS FIAT</div>
+        </a>
       </div>
     </div>
 
@@ -1796,6 +1824,10 @@
           style="text-decoration: none;">
           <div class="cover-doc-pill" style="font-size: 11px;">USADOS VIA VD</div>
         </a>
+        <a href="https://adm.autoavaliar.com.br/index.php" target="_blank" class="cover-btn"
+          style="text-decoration: none;">
+          <div class="cover-doc-pill" style="font-size: 11px;">Leilão do AutoAvaliar</div>
+        </a>
       </div>
     </div>
 
@@ -1817,6 +1849,143 @@
         <button class="cover-btn" type="button">
           <div class="cover-doc-pill" style="font-size: 11px;">APOIO AO MECÂNICO</div>
         </button>
+      </div>
+    </div>
+
+    <!-- Seção: Localização das Lojas (Submenu) -->
+    <div class="cover hidden" id="secao-lojas" style="margin-top: 15px;">
+      <div style="max-width: 700px; margin: 0 auto;">
+
+        <!-- MATRIZ -->
+        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <a href="matriz.jpeg" target="_blank" title="Clique para abrir e baixar"
+              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+              <img src="matriz.jpeg" alt="San Marino Matriz" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MATRIZ</div>
+              <div style="font-size: 11px; color: var(--muted);">Av. Ipiranga, 7110 - Porto Alegre</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://maps.app.goo.gl/9JXa77im6c8KK72w6" target="_blank" class="btn"
+              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+            </a>
+            <button class="btn"
+              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+              onclick="copiarLink('https://maps.app.goo.gl/9JXa77im6c8KK72w6')">
+              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+            </button>
+          </div>
+        </div>
+
+        <!-- ZONA SUL -->
+        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <a href="zonasul.jpeg" target="_blank" title="Clique para abrir e baixar"
+              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+              <img src="zonasul.jpeg" alt="San Marino Zona Sul" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">ZONA SUL</div>
+              <div style="font-size: 11px; color: var(--muted);">Av. Otto Niemeyer, 650 - Bairro Tristeza, Porto Alegre
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7" target="_blank" class="btn"
+              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+            </a>
+            <button class="btn"
+              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+              onclick="copiarLink('https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7')">
+              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+            </button>
+          </div>
+        </div>
+
+        <!-- GRAVATAÍ -->
+        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <a href="gravatai.jpeg" target="_blank" title="Clique para abrir e baixar"
+              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+              <img src="gravatai.jpeg" alt="San Marino Gravataí" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">GRAVATAÍ</div>
+              <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 280 - Bairro Vera Cruz, Gravataí
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8" target="_blank" class="btn"
+              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+            </a>
+            <button class="btn"
+              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+              onclick="copiarLink('https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8')">
+              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+            </button>
+          </div>
+        </div>
+
+        <!-- MULTIMARCAS -->
+        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <a href="Multimarcas.jpeg" target="_blank" title="Clique para abrir e baixar"
+              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+              <img src="Multimarcas.jpeg" alt="San Marino Multimarcas"
+                style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MULTIMARCAS</div>
+              <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 220 - Bairro Vera Cruz, Gravataí
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9" target="_blank" class="btn"
+              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+            </a>
+            <button class="btn"
+              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+              onclick="copiarLink('https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9')">
+              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+            </button>
+          </div>
+        </div>
+
+        <!-- VIAMÃO -->
+        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <a href="Viamão.jpeg" target="_blank" title="Clique para abrir e baixar"
+              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+              <img src="Viamão.jpeg" alt="San Marino Viamão" style="width: 100%; height: 100%; object-fit: cover;">
+            </a>
+            <div>
+              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">VIAMÃO</div>
+              <div style="font-size: 11px; color: var(--muted);">Av. Sen. Salgado Filho, 9775 - Bairro Jardim Krahe,
+                Viamão</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://maps.app.goo.gl/6Rpe55NcW35yD6dCA" target="_blank" class="btn"
+              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+            </a>
+            <button class="btn"
+              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+              onclick="copiarLink('https://maps.app.goo.gl/6Rpe55NcW35yD6dCA')">
+              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -2604,39 +2773,25 @@
       <div class="doc-card hidden" id="doc-links">
         <div style="height: 10px;"></div>
 
-        <!-- CATEGORIA 1: CONSULTAS DIVERSAS -->
-        <div class="link-section link-section-consultas">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            CONSULTAS DIVERSAS</div>
+        <div class="link-section">
           <div class="cover-grid">
             <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">TABELA FIPE</div>
+              <div class="cover-doc-pill">TABELA FIPE</div>
             </a>
             <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
               class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">VALOR DE IPVA</div>
+              <div class="cover-doc-pill">VALOR DE IPVA</div>
             </a>
             <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
               class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">SITUAÇÃO DO DETRAN</div>
+              <div class="cover-doc-pill">SITUAÇÃO DO DETRAN</div>
             </a>
-          </div>
-        </div>
-
-        <!-- CATEGORIA 2: FERRAMENTAS -->
-        <div class="link-section link-section-ferramentas">
-          <div class="section-title"
-            style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 20px; font-size: 13px;">
-            FERRAMENTAS</div>
-          <div class="cover-grid">
             <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
               style="text-decoration: none;">
-              <div class="cover-doc-pill" style="font-size: 11px;">HP12C ONLINE</div>
+              <div class="cover-doc-pill">HP12C ONLINE</div>
             </a>
           </div>
         </div>
-
 
       </div>
 
@@ -2695,6 +2850,7 @@
       document.getElementById('secao-seminovos').classList.add('hidden');
       document.getElementById('secao-gestor').classList.add('hidden');
       document.getElementById('secao-pos-vendas').classList.add('hidden');
+      document.getElementById('secao-lojas').classList.add('hidden');
       document.getElementById('dados-cliente-global').classList.add('hidden');
 
       // Esconder todos os cards de documentos individuais
@@ -2713,6 +2869,7 @@
       document.getElementById('btn-seminovos').classList.remove('active');
       document.getElementById('btn-gestor').classList.remove('active');
       document.getElementById('btn-pos-vendas').classList.remove('active');
+      document.getElementById('btn-lojas').classList.remove('active');
 
       if (secao === 'gerador') {
         document.getElementById('secao-gerador').classList.remove('hidden');
@@ -2747,6 +2904,18 @@
       } else if (secao === 'pos-vendas') {
         document.getElementById('secao-pos-vendas').classList.remove('hidden');
         document.getElementById('btn-pos-vendas').classList.add('active');
+      } else if (secao === 'lojas') {
+        document.getElementById('secao-lojas').classList.remove('hidden');
+        document.getElementById('btn-lojas').classList.add('active');
+      }
+    }
+
+    async function copiarLink(url) {
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Link copiado para o WhatsApp!', 'success');
+      } catch (err) {
+        showToast('Erro ao copiar link.', 'error');
       }
     }
 
