@@ -2320,6 +2320,20 @@
             <span>Pós Vendas</span>
           </a>
 
+          <a href="#rh-dp" id="btn-rh-dp" onclick="alternarSecao('rh-dp')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span>RH/DP</span>
+          </a>
+
           <a href="#lojas" id="btn-lojas" onclick="alternarSecao('lojas')">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.8" />
@@ -2654,6 +2668,15 @@
               <a href="https://drive.google.com/drive/folders/1alytD0dOACelokORixMLNd99Ixe77han" target="_blank"
                 class="cover-btn" style="text-decoration: none;">
                 <div class="cover-doc-pill">APOIO AO MECÂNICO</div>
+              </a>
+            </div>
+          </div>
+
+          <div class="cover hidden col-12" id="secao-rh-dp" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://albertomateus10.github.io/pdfsdomes/cartilha.pdf" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CARTILHA DE INTEGRAÇÃO</div>
               </a>
             </div>
           </div>
@@ -3661,6 +3684,7 @@
       "cartas": "",
       "seminovos": "",
       "pos-vendas": "",
+      "rh-dp": "",
       "lojas": "",
       "gestor": "",
       "links": ""
@@ -3673,7 +3697,7 @@
       // 1. Esconder tudo
       const secoes = ['secao-gerador', 'doc-calculadora', 'doc-contrato', 'doc-links', 'secao-bancos',
         'secao-certidoes', 'secao-venda-direta', 'secao-plataformas', 'secao-cartas',
-        'secao-seminovos', 'secao-gestor', 'secao-pos-vendas', 'secao-lojas', 'dados-cliente-global'];
+        'secao-seminovos', 'secao-gestor', 'secao-pos-vendas', 'secao-rh-dp', 'secao-lojas', 'dados-cliente-global'];
       secoes.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
