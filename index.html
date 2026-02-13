@@ -444,7 +444,6 @@
     .meta .meta-text span {
       font-size: 12px;
       color: var(--muted);
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -468,10 +467,12 @@
 
     .main-head {
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       gap: 12px;
-      padding: 8px 6px 14px;
+      padding: 16px 6px 24px;
+      text-align: center;
     }
 
     .main-head h2 {
@@ -587,9 +588,9 @@
     .section-head {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .section-title {
@@ -623,6 +624,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: center;
     }
 
     .section-title p {
@@ -1309,6 +1311,8 @@
       color: #111827;
       font-size: 12px;
       letter-spacing: .2px;
+      text-align: center;
+      justify-content: center;
     }
 
     .doc-actions {
@@ -2354,10 +2358,10 @@
         </nav>
 
         <div class="sidebar-foot">
-          <div class="meta">
-            <div class="meta-text">
-              <strong></strong>
-              <span></span>
+          <div class="meta"
+            style="padding: 12px; border-radius: 12px; background: rgba(15, 23, 42, 0.03); border: 1px solid var(--stroke); display: flex; justify-content: center; align-items: center;">
+            <div class="meta-text" style="text-align: center; width: 100%;">
+              <span style="font-size: 12px; opacity: 0.8;">Desenvolvido por <b>Alberto Mateus</b></span>
             </div>
           </div>
         </div>
@@ -2408,7 +2412,7 @@
             <!-- Dados do Cliente Global (MUDADO PARA DENTRO DO GERADOR) -->
             <div class="doc-card hidden" id="dados-cliente-global" style="margin-top: 15px;">
               <div class="section-title"
-                style="border-top: none; margin-top: 0; padding-top: 0; font-size: 15px; margin-bottom: 20px; color: #1e293b; font-weight: 800;">
+                style="border-top: none; margin-top: 0; padding-top: 0; font-size: 15px; margin-bottom: 20px; color: #1e293b; font-weight: 800; text-align: center; display: flex; align-items: center; justify-content: center;">
                 <i class="fa-solid fa-user-pen"></i>&nbsp; DADOS DO CLIENTE (Preencha uma vez para todos os documentos)
               </div>
               <div class="form-grid">
@@ -3617,10 +3621,6 @@
 
     </div>
 
-    <div class="footer">
-      <div>© <b>Central de Apoio</b> • Grupo San Marino</div>
-      <div><span>Desenvolvido por Alberto Mateus</span></div>
-    </div>
   </div>
 
   <script>
@@ -3675,10 +3675,10 @@
        SUBTITLES MAP
        ========================= */
     const subtitles = {
-      "gerador": "",
-      "calculadora": "",
-      "bancos": "",
-      "certidoes": "",
+      "gerador": "clique nos links abaixo para confeccionar o documento desejado, os dados do cliente você não precisa preencher em todos os documentos, apenas uma vez",
+      "calculadora": "taxa de juros do cartão de crédito",
+      "bancos": "clique nos botões abaixo para acessar a financeira desejada",
+      "certidoes": "clique nos botões abaixo para emitir a certidão desejada",
       "venda-direta": "",
       "plataformas": "",
       "cartas": "",
