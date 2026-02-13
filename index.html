@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,210 +8,787 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
+    /* =========================
+       THEME TOKENS
+       ========================= */
     :root {
-      --bg: #f5f5f7;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --primary: #2563eb;
-      --primary-2: #1d4ed8;
-      --shadow: 0 10px 25px rgba(17, 24, 39, 0.08);
-      --radius: 14px;
+      --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 
-      /* ===== MODO COMPACTO ===== */
-      --container-pad: 20px;
-      --card-pad: 12px;
-      --head-gap: 8px;
-      --head-pad-bottom: 10px;
-      --section-pad-top: 10px;
-      --section-margin-top: 10px;
-      --form-gap: 10px;
-      --input-pad-y: 9px;
+      /* Layout */
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 12px;
+
+      --shadow-sm: 0 10px 28px rgba(15, 23, 42, .08);
+      --shadow-md: 0 18px 44px rgba(15, 23, 42, .12);
+
+      --transition: 160ms ease;
+
+      /* Espaçamentos */
+      --pad-page: 18px;
+      --pad-card: 16px;
+      --gap: 14px;
+
+      /* Tamanhos */
+      --sidebar-w: 280px;
+      --sidebar-w-collapsed: 88px;
+      --topbar-h: 64px;
+
+      /* Brand */
+      --brand: #1F3A5F;
+      /* azul petróleo */
+      --brand-2: #2A5DA8;
+      /* azul destaque */
+      --brand-soft: rgba(42, 93, 168, .12);
+      --accent: #4A90E2;
+      /* azul claro */
+
+      /* Escala de Formulários */
+      --label-size: 10px;
+      --input-size: 12px;
+      --input-pad-y: 6px;
       --input-pad-x: 10px;
-      --label-size: 12px;
-      --input-size: 13px;
-      --title-size: 14px;
-      --helper-size: 11.5px;
-      --btn-pad-y: 12px;
-      --btn-pad-x: 16px;
-      --btn-font: 14px;
-      --actions-pad-top: 12px;
+      --card-pad: 18px;
+      --form-gap: 10px;
+      --head-gap: 6px;
+      --head-pad-bottom: 6px;
+      --actions-pad-top: 10px;
+      --btn-font: 12px;
+      --btn-pad-y: 8px;
+      --btn-pad-x: 14px;
     }
 
-    /* Toast Notification System */
-    #toast-container {
-      position: fixed;
-      top: 30px;
-      right: 30px;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      pointer-events: none;
+    html[data-theme="light"] {
+      --bg: #F4F6F9;
+      --surface: rgba(255, 255, 255, .70);
+      --card: #FFFFFF;
+
+      --text: #0F172A;
+      --muted: #64748B;
+      --muted-2: #94A3B8;
+
+      --stroke: rgba(15, 23, 42, .10);
+      --stroke-2: rgba(15, 23, 42, .14);
+
+      --topbar: rgba(255, 255, 255, .72);
+      --sidebar: rgba(255, 255, 255, .72);
+
+      --chip: rgba(15, 23, 42, .06);
+      --chip-2: rgba(15, 23, 42, .08);
+
+      --glow: radial-gradient(900px 420px at 20% -10%, rgba(74, 144, 226, .18), transparent 60%),
+        radial-gradient(880px 460px at 85% 10%, rgba(31, 58, 95, .10), transparent 62%);
     }
 
-    .toast {
-      pointer-events: auto;
-      min-width: 320px;
-      max-width: 450px;
-      padding: 16px 24px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(15px) saturate(180%);
-      -webkit-backdrop-filter: blur(15px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05),
-        0 10px 30px -5px rgba(0, 0, 0, 0.1),
-        0 20px 40px -10px rgba(0, 0, 0, 0.05);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      color: #1f2937;
-      font-size: 14px;
-      font-weight: 700;
-      animation: toastSlideIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
 
-    .toast:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05),
-        0 15px 35px -5px rgba(0, 0, 0, 0.12),
-        0 25px 45px -10px rgba(0, 0, 0, 0.08);
-    }
 
-    .toast i {
-      font-size: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .toast.success {
-      border-left: 6px solid #10b981;
-    }
-
-    .toast.success i {
-      color: #10b981;
-    }
-
-    .toast.error {
-      border-left: 6px solid #ef4444;
-    }
-
-    .toast.error i {
-      color: #ef4444;
-    }
-
-    .toast.info {
-      border-left: 6px solid #3b82f6;
-    }
-
-    .toast.info i {
-      color: #3b82f6;
-    }
-
-    @keyframes toastSlideIn {
-      from {
-        transform: translateX(120%) scale(0.9);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes toastSlideOut {
-      from {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-      }
-
-      to {
-        transform: translateX(120%) scale(0.9);
-        opacity: 0;
-      }
-    }
-
-    .toast-exiting {
-      animation: toastSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
-    }
-
+    /* =========================
+       RESET / BASE
+       ========================= */
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px;
-      background: radial-gradient(1200px 400px at 30% -10%, rgba(37, 99, 235, 0.12), transparent 50%),
-        radial-gradient(900px 300px at 90% 10%, rgba(14, 165, 233, 0.10), transparent 55%),
-        var(--bg);
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .container {
-      background: var(--card);
-      padding: var(--container-pad);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(229, 231, 235, 0.8);
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    h1 {
-      text-align: center;
-      margin: 20px auto 40px;
-      width: fit-content;
-      background: linear-gradient(145deg, #ffffff, #f8fafc);
-      border: 2px solid #9ca3af;
-      /* Cinza Médio Calmo */
-      border-radius: 20px;
-      padding: 12px 45px;
+    button {
+      font-family: var(--font);
+    }
+
+    .app {
+      min-height: 100vh;
+      background: var(--glow);
+      padding: var(--pad-page);
+    }
+
+    /* =========================
+       LAYOUT GRID
+       ========================= */
+    .shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      gap: var(--gap);
+      align-items: stretch;
+    }
+
+    .shell.collapsed {
+      grid-template-columns: var(--sidebar-w-collapsed) 1fr;
+    }
+
+    /* =========================
+       TOPBAR
+       ========================= */
+    .topbar {
+      grid-column: 1 / -1;
+      height: var(--topbar-h);
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: var(--topbar);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(31, 58, 95, .95), rgba(74, 144, 226, .85));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .logo svg {
+      width: 22px;
+      height: 22px;
+      opacity: .95;
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-title strong {
+      font-size: 14px;
+      letter-spacing: .2px;
+    }
+
+    .brand-title span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .topbar-center {
+      flex: 1 1 auto;
+      display: flex;
       justify-content: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05),
-        0 2px 4px -2px rgba(0, 0, 0, 0.05),
-        inset 0 2px 4px rgba(255, 255, 255, 0.8);
+      padding: 0 10px;
+    }
+
+    .title-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .25));
+      border: 1px solid var(--stroke);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35);
+      backdrop-filter: blur(10px);
+    }
+
+    html[data-theme="dark"] .title-pill {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .03));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10);
+    }
+
+    .title-pill .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--brand-soft);
+    }
+
+    .title-pill h1 {
+      font-size: 14px;
+      margin: 0;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+    }
+
+    .chip small {
+      color: var(--muted);
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--stroke-2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      opacity: .92;
+    }
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+    .sidebar {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: var(--sidebar);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - var(--topbar-h) - (var(--pad-page) * 3));
+      position: sticky;
+      top: calc(var(--pad-page) + var(--topbar-h) + var(--gap));
+      overflow: hidden;
+    }
+
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 6px 10px;
+      gap: 10px;
+    }
+
+    .sidebar-head .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 6px;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--text);
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .nav a svg {
+      width: 18px;
+      height: 18px;
+      opacity: .9;
+      flex: 0 0 auto;
+    }
+
+    .nav a span {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav a small {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: var(--chip);
+      border-color: var(--stroke);
+      transform: translateY(-1px);
+    }
+
+    .nav a.active {
+      background: linear-gradient(135deg, rgba(31, 58, 95, .95), rgba(74, 144, 226, .78));
+      border-color: rgba(255, 255, 255, .18);
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .20);
+    }
+
+    .nav a.active svg {
+      opacity: 1;
+    }
+
+    .nav a.active small {
+      color: rgba(255, 255, 255, .78);
+    }
+
+    /* Colapsado */
+    .shell.collapsed .sidebar {
+      padding: 12px 10px;
+    }
+
+    .shell.collapsed .sidebar-head .label {
+      display: none;
+    }
+
+    .shell.collapsed .nav a {
+      justify-content: center;
+      padding: 12px 10px;
+    }
+
+    .shell.collapsed .nav a span,
+    .shell.collapsed .nav a small {
+      display: none;
+    }
+
+    .sidebar-foot {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--stroke);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 10px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+    }
+
+    .meta .badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: var(--brand-soft);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .meta .badge svg {
+      width: 16px;
+      height: 16px;
+      opacity: .9;
+    }
+
+    .meta .meta-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .meta .meta-text strong {
+      font-size: 12px;
+    }
+
+    .meta .meta-text span {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* =========================
+       MAIN
+       ========================= */
+    .main {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: rgba(255, 255, 255, .42);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-md);
+      padding: 14px;
+      overflow: hidden;
+    }
+
+    html[data-theme="dark"] .main {
+      background: rgba(10, 16, 30, .30);
+    }
+
+    .main-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 6px 14px;
+    }
+
+    .main-head h2 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .main-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .main-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .search {
+      position: relative;
+      min-width: 240px;
+      max-width: 360px;
+      flex: 1 1 auto;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px 40px 12px 38px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .search input:focus {
+      border-color: rgba(74, 144, 226, .55);
+      box-shadow: 0 0 0 6px rgba(74, 144, 226, .12);
+    }
+
+    .search .s-ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: .7;
+    }
+
+    .search .s-ico svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .pill-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--stroke-2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pill-btn.primary {
+      background: linear-gradient(135deg, rgba(31, 58, 95, .95), rgba(74, 144, 226, .78));
+      border-color: rgba(255, 255, 255, .14);
+      color: #fff;
+    }
+
+    .pill-btn svg {
+      width: 16px;
+      height: 16px;
+      opacity: .92;
+    }
+
+    /* =========================
+       SECTIONS
+       ========================= */
+    .grid-tiles {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+      padding: 8px 6px 16px;
+    }
+
+    .section {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .section-title .ic {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: var(--brand-soft);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .section-title .ic svg {
+      width: 16px;
+      height: 16px;
+      opacity: .9;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 13px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .section-title p {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+    }
+
+    .card {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .58), rgba(255, 255, 255, .36));
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: pointer;
       position: relative;
       overflow: hidden;
+    }
 
-      /* Estilo de Texto */
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #334155;
+    html[data-theme="dark"] .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--stroke-2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card .row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .card .c-ic {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: var(--chip);
+      border: 1px solid var(--stroke);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .card .c-ic svg {
+      width: 18px;
+      height: 18px;
+      opacity: .9;
+    }
+
+    .card .txt {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card .txt strong {
+      font-size: 14px;
+      letter-spacing: .2px;
       line-height: 1.2;
     }
 
-    .subtitle {
-      text-align: center;
-      color: rgba(107, 114, 128, 0.55);
-      margin: 0 0 14px;
-      font-size: 11px;
+    .card .txt span {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.3;
     }
 
-    /* ===== CAPA ===== */
-    .cover {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
-      border: 2px solid #9ca3af;
-      /* Cinza Médio Calmo */
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 12px;
-      transition: all 0.3s ease;
+    .card .tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--chip-2);
+      border: 1px solid var(--stroke);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card .fav {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .card .fav:hover {
+      transform: translateY(-1px);
+      border-color: rgba(74, 144, 226, .55);
+    }
+
+    .card .fav svg {
+      width: 16px;
+      height: 16px;
+      opacity: .9;
+    }
+
+    .card.favorited .fav {
+      border-color: rgba(74, 144, 226, .55);
+      box-shadow: 0 0 0 6px rgba(74, 144, 226, .12);
+    }
+
+    /* Util: colunas para os blocos */
+    .col-12 {
+      grid-column: span 12;
+    }
+
+    .col-6 {
+      grid-column: span 6;
+    }
+
+    .col-4 {
+      grid-column: span 4;
+    }
+
+    .col-3 {
+      grid-column: span 3;
+    }
+
+    @media (max-width: 1000px) {
+      .col-6 {
+        grid-column: span 12;
+      }
+
+      .col-4 {
+        grid-column: span 6;
+      }
+
+      .col-3 {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .col-4,
+      .col-3 {
+        grid-column: span 12;
+      }
     }
 
     .cover-grid {
@@ -325,30 +902,48 @@
 
     .cover-btn {
       width: 100%;
-      min-height: 60px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      border-radius: 18px;
-      padding: 10px 14px;
-      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      min-height: 48px;
+      /* Ajustado para bater com a lateral */
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      /* Ajustado de 28px para 14px */
+      padding: 12px 14px;
+      /* Ajustado para bater com a lateral */
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
       text-align: center;
       overflow: hidden;
       position: relative;
     }
 
     .cover-btn:hover {
-      transform: translateY(-3px);
-      background: #ffffff;
-      border-color: #3b82f6;
-      box-shadow:
-        0 20px 25px -5px rgba(59, 130, 246, 0.1),
-        0 10px 10px -5px rgba(59, 130, 246, 0.04);
+      transform: translateY(-1px);
+      background: var(--chip);
+      border-color: var(--stroke-2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cover-btn.active {
+      background: linear-gradient(135deg, rgba(31, 58, 95, .95), rgba(74, 144, 226, .78)) !important;
+      border-color: rgba(255, 255, 255, .18) !important;
+      color: #fff !important;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .20) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .cover-btn.active .cover-doc-pill {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: #fff !important;
+      box-shadow: none !important;
     }
 
     .cover-left {
@@ -367,21 +962,22 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 11px;
-      letter-spacing: .4px;
-      text-transform: uppercase;
-      border: 1px solid rgba(30, 58, 138, 0.15);
-      background: rgba(30, 58, 138, 0.04);
-      color: #1e3a8a;
-      box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.05);
-      line-height: 1.1;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 600;
+      font-size: 14px;
+      /* Ajustado para bater com a lateral */
+      letter-spacing: .2px;
+      text-transform: none;
+      /* Removido uppercase forçado para seguir o padrão lateral se necessário, mas mantendo a classe se o texto for fixo */
+      border: none;
+      background: transparent;
+      color: var(--text);
+      line-height: 1.3;
       max-width: 100%;
       white-space: normal;
       overflow: hidden;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .cover-hint {
@@ -494,33 +1090,15 @@
       border-color: rgba(148, 163, 184, 0.35);
     }
 
-    /* cores do nome-pílula na capa - ELEGÂNCIA PADRÃO */
+    /* Estilos de cor padrão para o texto interno */
     .cover-btn .cover-doc-pill {
-      color: #1e3a8a;
-      background: rgba(30, 58, 138, 0.05);
-      border-color: rgba(30, 58, 138, 0.18);
+      color: var(--text);
     }
 
     .cover-btn:hover .cover-doc-pill {
-      color: #1d4ed8;
-      background: rgba(30, 58, 138, 0.08);
-      border-color: rgba(30, 58, 138, 0.3);
-      transform: scale(1.02);
+      color: var(--brand-2);
     }
 
-    /* Estado ATIVO do botão da capa */
-    .cover-btn.active {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-      background: #eff6ff;
-    }
-
-    .cover-btn.active .cover-doc-pill {
-      color: #fff;
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
-    }
 
     /* cores do título (mantidos nos cards internos) */
     .doc-title-dep {
@@ -541,19 +1119,80 @@
       background: linear-gradient(135deg, #334155, #64748b);
     }
 
+    .doc-card {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 16px;
+      padding: var(--card-pad);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+
     .doc-area {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
     }
 
-    .doc-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 1));
-      border: 2px solid #9ca3af;
-      /* Cinza Médio Calmo */
-      border-radius: 20px;
-      padding: var(--card-pad);
-      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--form-gap);
+      margin-top: 8px;
+    }
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .form-item label {
+      color: #1e3a8a;
+      font-weight: 800;
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: block;
+      letter-spacing: 0.3px;
+    }
+
+    .form-item input {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: var(--input-pad-y) var(--input-pad-x);
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: var(--input-size);
+      height: 36px;
+      background: #fafafa;
+    }
+
+    .form-item input::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .form-item input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      outline: none;
+      background: #fff;
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .doc-card .head {
@@ -571,15 +1210,15 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 9px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
-      font-weight: 950;
-      font-size: 14px;
+      font-weight: 800;
+      font-size: 13px;
       letter-spacing: .4px;
       border: 1px solid;
       text-transform: uppercase;
       user-select: none;
-      box-shadow: 0 10px 18px rgba(17, 24, 39, 0.08);
+      box-shadow: 0 4px 10px rgba(17, 24, 39, 0.05);
       background: #fff;
     }
 
@@ -615,7 +1254,7 @@
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--form-gap);
       margin-top: 8px;
     }
@@ -629,7 +1268,7 @@
 
     .form-item label {
       font-weight: 800;
-      color: var(--primary-2);
+      color: var(--brand-2);
       font-size: var(--label-size);
       line-height: 1.1;
     }
@@ -686,17 +1325,18 @@
       color: white;
       padding: var(--btn-pad-y) var(--btn-pad-x);
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: var(--btn-font);
       transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
-      font-weight: 900;
-      box-shadow: 0 10px 18px rgba(17, 24, 39, 0.10);
+      font-weight: 800;
+      box-shadow: 0 6px 12px rgba(17, 24, 39, 0.08);
       flex: 0 0 auto;
-      min-width: 280px;
-      max-width: 560px;
+      min-width: 200px;
+      max-width: 400px;
       width: auto;
       line-height: 1.1;
+      text-transform: uppercase;
     }
 
     .btn:hover {
@@ -854,126 +1494,143 @@
     }
 
     /* Calculadora - Campo de valor */
-    .calc-input-grid {
+    .calc-input-group {
       display: grid;
-      grid-template-columns: 220px 1fr auto;
-      gap: 10px;
+      grid-template-columns: 240px 1fr;
       align-items: center;
-      margin-bottom: 12px;
+      gap: 16px;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 12px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--stroke);
+    }
+
+    .calc-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #334155;
+      text-transform: none;
+      letter-spacing: normal;
+      margin: 0;
+    }
+
+    .calc-controls-row {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
     }
 
     .calc-input-wrap {
       display: flex;
       align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 12px;
-      background: rgba(15, 23, 42, .02);
-      min-height: 42px;
-      transition: border-color .2s, box-shadow .2s;
+      gap: 12px;
+      padding: 0 16px;
+      background: #fff;
+      border: 1px solid var(--stroke-2);
+      border-radius: 16px;
+      height: 52px;
+      transition: all 0.2s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
     }
 
     .calc-input-wrap:focus-within {
-      border-color: rgba(14, 165, 233, .50);
-      box-shadow: 0 0 0 4px rgba(14, 165, 233, .16);
-      background: rgba(14, 165, 233, .03);
+      border-color: #2563eb;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
     .calc-prefix {
       font-weight: 900;
-      font-size: 12px;
-      color: rgba(15, 23, 42, .78);
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(229, 231, 235, 0.8);
-      background: rgba(14, 165, 233, .10);
+      font-size: 14px;
+      color: #2563eb;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(37, 99, 235, 0.08);
     }
 
     .calc-input {
-      width: 100%;
-      border: 0;
-      outline: 0;
+      flex: 1;
+      border: none;
       background: transparent;
-      font-size: 13px;
+      outline: none;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text);
-      letter-spacing: .01em;
-      caret-color: transparent;
+      width: 100%;
     }
 
     .calc-input::placeholder {
-      color: rgba(120, 130, 150, .75);
-      font-weight: 600;
+      color: var(--muted-2);
+      font-weight: 500;
     }
 
-    /* Botões dos bancos */
+
     .calc-bank-row {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
+      gap: 20px;
+      margin-bottom: 24px;
     }
 
     .calc-bank-btn {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, .85);
-      padding: 12px 20px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 12.5px;
-      cursor: pointer;
-      color: var(--text);
-      transition: transform .08s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-      letter-spacing: .02em;
-      display: inline-flex;
+      width: 220px;
+      height: 58px;
+      display: flex;
       align-items: center;
-      gap: 10px;
-      user-select: none;
-      box-shadow: 0 10px 18px rgba(17, 24, 39, 0.08);
-      min-width: 180px;
       justify-content: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--stroke-2);
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: 13px;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     }
 
     .calc-bank-btn:hover {
-      background: rgba(14, 165, 233, .05);
-      border-color: rgba(14, 165, 233, .28);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      border-color: var(--stroke-2);
+      box-shadow: var(--shadow-md);
     }
 
-    .calc-bank-btn:active {
-      transform: translateY(0px);
+    .calc-bank-btn.active.rede {
+      border-color: #2563eb;
+      background: rgba(37, 99, 235, 0.05);
+      color: #1e40af;
+      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+    }
+
+    .calc-bank-btn.active.banri {
+      border-color: #16a34a;
+      background: rgba(22, 163, 74, 0.05);
+      color: #166534;
+      box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.1);
     }
 
     .calc-bank-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--muted-2);
+      transition: all 0.3s ease;
     }
 
-    .calc-bank-btn.banri .calc-bank-dot {
-      background: linear-gradient(90deg, #06b6d4, #22c55e);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, .10);
+    .active.rede .calc-bank-dot {
+      background: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
     }
 
-    .calc-bank-btn.rede .calc-bank-dot {
-      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, .12);
-    }
-
-    .calc-bank-btn.active {
-      border-color: rgba(14, 165, 233, .40);
-      background: rgba(14, 165, 233, .10);
-      box-shadow: 0 18px 40px rgba(14, 165, 233, .20);
-      color: #0369a1;
+    .active.banri .calc-bank-dot {
+      background: #16a34a;
+      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.2);
     }
 
     .calc-bank-btn:not(.active) {
-      opacity: 0.92;
-      background: rgba(255, 255, 255, .72);
-      color: rgba(15, 23, 42, .80);
+      opacity: 0.85;
     }
 
     /* Estado vazio */
@@ -1106,13 +1763,19 @@
     }
 
     @media (max-width: 760px) {
-      .calc-input-grid {
+      .calc-input-group {
         grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .calc-bank-row {
+        flex-direction: column;
+        align-items: center;
       }
 
       .calc-bank-btn {
-        flex: 1;
-        min-width: 0;
+        width: 100%;
+        max-width: 320px;
       }
 
       .calc-sheet {
@@ -1398,7 +2061,6 @@
 
     .link-section-estoques .cover-doc-pill {
       color: #1e3a8a !important;
-      border-color: rgba(30, 58, 138, 0.25) !important;
     }
 
     .link-section-estoques .cover-btn:hover {
@@ -1412,7 +2074,6 @@
 
     .link-section-consultas .cover-doc-pill {
       color: #065f46 !important;
-      border-color: rgba(6, 95, 70, 0.25) !important;
     }
 
     .link-section-consultas .cover-btn:hover {
@@ -1426,7 +2087,6 @@
 
     .link-section-plataformas .cover-doc-pill {
       color: #3730a3 !important;
-      border-color: rgba(55, 48, 163, 0.25) !important;
     }
 
     .link-section-plataformas .cover-btn:hover {
@@ -1440,7 +2100,6 @@
 
     .link-section-ferramentas .cover-doc-pill {
       color: #9a3412 !important;
-      border-color: rgba(154, 52, 18, 0.25) !important;
     }
 
     .link-section-ferramentas .cover-btn:hover {
@@ -1454,7 +2113,6 @@
 
     .link-section-gestor .cover-doc-pill {
       color: #581c87 !important;
-      border-color: rgba(88, 28, 135, 0.25) !important;
     }
 
     .link-section-gestor .cover-btn:hover {
@@ -1468,7 +2126,6 @@
 
     .link-section-certidoes .cover-doc-pill {
       color: #0d9488 !important;
-      border-color: rgba(13, 148, 136, 0.25) !important;
     }
 
     .link-section-certidoes .cover-btn:hover {
@@ -1482,7 +2139,6 @@
 
     .link-section-venda-direta .cover-doc-pill {
       color: #1e40af !important;
-      border-color: rgba(30, 64, 175, 0.25) !important;
     }
 
     .link-section-venda-direta .cover-btn:hover {
@@ -1496,7 +2152,6 @@
 
     .link-section-bancos .cover-doc-pill {
       color: #334155 !important;
-      border-color: rgba(51, 65, 85, 0.25) !important;
     }
 
     .link-section-bancos .cover-btn:hover {
@@ -1510,7 +2165,6 @@
 
     .link-section-cartas .cover-doc-pill {
       color: #7c2d12 !important;
-      border-color: rgba(124, 45, 18, 0.25) !important;
     }
 
     .link-section-cartas .cover-btn:hover {
@@ -1528,1266 +2182,1421 @@
       margin-bottom: 25px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
+
+    /* Remoção de contorno para seções específicas solicitadas */
+    #doc-calculadora,
+    #doc-links,
+    #doc-links .link-section,
+    #secao-lojas .link-section {
+      border: none !important;
+      box-shadow: none !important;
+      /* Também removendo sombra para um efeito mais limpo se desejado, ou manter se preferir */
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Central de Apoio</h1>
-
+  <div class="app">
     <div id="toast-container"></div>
+    <div class="shell" id="shell">
 
-    <!-- =========================
-         CAPA (apenas nomes dos documentos)
-         ========================= -->
-    <!-- Navegação Principal -->
-    <div class="main-nav">
-      <button class="nav-btn" id="btn-gerador" onclick="alternarSecao('gerador')">
-        <span>GERADOR DE DOCUMENTOS</span>
-      </button>
-      <button class="nav-btn" id="btn-calculadora" onclick="alternarSecao('calculadora')">
-        <span>CALCULADORA<br><small
-            style="font-style: italic; font-size: 13px; text-transform: lowercase !important; font-weight: normal;">(juros
-            do cartão de crédito)</small></span>
-      </button>
-      <button class="nav-btn" id="btn-bancos" onclick="alternarSecao('bancos')">
-        <span>BANCOS</span>
-      </button>
-      <button class="nav-btn" id="btn-certidoes" onclick="alternarSecao('certidoes')">
-        <span>CERTIDÕES</span>
-      </button>
-      <button class="nav-btn" id="btn-venda-direta" onclick="alternarSecao('venda-direta')">
-        <span>VENDA DIRETA</span>
-      </button>
-      <button class="nav-btn" id="btn-plataformas" onclick="alternarSecao('plataformas')">
-        <span>PLATAFORMAS e SISTEMAS</span>
-      </button>
-      <button class="nav-btn" id="btn-cartas" onclick="alternarSecao('cartas')">
-        <span>MONTADORA<br><small
-            style="font-style: italic; font-size: 13px; text-transform: lowercase !important; font-weight: normal;">(gama
-            e cartas do mês)</small></span>
-      </button>
-      <button class="nav-btn" id="btn-seminovos" onclick="alternarSecao('seminovos')">
-        <span>SEMINOVOS</span>
-      </button>
-      <button class="nav-btn" id="btn-gestor" onclick="alternarSecao('gestor')">
-        <span>APOIO AO GESTOR</span>
-      </button>
-      <button class="nav-btn" id="btn-pos-vendas" onclick="alternarSecao('pos-vendas')">
-        <span>PÓS VENDAS</span>
-      </button>
-      <button class="nav-btn" id="btn-lojas" onclick="alternarSecao('lojas')">
-        <span>LOCALIZAÇÃO DAS LOJAS</span>
-      </button>
-      <button class="nav-btn" id="btn-links" onclick="alternarSecao('links')">
-        <span>LINKS ÚTEIS</span>
-      </button>
-    </div>
-
-    <!-- Seção: Gerador de Documentos (Submenu) -->
-    <div class="cover hidden" id="secao-gerador">
-      <div class="cover-grid">
-        <button class="cover-btn" id="btn-doc-recebimento" type="button" onclick="abrirDocumento('doc-recebimento')">
-          <div class="cover-doc-pill">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-acordo" type="button" onclick="abrirDocumento('doc-acordo')">
-          <div class="cover-doc-pill">PROCURAÇÃO DE ACORDO</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-instrumento" type="button" onclick="abrirDocumento('doc-instrumento')">
-          <div class="cover-doc-pill">INSTRUMENTO DE RESPONSABILIDADE</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-quitacao" type="button" onclick="abrirDocumento('doc-quitacao')">
-          <div class="cover-doc-pill">TERMO DE QUITAÇÃO (veículo de terceiros)</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-residencia" type="button" onclick="abrirDocumento('doc-residencia')">
-          <div class="cover-doc-pill">DECLARAÇÃO DE RESIDÊNCIA</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-deposito" type="button" onclick="abrirDocumento('doc-deposito')">
-          <div class="cover-doc-pill">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
-        </button>
-
-        <button class="cover-btn" id="btn-doc-orcamento" type="button" onclick="abrirDocumento('doc-orcamento')">
-          <div class="cover-doc-pill">ORÇAMENTO DE DETRAN</div>
-        </button>
-      </div>
-    </div>
-
-    <!-- Seção: Bancos (Submenu) -->
-    <div class="cover hidden" id="secao-bancos" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="https://autofacil.stellantisfinanciamentos.com.br/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">PSA (Stellantis)</div>
-        </a>
-        <a href="https://digital.bancovw.com.br/FrontEnd/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">VOLKS</div>
-        </a>
-        <a href="https://www.credlineitau.com.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">ITAÚ CREDLINE</div>
-        </a>
-        <a href="https://financiamentos.bradesco/financiamentos/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BRADESCO</div>
-        </a>
-        <a href="https://financeira.safra.com.br/portal-veiculos/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">SAFRA</div>
-        </a>
-        <a href="https://c6auto.com.br/originacaolojista/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">C6 AUTO</div>
-        </a>
-        <a href="https://parceiro.bv.com.br/ng-gpar-base-login/#" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BV FINANCEIRA</div>
-        </a>
-        <a href="https://veiculos.bancopan.com.br/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BANCO PAN</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Certidões (Submenu) -->
-    <div class="cover hidden" id="secao-certidoes" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060" target="_blank"
-          class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">CERTIDÃO JUDICIAL</div>
-        </a>
-        <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">CERTIDÃO TRABALHISTA</div>
-        </a>
-        <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
-          target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">ANTECEDENTES TJRS</div>
-        </a>
-        <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">CERTIDÕES TRT4</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Venda Direta (Submenu) -->
-    <div class="cover hidden" id="secao-venda-direta" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank"
-          class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">CARTÃO CNPJ</div>
-        </a>
-        <a href="https://www.sefaz.rs.gov.br/consultas/contribuinte" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">INSCRIÇÃO ESTADUAL</div>
-        </a>
-        <a href="https://dfe-portal.svrs.rs.gov.br/cte/ccc?origem=2" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">IE PRODUTOR RURAL</div>
-        </a>
-        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04281040" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BNDES FIORINO</div>
-        </a>
-        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04260579" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BNDES STRADA FREEDOM</div>
-        </a>
-        <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BNDES STRADA ENDURANCE</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Plataformas (Submenu) -->
-    <div class="cover hidden" id="secao-plataformas" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">NBS GOLD</div>
-        </a>
-        <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">DOCUSIGN</div>
-        </a>
-        <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">AUTOAVALIAR</div>
-        </a>
-        <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">DUGESTÃO</div>
-        </a>
-        <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">DULEADS</div>
-        </a>
-        <a href="https://psa.csod.com/login/render.aspx?id=stellantistraining" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">PORTAL DE TREINAMENTOS FIAT</div>
-        </a>
-        <a href="https://linkentry-ames.fiat.com/pages/home/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">LinkEntry</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Cartas do Mês (Submenu) -->
-    <div class="cover hidden" id="secao-cartas" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="https://albertomateus10.github.io/pdfsdomes/cartafiat.pdf" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">CARTA DO MÊS (Montadora)</div>
-        </a>
-        <a href="https://albertomateus10.github.io/pdfsdomes/cartabanco.pdf" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">CARTA DO MÊS (Banco)</div>
-        </a>
-        <a href="https://albertomateus10.github.io/pdfsdomes/gama.pdf" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">GAMA ATUALIZADA</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Seminovos (Submenu) -->
-    <div class="cover hidden" id="secao-seminovos" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">ESTOQUE DE SEMINOVOS</div>
-        </a>
-        <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">ESTOQUE OUTLET</div>
-        </a>
-        <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
-        </a>
-        <button class="cover-btn" type="button" onclick="abrirDocumento('doc-contrato')">
-          <div class="cover-doc-pill">TEXTO LEGAL (Seminovos/Outlet)</div>
-        </button>
-        <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">CHECKLIST de ENTREGA (Seminovo)</div>
-        </a>
-        <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
-          target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">ROBÔ DE ANÚNCIOS</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Gestor (Submenu) -->
-    <div class="cover hidden" id="secao-gestor" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">NBS SHOTCUT</div>
-        </a>
-        <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">PORTAL GESTAUTO</div>
-        </a>
-        <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
-          target="_blank" class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">AUTOCORP</div>
-        </a>
-        <a href="https://albertomateus10.github.io/avaliacoes/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">BI DE AVALIAÇÕES</div>
-        </a>
-        <a href="https://albertomateus10.github.io/carteiravdusados/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">USADOS VIA VD</div>
-        </a>
-        <a href="https://adm.autoavaliar.com.br/index.php" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">Leilão do AutoAvaliar</div>
-        </a>
-        <a href="https://albertomateus10.github.io/contratodecompradeveiculos/" target="_blank" class="cover-btn"
-          style="text-decoration: none;">
-          <div class="cover-doc-pill">CONTRATO DE COMPRA DE VEÍCULOS</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Pós Vendas (Submenu) -->
-    <div class="cover hidden" id="secao-pos-vendas" style="margin-top: 20px;">
-      <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-        <button class="cover-btn" type="button">
-          <div class="cover-doc-pill">CATÁLOGO DE ACESSÓRIOS</div>
-        </button>
-
-        <a href="https://drive.google.com/drive/folders/1pVktoHOniUgT5LQfnjxWhDGAB1r3-LVn" target="_blank"
-          class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">NORMAS DA GARANTIA</div>
-        </a>
-        <a href="https://drive.google.com/drive/folders/1dn-1v52zMjZCnBZRgHCkAdViAOBfOG2b" target="_blank"
-          class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">APOIO AO CONSULTOR</div>
-        </a>
-        <a href="https://drive.google.com/drive/folders/1alytD0dOACelokORixMLNd99Ixe77han" target="_blank"
-          class="cover-btn" style="text-decoration: none;">
-          <div class="cover-doc-pill">APOIO AO MECÂNICO</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Seção: Localização das Lojas (Submenu) -->
-    <div class="cover hidden" id="secao-lojas" style="margin-top: 15px;">
-      <div style="max-width: 700px; margin: 0 auto;">
-
-        <!-- MATRIZ -->
-        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <a href="matriz.jpeg" target="_blank" title="Clique para abrir e baixar"
-              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
-              <img src="matriz.jpeg" alt="San Marino Matriz" style="width: 100%; height: 100%; object-fit: cover;">
-            </a>
-            <div>
-              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MATRIZ</div>
-              <div style="font-size: 11px; color: var(--muted);">Av. Ipiranga, 7110 - Porto Alegre</div>
-            </div>
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" title="Grupo San Marino">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2.5c4.2 0 7.6 3.4 7.6 7.6 0 5.4-7.6 11.8-7.6 11.8S4.4 15.5 4.4 10.1C4.4 5.9 7.8 2.5 12 2.5Z"
+                stroke="white" stroke-width="1.8" />
+              <path d="M9.2 10.2l1.8 1.8 3.9-4.2" stroke="white" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://maps.app.goo.gl/9JXa77im6c8KK72w6" target="_blank" class="btn"
-              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
-              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
-            </a>
-            <button class="btn"
-              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
-              onclick="copiarLink('https://maps.app.goo.gl/9JXa77im6c8KK72w6')">
-              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
-            </button>
+          <div class="brand-title">
+            <strong>Grupo San Marino</strong>
+            <span></span>
           </div>
         </div>
 
-        <!-- ZONA SUL -->
-        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <a href="zonasul.jpeg" target="_blank" title="Clique para abrir e baixar"
-              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
-              <img src="zonasul.jpeg" alt="San Marino Zona Sul" style="width: 100%; height: 100%; object-fit: cover;">
-            </a>
-            <div>
-              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">ZONA SUL</div>
-              <div style="font-size: 11px; color: var(--muted);">Av. Otto Niemeyer, 650 - Bairro Tristeza, Porto Alegre
+        <div class="topbar-center">
+          <div class="title-pill">
+            <span class="dot"></span>
+            <h1>Central de Apoio</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="chip" title="Informações">
+            <small>Visitas:</small> <b id="visits-count">...</b>
+          </div>
+
+
+
+          <button class="icon-btn" id="btnSidebar" title="Recolher/Expandir menu" aria-label="Recolher/Expandir menu">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h10M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <div class="label"></div>
+        </div>
+
+        <nav class="nav" id="nav">
+          <a href="#gerador" class="active" id="btn-gerador" onclick="alternarSecao('gerador')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor"
+                stroke-width="1.8" />
+              <path d="M14 3v4h4" stroke="currentColor" stroke-width="1.8" />
+            </svg>
+            <span>Gerador de Documentos</span>
+          </a>
+
+          <a href="#calculadora" id="btn-calculadora" onclick="alternarSecao('calculadora')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor"
+                stroke-width="1.8" />
+              <path d="M8 7h8M9 11h2m2 0h2M9 15h2m2 0h2" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+            </svg>
+            <span>Calculadora</span>
+          </a>
+
+          <a href="#bancos" id="btn-bancos" onclick="alternarSecao('bancos')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 10h16M6 10V19m4-9V19m4-9V19m4-9V19" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+              <path d="M3.5 10 12 4l8.5 6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            </svg>
+            <span>Bancos</span>
+          </a>
+
+          <a href="#certidoes" id="btn-certidoes" onclick="alternarSecao('certidoes')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 3h10a2 2 0 0 1 2 2v16l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" stroke="currentColor"
+                stroke-width="1.8" />
+              <path d="M8 7h8M8 11h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span>Certidões</span>
+          </a>
+
+          <a href="#venda-direta" id="btn-venda-direta" onclick="alternarSecao('venda-direta')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16v10H4z" stroke="currentColor" stroke-width="1.8" />
+              <path d="M7 17h10M8 7l2 10m6-10-2 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span>Venda Direta</span>
+          </a>
+
+          <a href="#plataformas" id="btn-plataformas" onclick="alternarSecao('plataformas')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="1.8" />
+              <path d="M4 11h3M17 11h3M11 4v3M11 17v3" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+            </svg>
+            <span>Plataformas e Sistemas</span>
+          </a>
+
+          <a href="#seminovos" id="btn-seminovos" onclick="alternarSecao('seminovos')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 16.5l1.5-6h9L18 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M7.5 10.5 9 7.5h6l1.5 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              <path d="M7 16.5h10M8 18.5h2m4 0h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span>Seminovos</span>
+          </a>
+
+          <a href="#pos-vendas" id="btn-pos-vendas" onclick="alternarSecao('pos-vendas')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 14l6-6 4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M20 20H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span>Pós Vendas</span>
+          </a>
+
+          <a href="#lojas" id="btn-lojas" onclick="alternarSecao('lojas')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.8" />
+              <path d="M12 10.2a2.3 2.3 0 1 0 0 .01Z" stroke="currentColor" stroke-width="1.8" />
+            </svg>
+            <span>Localização das Lojas</span>
+          </a>
+
+          <a href="#links" id="btn-links" onclick="alternarSecao('links')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M10 13a5 5 0 0 1 0-7l1.2-1.2a5 5 0 0 1 7 7L17 13" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+              <path d="M14 11a5 5 0 0 1 0 7L12.8 19.2a5 5 0 1 1-7-7L7 11" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+            </svg>
+            <span>Links Úteis</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-foot">
+          <div class="meta">
+            <div class="meta-text">
+              <strong></strong>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main" id="main">
+        <div class="main-head">
+          <div>
+            <h2 id="pageTitle">Gerador de Documentos</h2>
+            <p id="page subtitle"></p>
+          </div>
+
+
+        </div>
+
+        <section class="grid-tiles">
+
+          <!-- Seção: Gerador de Documentos (Submenu) -->
+          <div class="cover hidden col-12" id="secao-gerador" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <button class="cover-btn" id="btn-doc-recebimento" type="button"
+                onclick="abrirDocumento('doc-recebimento')">
+                <div class="cover-doc-pill">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-acordo" type="button" onclick="abrirDocumento('doc-acordo')">
+                <div class="cover-doc-pill">PROCURAÇÃO DE ACORDO</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-instrumento" type="button"
+                onclick="abrirDocumento('doc-instrumento')">
+                <div class="cover-doc-pill">INSTRUMENTO DE RESPONSABILIDADE</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-quitacao" type="button" onclick="abrirDocumento('doc-quitacao')">
+                <div class="cover-doc-pill">TERMO DE QUITAÇÃO (veículo de terceiros)</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-residencia" type="button"
+                onclick="abrirDocumento('doc-residencia')">
+                <div class="cover-doc-pill">DECLARAÇÃO DE RESIDÊNCIA</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-deposito" type="button" onclick="abrirDocumento('doc-deposito')">
+                <div class="cover-doc-pill">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
+              </button>
+              <button class="cover-btn" id="btn-doc-orcamento" type="button" onclick="abrirDocumento('doc-orcamento')">
+                <div class="cover-doc-pill">ORÇAMENTO DE DETRAN</div>
+              </button>
+            </div>
+
+            <!-- Dados do Cliente Global (MUDADO PARA DENTRO DO GERADOR) -->
+            <div class="doc-card hidden" id="dados-cliente-global" style="margin-top: 15px;">
+              <div class="section-title"
+                style="border-top: none; margin-top: 0; padding-top: 0; font-size: 15px; margin-bottom: 20px; color: #1e293b; font-weight: 800;">
+                <i class="fa-solid fa-user-pen"></i>&nbsp; DADOS DO CLIENTE (Preencha uma vez para todos os documentos)
+              </div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="global_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="global_nomeCompleto" placeholder="NOME COMPLETO DO CLIENTE"
+                    oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="global_cpfCnpj" placeholder="000.000.000-00" oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_endereco">Endereço</label>
+                  <input type="text" id="global_endereco" placeholder="RUA/AV, NÚMERO, COMPLEMENTO"
+                    oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_bairro">Bairro</label>
+                  <input type="text" id="global_bairro" placeholder="NOME DO BAIRRO" oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_cep">CEP</label>
+                  <input type="text" id="global_cep" placeholder="00000-000" oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_cidade">Cidade</label>
+                  <input type="text" id="global_cidade" placeholder="NOME DA CIDADE" oninput="replicarDadosCliente()">
+                </div>
+                <div class="form-item">
+                  <label for="global_estado">Estado</label>
+                  <input type="text" id="global_estado" placeholder="SIGLA DO ESTADO" oninput="replicarDadosCliente()">
+                </div>
               </div>
             </div>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7" target="_blank" class="btn"
-              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
-              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
-            </a>
-            <button class="btn"
-              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
-              onclick="copiarLink('https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7')">
-              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
-            </button>
-          </div>
-        </div>
 
-        <!-- GRAVATAÍ -->
-        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <a href="gravatai.jpeg" target="_blank" title="Clique para abrir e baixar"
-              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
-              <img src="gravatai.jpeg" alt="San Marino Gravataí" style="width: 100%; height: 100%; object-fit: cover;">
-            </a>
-            <div>
-              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">GRAVATAÍ</div>
-              <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 280 - Bairro Vera Cruz, Gravataí
+          <!-- Seção: Bancos (Submenu) -->
+          <div class="cover hidden col-12" id="secao-bancos" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://autofacil.stellantisfinanciamentos.com.br/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">PSA (Stellantis)</div>
+              </a>
+              <a href="https://digital.bancovw.com.br/FrontEnd/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">VOLKS</div>
+              </a>
+              <a href="https://www.credlineitau.com.br/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">ITAÚ CREDLINE</div>
+              </a>
+              <a href="https://financiamentos.bradesco/financiamentos/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BRADESCO</div>
+              </a>
+              <a href="https://financeira.safra.com.br/portal-veiculos/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">SAFRA</div>
+              </a>
+              <a href="https://c6auto.com.br/originacaolojista/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">C6 AUTO</div>
+              </a>
+              <a href="https://parceiro.bv.com.br/ng-gpar-base-login/#" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BV FINANCEIRA</div>
+              </a>
+              <a href="https://veiculos.bancopan.com.br/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BANCO PAN</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Certidões (Submenu) -->
+          <div class="cover hidden col-12" id="secao-certidoes" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://www2.trf4.jus.br/trf4/processos/certidao/index.php?string_cpf=01525186060"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">CERTIDÃO JUDICIAL</div>
+              </a>
+              <a href="https://www.tst.jus.br/certidao1" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CERTIDÃO TRABALHISTA</div>
+              </a>
+              <a href="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes/"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">ANTECEDENTES TJRS</div>
+              </a>
+              <a href="https://pje.trt4.jus.br/certidoes/inicio" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CERTIDÕES TRT4</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Venda Direta (Submenu) -->
+          <div class="cover hidden col-12" id="secao-venda-direta" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">CARTÃO CNPJ</div>
+              </a>
+              <a href="https://www.sefaz.rs.gov.br/consultas/contribuinte" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">INSCRIÇÃO ESTADUAL</div>
+              </a>
+              <a href="https://dfe-portal.svrs.rs.gov.br/cte/ccc?origem=2" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">IE PRODUTOR RURAL</div>
+              </a>
+              <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04281040" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BNDES FIORINO</div>
+              </a>
+              <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04260579" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BNDES STRADA FREEDOM</div>
+              </a>
+              <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BNDES STRADA ENDURANCE</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Plataformas (Submenu) -->
+          <div class="cover hidden col-12" id="secao-plataformas" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="http://152.67.47.29:8080/crmgold/veiculo.zul" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">NBS GOLD</div>
+              </a>
+              <a href="https://apps.docusign.com/send/home" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">DOCUSIGN</div>
+              </a>
+              <a href="https://apps.autoavaliar.com.br/login/app" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">AUTOAVALIAR</div>
+              </a>
+              <a href="https://app.dugestao.com.br/#/home" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">DUGESTÃO</div>
+              </a>
+              <a href="https://app.duleads.com.br/#/auth" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">DULEADS</div>
+              </a>
+              <a href="https://psa.csod.com/login/render.aspx?id=stellantistraining" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">PORTAL DE TREINAMENTOS FIAT</div>
+              </a>
+              <a href="https://linkentry-ames.fiat.com/pages/home/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">LinkEntry</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Cartas do Mês (Submenu) -->
+          <div class="cover hidden col-12" id="secao-cartas" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://albertomateus10.github.io/pdfsdomes/cartafiat.pdf" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CARTA DO MÊS (Montadora)</div>
+              </a>
+              <a href="https://albertomateus10.github.io/pdfsdomes/cartabanco.pdf" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CARTA DO MÊS (Banco)</div>
+              </a>
+              <a href="https://albertomateus10.github.io/pdfsdomes/gama.pdf" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">GAMA ATUALIZADA</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Seminovos (Submenu) -->
+          <div class="cover hidden col-12" id="secao-seminovos" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://sanmarinomultimarcas.com.br/seminovos/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">ESTOQUE DE SEMINOVOS</div>
+              </a>
+              <a href="https://sanmarinomultimarcas.com.br/outlet/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">ESTOQUE OUTLET</div>
+              </a>
+              <a href="https://albertomateus10.github.io/termoderepassefuncionario/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">TERMO DE REPASSE PARA FUNCIONÁRIO</div>
+              </a>
+              <button class="cover-btn" type="button" onclick="abrirDocumento('doc-contrato')">
+                <div class="cover-doc-pill">TEXTO LEGAL (Seminovos/Outlet)</div>
+              </button>
+              <a href="https://albertomateus10.github.io/preparacaoparaentrega/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CHECKLIST de ENTREGA (Seminovo)</div>
+              </a>
+              <a href="https://chatgpt.com/g/g-67b0af6b29708191982adcba7a5e3fb4-clique-aqui-e-crie-um-anuncio-para-o-seu-veiculo"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">ROBÔ DE ANÚNCIOS</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Gestor (Submenu) -->
+          <div class="cover hidden col-12" id="secao-gestor" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="http://144.22.144.53/" target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">NBS SHOTCUT</div>
+              </a>
+              <a href="https://portal.gestautobrasil.com.br/auth/login" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">PORTAL GESTAUTO</div>
+              </a>
+              <a href="https://app.autocorp.com.br/portal/Default.aspx?ReturnUrl=%2frestrito%2fpainel-controle%2fdefault.aspx"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">AUTOCORP</div>
+              </a>
+              <a href="https://albertomateus10.github.io/avaliacoes/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">BI DE AVALIAÇÕES</div>
+              </a>
+              <a href="https://albertomateus10.github.io/carteiravdusados/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">USADOS VIA VD</div>
+              </a>
+              <a href="https://adm.autoavaliar.com.br/index.php" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">Leilão do AutoAvaliar</div>
+              </a>
+              <a href="https://albertomateus10.github.io/contratodecompradeveiculos/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">CONTRATO DE COMPRA DE VEÍCULOS</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Pós Vendas (Submenu) -->
+          <div class="cover hidden col-12" id="secao-pos-vendas" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <button class="cover-btn" type="button">
+                <div class="cover-doc-pill">CATÁLOGO DE ACESSÓRIOS</div>
+              </button>
+
+              <a href="https://drive.google.com/drive/folders/1pVktoHOniUgT5LQfnjxWhDGAB1r3-LVn" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">NORMAS DA GARANTIA</div>
+              </a>
+              <a href="https://drive.google.com/drive/folders/1dn-1v52zMjZCnBZRgHCkAdViAOBfOG2b" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">APOIO AO CONSULTOR</div>
+              </a>
+              <a href="https://drive.google.com/drive/folders/1alytD0dOACelokORixMLNd99Ixe77han" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">APOIO AO MECÂNICO</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Seção: Localização das Lojas (Submenu) -->
+          <div class="cover hidden col-12" id="secao-lojas" style="margin-top: 15px;">
+            <div style="max-width: 700px; margin: 0 auto;">
+
+              <!-- MATRIZ -->
+              <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <a href="matriz.jpeg" target="_blank" title="Clique para abrir e baixar"
+                    style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+                    <img src="matriz.jpeg" alt="San Marino Matriz"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <div>
+                    <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MATRIZ</div>
+                    <div style="font-size: 11px; color: var(--muted);">Av. Ipiranga, 7110 - Porto Alegre</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="https://maps.app.goo.gl/9JXa77im6c8KK72w6" target="_blank" class="btn"
+                    style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+                    <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+                  </a>
+                  <button class="btn"
+                    style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+                    onclick="copiarLink('https://maps.app.goo.gl/9JXa77im6c8KK72w6')">
+                    <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8" target="_blank" class="btn"
-              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
-              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
-            </a>
-            <button class="btn"
-              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
-              onclick="copiarLink('https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8')">
-              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
-            </button>
-          </div>
-        </div>
 
-        <!-- MULTIMARCAS -->
-        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <a href="Multimarcas.jpeg" target="_blank" title="Clique para abrir e baixar"
-              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
-              <img src="Multimarcas.jpeg" alt="San Marino Multimarcas"
-                style="width: 100%; height: 100%; object-fit: cover;">
-            </a>
-            <div>
-              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MULTIMARCAS</div>
-              <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 220 - Bairro Vera Cruz, Gravataí
+              <!-- ZONA SUL -->
+              <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <a href="zonasul.jpeg" target="_blank" title="Clique para abrir e baixar"
+                    style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+                    <img src="zonasul.jpeg" alt="San Marino Zona Sul"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <div>
+                    <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">ZONA SUL</div>
+                    <div style="font-size: 11px; color: var(--muted);">Av. Otto Niemeyer, 650 - Bairro Tristeza, Porto
+                      Alegre
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7" target="_blank" class="btn"
+                    style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+                    <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+                  </a>
+                  <button class="btn"
+                    style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+                    onclick="copiarLink('https://maps.app.goo.gl/6JWn6nwzN2zYsqpE7')">
+                    <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+                  </button>
+                </div>
               </div>
+
+              <!-- GRAVATAÍ -->
+              <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <a href="gravatai.jpeg" target="_blank" title="Clique para abrir e baixar"
+                    style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+                    <img src="gravatai.jpeg" alt="San Marino Gravataí"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <div>
+                    <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">GRAVATAÍ</div>
+                    <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 280 - Bairro Vera Cruz, Gravataí
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8" target="_blank" class="btn"
+                    style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+                    <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+                  </a>
+                  <button class="btn"
+                    style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+                    onclick="copiarLink('https://maps.app.goo.gl/eyiSQ1vSy2q2MJpa8')">
+                    <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+                  </button>
+                </div>
+              </div>
+
+              <!-- MULTIMARCAS -->
+              <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <a href="Multimarcas.jpeg" target="_blank" title="Clique para abrir e baixar"
+                    style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+                    <img src="Multimarcas.jpeg" alt="San Marino Multimarcas"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <div>
+                    <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">MULTIMARCAS</div>
+                    <div style="font-size: 11px; color: var(--muted);">Pda. 61, RS-020, 220 - Bairro Vera Cruz, Gravataí
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9" target="_blank" class="btn"
+                    style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+                    <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+                  </a>
+                  <button class="btn"
+                    style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+                    onclick="copiarLink('https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9')">
+                    <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+                  </button>
+                </div>
+              </div>
+
+              <!-- VIAMÃO -->
+              <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <a href="Viamão.jpeg" target="_blank" title="Clique para abrir e baixar"
+                    style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
+                    <img src="Viamão.jpeg" alt="San Marino Viamão"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </a>
+                  <div>
+                    <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">VIAMÃO</div>
+                    <div style="font-size: 11px; color: var(--muted);">Av. Sen. Salgado Filho, 9775 - Bairro Jardim
+                      Krahe,
+                      Viamão</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a href="https://maps.app.goo.gl/6Rpe55NcW35yD6dCA" target="_blank" class="btn"
+                    style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
+                    <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
+                  </a>
+                  <button class="btn"
+                    style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
+                    onclick="copiarLink('https://maps.app.goo.gl/6Rpe55NcW35yD6dCA')">
+                    <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9" target="_blank" class="btn"
-              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
-              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
-            </a>
-            <button class="btn"
-              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
-              onclick="copiarLink('https://maps.app.goo.gl/Gs2jGm9dMUxUEFjv9')">
-              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
-            </button>
-          </div>
-        </div>
 
-        <!-- VIAMÃO -->
-        <div class="link-section" style="padding: 12px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <a href="Viamão.jpeg" target="_blank" title="Clique para abrir e baixar"
-              style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer;">
-              <img src="Viamão.jpeg" alt="San Marino Viamão" style="width: 100%; height: 100%; object-fit: cover;">
-            </a>
-            <div>
-              <div style="font-weight: 900; color: #1e3a8a; font-size: 14px;">VIAMÃO</div>
-              <div style="font-size: 11px; color: var(--muted);">Av. Sen. Salgado Filho, 9775 - Bairro Jardim Krahe,
-                Viamão</div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://maps.app.goo.gl/6Rpe55NcW35yD6dCA" target="_blank" class="btn"
-              style="flex: 1; min-width: 150px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; text-decoration: none; font-size: 12px;">
-              <i class="fa-solid fa-map-location-dot"></i>&nbsp; Ver no Mapa
-            </a>
-            <button class="btn"
-              style="flex: 2; min-width: 200px; height: 38px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #1e3a8a; box-shadow: none; border: 1px solid #e2e8f0; font-size: 11px;"
-              onclick="copiarLink('https://maps.app.goo.gl/6Rpe55NcW35yD6dCA')">
-              <i class="fa-regular fa-copy"></i>&nbsp; copie o link e cole no whats do cliente
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- =========================
+          <!-- =========================
          ÁREA DOS DOCUMENTOS (ocultos até clicar)
          ========================= -->
 
-    <!-- =========================
+          <!-- =========================
          DADOS GLOBAIS DO CLIENTE
          ========================= -->
-    <div class="cover hidden" id="dados-cliente-global" style="margin-top: 20px;">
-      <div class="section-title"
-        style="border-top: none; margin-top: 0; padding-top: 0; font-size: 16px; margin-bottom: 15px;">
-        👤 DADOS DO CLIENTE (Preencha uma vez para todos os documentos)
-      </div>
-      <div class="form-grid">
-        <div class="form-item">
-          <label for="global_nomeCompleto">Nome Completo</label>
-          <input type="text" id="global_nomeCompleto" placeholder="Nome completo do cliente"
-            oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_cpfCnpj">CPF/CNPJ</label>
-          <input type="text" id="global_cpfCnpj" placeholder="000.000.000-00" oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_endereco">Endereço</label>
-          <input type="text" id="global_endereco" placeholder="Rua/av, número, complemento"
-            oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_bairro">Bairro</label>
-          <input type="text" id="global_bairro" placeholder="Nome do bairro" oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_cep">CEP</label>
-          <input type="text" id="global_cep" placeholder="00000-000" oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_cidade">Cidade</label>
-          <input type="text" id="global_cidade" placeholder="Nome da cidade" oninput="replicarDadosCliente()">
-        </div>
-        <div class="form-item">
-          <label for="global_estado">Estado</label>
-          <input type="text" id="global_estado" placeholder="Sigla do Estado" oninput="replicarDadosCliente()">
-        </div>
-      </div>
-    </div>
 
-    <div class="doc-area" id="docArea">
 
-      <!-- =========================
+          <div class="doc-area col-12" id="docArea">
+
+            <!-- =========================
            1) PROCURAÇÃO DE ACORDO
            ========================= -->
-      <div class="doc-card hidden" id="doc-acordo">
-        <div class="head">
-          <div class="doc-title-pill doc-title-acordo">PROCURAÇÃO DE ACORDO</div>
-        </div>
+            <div class="doc-card hidden" id="doc-acordo">
+              <div class="head">
+                <div class="doc-title-pill doc-title-acordo">PROCURAÇÃO DE ACORDO</div>
+              </div>
 
-        <div class="section-title">Dados do Cliente</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="acordo_nomeCompleto">Nome Completo</label>
-            <input type="text" id="acordo_nomeCompleto" placeholder="Nome completo do cliente">
-          </div>
-          <div class="form-item">
-            <label for="acordo_cpfCnpj">CPF/CNPJ</label>
-            <input type="text" id="acordo_cpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="acordo_endereco">Endereço</label>
-            <input type="text" id="acordo_endereco" placeholder="Rua/av, número, complemento">
-          </div>
-          <div class="form-item">
-            <label for="acordo_bairro">Bairro</label>
-            <input type="text" id="acordo_bairro" placeholder="Nome do bairro">
-          </div>
-          <div class="form-item">
-            <label for="acordo_cep">CEP</label>
-            <input type="text" id="acordo_cep" placeholder="00000-000">
-          </div>
-          <div class="form-item">
-            <label for="acordo_cidade">Cidade</label>
-            <input type="text" id="acordo_cidade" placeholder="Nome da cidade">
-          </div>
-          <div class="form-item">
-            <label for="acordo_estado">Estado</label>
-            <input type="text" id="acordo_estado" placeholder="Sigla do Estado">
-          </div>
-        </div>
+              <div class="section-title">Dados do Cliente</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="acordo_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="acordo_nomeCompleto" placeholder="Nome completo do cliente">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="acordo_cpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_endereco">Endereço</label>
+                  <input type="text" id="acordo_endereco" placeholder="Rua/av, número, complemento">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_bairro">Bairro</label>
+                  <input type="text" id="acordo_bairro" placeholder="Nome do bairro">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_cep">CEP</label>
+                  <input type="text" id="acordo_cep" placeholder="00000-000">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_cidade">Cidade</label>
+                  <input type="text" id="acordo_cidade" placeholder="Nome da cidade">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_estado">Estado</label>
+                  <input type="text" id="acordo_estado" placeholder="Sigla do Estado">
+                </div>
+              </div>
 
-        <div class="section-title">Dados do Veículo</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="acordo_modelo">Modelo do Veículo</label>
-            <input type="text" id="acordo_modelo" placeholder="Ex: CHEVROLET/ONIX 1.0 TURBO">
-          </div>
-          <div class="form-item">
-            <label for="acordo_placa">Placa</label>
-            <input type="text" id="acordo_placa" placeholder="ABC1D23">
-          </div>
-          <div class="form-item">
-            <label for="acordo_anoModelo">Ano/Modelo</label>
-            <input type="text" id="acordo_anoModelo" placeholder="2020/2021">
-          </div>
-          <div class="form-item">
-            <label for="acordo_chassi">Chassi</label>
-            <input type="text" id="acordo_chassi" placeholder="17 caracteres">
-          </div>
-          <div class="form-item">
-            <label for="acordo_renavam">Renavam</label>
-            <input type="text" id="acordo_renavam" placeholder="11 caracteres">
-          </div>
-          <div class="form-item">
-            <label for="acordo_cor">Cor</label>
-            <input type="text" id="acordo_cor" placeholder="Cor do veículo">
-          </div>
-        </div>
+              <div class="section-title">Dados do Veículo</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="acordo_modelo">Modelo do Veículo</label>
+                  <input type="text" id="acordo_modelo" placeholder="Ex: CHEVROLET/ONIX 1.0 TURBO">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_placa">Placa</label>
+                  <input type="text" id="acordo_placa" placeholder="ABC1D23">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_anoModelo">Ano/Modelo</label>
+                  <input type="text" id="acordo_anoModelo" placeholder="2020/2021">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_chassi">Chassi</label>
+                  <input type="text" id="acordo_chassi" placeholder="17 caracteres">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_renavam">Renavam</label>
+                  <input type="text" id="acordo_renavam" placeholder="11 caracteres">
+                </div>
+                <div class="form-item">
+                  <label for="acordo_cor">Cor</label>
+                  <input type="text" id="acordo_cor" placeholder="Cor do veículo">
+                </div>
+              </div>
 
-        <div class="doc-actions">
-          <button class="btn btn-acordo" type="button" onclick="gerarProcuracaoAcordo()"> Gerar
-            Procuração de
-            Acordo</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-acordo" type="button" onclick="gerarProcuracaoAcordo()"> Gerar
+                  Procuração de
+                  Acordo</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            2) PROCURAÇÃO DE RECEBIMENTO
            ========================= -->
-      <div class="doc-card hidden" id="doc-recebimento">
-        <div class="head">
-          <div class="doc-title-pill doc-title-receb">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
-        </div>
+            <div class="doc-card hidden" id="doc-recebimento">
+              <div class="head">
+                <div class="doc-title-pill doc-title-receb">PROCURAÇÃO DE RECEBIMENTO DO USADO</div>
+              </div>
 
-        <div class="section-title">Dados do Cliente</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="rec_nomeCompleto">Nome Completo</label>
-            <input type="text" id="rec_nomeCompleto" placeholder="Nome completo do cliente">
-          </div>
-          <div class="form-item">
-            <label for="rec_cpfCnpj">CPF/CNPJ</label>
-            <input type="text" id="rec_cpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="rec_endereco">Endereço</label>
-            <input type="text" id="rec_endereco" placeholder="Rua/av, número, complemento">
-          </div>
-          <div class="form-item">
-            <label for="rec_bairro">Bairro</label>
-            <input type="text" id="rec_bairro" placeholder="Nome do bairro">
-          </div>
-          <div class="form-item">
-            <label for="rec_cidade">Cidade</label>
-            <input type="text" id="rec_cidade" placeholder="Nome da cidade">
-          </div>
-          <div class="form-item">
-            <label for="rec_estado">Estado</label>
-            <input type="text" id="rec_estado" placeholder="Sigla do Estado">
-          </div>
-        </div>
+              <div class="section-title">Dados do Cliente</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="rec_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="rec_nomeCompleto" placeholder="Nome completo do cliente">
+                </div>
+                <div class="form-item">
+                  <label for="rec_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="rec_cpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="rec_endereco">Endereço</label>
+                  <input type="text" id="rec_endereco" placeholder="Rua/av, número, complemento">
+                </div>
+                <div class="form-item">
+                  <label for="rec_bairro">Bairro</label>
+                  <input type="text" id="rec_bairro" placeholder="Nome do bairro">
+                </div>
+                <div class="form-item">
+                  <label for="rec_cidade">Cidade</label>
+                  <input type="text" id="rec_cidade" placeholder="Nome da cidade">
+                </div>
+                <div class="form-item">
+                  <label for="rec_estado">Estado</label>
+                  <input type="text" id="rec_estado" placeholder="Sigla do Estado">
+                </div>
+              </div>
 
-        <div class="section-title">Dados do Veículo</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="rec_modelo">Modelo do Veículo</label>
-            <input type="text" id="rec_modelo" placeholder="Ex: CHEVROLET/ONIX 1.0 TURBO">
-          </div>
-          <div class="form-item">
-            <label for="rec_placa">Placa</label>
-            <input type="text" id="rec_placa" placeholder="ABC1D23">
-          </div>
-          <div class="form-item">
-            <label for="rec_anoModelo">Ano/Modelo</label>
-            <input type="text" id="rec_anoModelo" placeholder="2020/2021">
-          </div>
-          <div class="form-item">
-            <label for="rec_chassi">Chassi</label>
-            <input type="text" id="rec_chassi" placeholder="17 caracteres">
-          </div>
-          <div class="form-item">
-            <label for="rec_cor">Cor</label>
-            <input type="text" id="rec_cor" placeholder="Cor do veículo">
-          </div>
-        </div>
+              <div class="section-title">Dados do Veículo</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="rec_modelo">Modelo do Veículo</label>
+                  <input type="text" id="rec_modelo" placeholder="Ex: CHEVROLET/ONIX 1.0 TURBO">
+                </div>
+                <div class="form-item">
+                  <label for="rec_placa">Placa</label>
+                  <input type="text" id="rec_placa" placeholder="ABC1D23">
+                </div>
+                <div class="form-item">
+                  <label for="rec_anoModelo">Ano/Modelo</label>
+                  <input type="text" id="rec_anoModelo" placeholder="2020/2021">
+                </div>
+                <div class="form-item">
+                  <label for="rec_chassi">Chassi</label>
+                  <input type="text" id="rec_chassi" placeholder="17 caracteres">
+                </div>
+                <div class="form-item">
+                  <label for="rec_cor">Cor</label>
+                  <input type="text" id="rec_cor" placeholder="Cor do veículo">
+                </div>
+              </div>
 
-        <div class="doc-actions">
-          <button class="btn btn-recebimento" type="button" onclick="gerarProcuracaoRecebimento()">
-            Gerar Procuração
-            de Recebimento do Usado</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-recebimento" type="button" onclick="gerarProcuracaoRecebimento()">
+                  Gerar Procuração
+                  de Recebimento do Usado</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            3) TERMO DE QUITAÇÃO
            ========================= -->
-      <div class="doc-card hidden" id="doc-quitacao">
-        <div class="head">
-          <div class="doc-title-pill doc-title-quit">TERMO DE QUITAÇÃO (ENTRADA DE TERCEIRO)</div>
-        </div>
+            <div class="doc-card hidden" id="doc-quitacao">
+              <div class="head">
+                <div class="doc-title-pill doc-title-quit">TERMO DE QUITAÇÃO (ENTRADA DE TERCEIRO)</div>
+              </div>
 
-        <div class="section-title">Dados do Cliente (Anuente)</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="quit_nomeCompleto">Nome Completo</label>
-            <input type="text" id="quit_nomeCompleto" placeholder="Nome completo do cliente">
-          </div>
-          <div class="form-item">
-            <label for="quit_cpfCnpj">CPF/CNPJ</label>
-            <input type="text" id="quit_cpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="quit_cidade">Cidade</label>
-            <input type="text" id="quit_cidade" placeholder="Nome da cidade">
-          </div>
-        </div>
+              <div class="section-title">Dados do Cliente (Anuente)</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="quit_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="quit_nomeCompleto" placeholder="Nome completo do cliente">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="quit_cpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cidade">Cidade</label>
+                  <input type="text" id="quit_cidade" placeholder="Nome da cidade">
+                </div>
+              </div>
 
-        <div class="section-title">Veículo Entregue (Entrada)</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="quit_modelo">Modelo do Veículo</label>
-            <input type="text" id="quit_modelo" placeholder="Ex: CHEVROLET/ONIX">
-          </div>
-          <div class="form-item">
-            <label for="quit_anoModelo">Ano/Modelo</label>
-            <input type="text" id="quit_anoModelo" placeholder="2020/2021">
-          </div>
-          <div class="form-item">
-            <label for="quit_placa">Placa</label>
-            <input type="text" id="quit_placa" placeholder="ABC1D23">
-          </div>
-          <div class="form-item">
-            <label for="quit_chassi">Chassi</label>
-            <input type="text" id="quit_chassi" placeholder="17 caracteres">
-          </div>
-          <div class="form-item">
-            <label for="quit_cor">Cor</label>
-            <input type="text" id="quit_cor" placeholder="Cor do veículo">
-          </div>
-        </div>
+              <div class="section-title">Veículo Entregue (Entrada)</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="quit_modelo">Modelo do Veículo</label>
+                  <input type="text" id="quit_modelo" placeholder="Ex: CHEVROLET/ONIX">
+                </div>
+                <div class="form-item">
+                  <label for="quit_anoModelo">Ano/Modelo</label>
+                  <input type="text" id="quit_anoModelo" placeholder="2020/2021">
+                </div>
+                <div class="form-item">
+                  <label for="quit_placa">Placa</label>
+                  <input type="text" id="quit_placa" placeholder="ABC1D23">
+                </div>
+                <div class="form-item">
+                  <label for="quit_chassi">Chassi</label>
+                  <input type="text" id="quit_chassi" placeholder="17 caracteres">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cor">Cor</label>
+                  <input type="text" id="quit_cor" placeholder="Cor do veículo">
+                </div>
+              </div>
 
-        <div class="section-title">Dados do Cedente (Terceiro)</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="quit_cedenteNome">Nome/Razão Social do Cedente</label>
-            <input type="text" id="quit_cedenteNome" placeholder="Nome completo / Razão social">
-          </div>
-          <div class="form-item">
-            <label for="quit_cedenteCpfCnpj">CPF/CNPJ do Cedente</label>
-            <input type="text" id="quit_cedenteCpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="quit_cedenteEndereco">Endereço do Cedente</label>
-            <input type="text" id="quit_cedenteEndereco" placeholder="Rua/av">
-          </div>
-          <div class="form-item">
-            <label for="quit_cedenteNumero">Número</label>
-            <input type="text" id="quit_cedenteNumero" placeholder="nº">
-          </div>
-        </div>
+              <div class="section-title">Dados do Cedente (Terceiro)</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="quit_cedenteNome">Nome/Razão Social do Cedente</label>
+                  <input type="text" id="quit_cedenteNome" placeholder="Nome completo / Razão social">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cedenteCpfCnpj">CPF/CNPJ do Cedente</label>
+                  <input type="text" id="quit_cedenteCpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cedenteEndereco">Endereço do Cedente</label>
+                  <input type="text" id="quit_cedenteEndereco" placeholder="Rua/av">
+                </div>
+                <div class="form-item">
+                  <label for="quit_cedenteNumero">Número</label>
+                  <input type="text" id="quit_cedenteNumero" placeholder="nº">
+                </div>
+              </div>
 
-        <div class="section-title">Veículo Adquirido / Contrato</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="quit_veiculoAdquiridoModelo">Modelo do veículo adquirido</label>
-            <input type="text" id="quit_veiculoAdquiridoModelo" placeholder="Ex: FIAT/FASTBACK IMPETUS">
-          </div>
-          <div class="form-item">
-            <label for="quit_veiculoAdquiridoAnoModelo">Ano/Modelo do veículo adquirido</label>
-            <input type="text" id="quit_veiculoAdquiridoAnoModelo" placeholder="2024/2025">
-          </div>
-          <div class="form-item">
-            <label for="quit_veiculoAdquiridoCor">Cor do veículo adquirido</label>
-            <input type="text" id="quit_veiculoAdquiridoCor" placeholder="Cor">
-          </div>
-          <div class="form-item">
-            <label for="quit_veiculoAdquiridoChassi">Chassi do veículo adquirido</label>
-            <input type="text" id="quit_veiculoAdquiridoChassi" placeholder="17 caracteres" maxlength="17">
-          </div>
-          <div class="form-item">
-            <label for="quit_contratoNumero">Contrato nº</label>
-            <input type="text" id="quit_contratoNumero" placeholder="Número do contrato">
-          </div>
-          <div class="form-item">
-            <label for="quit_valorQuitacao">Valor (R$) da quitação</label>
-            <input type="text" id="quit_valorQuitacao" inputmode="decimal" placeholder="Ex: 30000 ou 30.000,00">
-          </div>
-        </div>
+              <div class="section-title">Veículo Adquirido / Contrato</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="quit_veiculoAdquiridoModelo">Modelo do veículo adquirido</label>
+                  <input type="text" id="quit_veiculoAdquiridoModelo" placeholder="Ex: FIAT/FASTBACK IMPETUS">
+                </div>
+                <div class="form-item">
+                  <label for="quit_veiculoAdquiridoAnoModelo">Ano/Modelo do veículo adquirido</label>
+                  <input type="text" id="quit_veiculoAdquiridoAnoModelo" placeholder="2024/2025">
+                </div>
+                <div class="form-item">
+                  <label for="quit_veiculoAdquiridoCor">Cor do veículo adquirido</label>
+                  <input type="text" id="quit_veiculoAdquiridoCor" placeholder="Cor">
+                </div>
+                <div class="form-item">
+                  <label for="quit_veiculoAdquiridoChassi">Chassi do veículo adquirido</label>
+                  <input type="text" id="quit_veiculoAdquiridoChassi" placeholder="17 caracteres" maxlength="17">
+                </div>
+                <div class="form-item">
+                  <label for="quit_contratoNumero">Contrato nº</label>
+                  <input type="text" id="quit_contratoNumero" placeholder="Número do contrato">
+                </div>
+                <div class="form-item">
+                  <label for="quit_valorQuitacao">Valor (R$) da quitação</label>
+                  <input type="text" id="quit_valorQuitacao" inputmode="decimal" placeholder="Ex: 30000 ou 30.000,00">
+                </div>
+              </div>
 
-        <p class="helper"><strong></strong></p>
+              <p class="helper"><strong></strong></p>
 
-        <div class="doc-actions">
-          <button class="btn btn-quitacao" type="button" onclick="gerarTermoQuitacaoTerceiro()"> Gerar
-            Termo de
-            Quitação (Terceiro)</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-quitacao" type="button" onclick="gerarTermoQuitacaoTerceiro()"> Gerar
+                  Termo de
+                  Quitação (Terceiro)</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            4) INSTRUMENTO RESPONSABILIDADE
            ========================= -->
-      <div class="doc-card hidden" id="doc-instrumento">
-        <div class="head">
-          <div class="doc-title-pill doc-title-inst">INSTRUMENTO DE RESPONSABILIDADE</div>
-        </div>
+            <div class="doc-card hidden" id="doc-instrumento">
+              <div class="head">
+                <div class="doc-title-pill doc-title-inst">INSTRUMENTO DE RESPONSABILIDADE</div>
+              </div>
 
-        <div class="section-title">Dados do Cliente</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="inst_nomeCompleto">Nome Completo</label>
-            <input type="text" id="inst_nomeCompleto" placeholder="Nome completo do cliente">
-          </div>
-          <div class="form-item">
-            <label for="inst_cpfCnpj">CPF/CNPJ</label>
-            <input type="text" id="inst_cpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="inst_cidade">Cidade</label>
-            <input type="text" id="inst_cidade" placeholder="Nome da cidade">
-          </div>
-          <div class="form-item">
-            <label for="inst_placa">Placa (opcional p/ nome do arquivo)</label>
-            <input type="text" id="inst_placa" placeholder="ABC1D23 (opcional)">
-          </div>
-        </div>
+              <div class="section-title">Dados do Cliente</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="inst_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="inst_nomeCompleto" placeholder="Nome completo do cliente">
+                </div>
+                <div class="form-item">
+                  <label for="inst_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="inst_cpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="inst_cidade">Cidade</label>
+                  <input type="text" id="inst_cidade" placeholder="Nome da cidade">
+                </div>
+                <div class="form-item">
+                  <label for="inst_placa">Placa (opcional p/ nome do arquivo)</label>
+                  <input type="text" id="inst_placa" placeholder="ABC1D23 (opcional)">
+                </div>
+              </div>
 
-        <div class="section-title">Dados do Veículo</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="inst_modelo">Modelo do Veículo</label>
-            <input type="text" id="inst_modelo" placeholder="Ex: FIAT/FASTBACK">
-          </div>
-          <div class="form-item">
-            <label for="inst_chassi">Chassi</label>
-            <input type="text" id="inst_chassi" placeholder="17 caracteres">
-          </div>
-        </div>
+              <div class="section-title">Dados do Veículo</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="inst_modelo">Modelo do Veículo</label>
+                  <input type="text" id="inst_modelo" placeholder="Ex: FIAT/FASTBACK">
+                </div>
+                <div class="form-item">
+                  <label for="inst_chassi">Chassi</label>
+                  <input type="text" id="inst_chassi" placeholder="17 caracteres">
+                </div>
+              </div>
 
-        <div class="section-title">Dados de Entrega</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="inst_dataEntrega">Data da entrega</label>
-            <input type="text" id="inst_dataEntrega" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10">
-          </div>
-          <div class="form-item">
-            <label for="inst_horaEntrega">Hora da entrega</label>
-            <input type="text" id="inst_horaEntrega" inputmode="numeric" placeholder="hh:mm" maxlength="5">
-          </div>
-        </div>
+              <div class="section-title">Dados de Entrega</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="inst_dataEntrega">Data da entrega</label>
+                  <input type="text" id="inst_dataEntrega" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10">
+                </div>
+                <div class="form-item">
+                  <label for="inst_horaEntrega">Hora da entrega</label>
+                  <input type="text" id="inst_horaEntrega" inputmode="numeric" placeholder="hh:mm" maxlength="5">
+                </div>
+              </div>
 
-        <p class="helper">Dica: ao digitar apenas números, o sistema coloca as barras/“:”
-          automaticamente (ex.: 10122025
-          → 10/12/2025).</p>
+              <p class="helper">Dica: ao digitar apenas números, o sistema coloca as barras/“:”
+                automaticamente (ex.: 10122025
+                → 10/12/2025).</p>
 
-        <div class="doc-actions">
-          <button class="btn btn-responsabilidade" type="button" onclick="gerarInstrumentoResponsabilidade()"> Gerar
-            Instrumento de Responsabilidade</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-responsabilidade" type="button" onclick="gerarInstrumentoResponsabilidade()">
+                  Gerar
+                  Instrumento de Responsabilidade</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            5) DECLARAÇÃO DE RESIDÊNCIA (placa removida)
            ========================= -->
-      <div class="doc-card hidden" id="doc-residencia">
-        <div class="head">
-          <div class="doc-title-pill doc-title-res">DECLARAÇÃO DE RESIDÊNCIA</div>
-        </div>
+            <div class="doc-card hidden" id="doc-residencia">
+              <div class="head">
+                <div class="doc-title-pill doc-title-res">DECLARAÇÃO DE RESIDÊNCIA</div>
+              </div>
 
-        <div class="section-title">Dados do Declarante</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="res_nomeCompleto">Nome Completo</label>
-            <input type="text" id="res_nomeCompleto" placeholder="Nome completo do cliente">
-          </div>
-          <div class="form-item">
-            <label for="res_cpfCnpj">CPF</label>
-            <input type="text" id="res_cpfCnpj" placeholder="000.000.000-00">
-          </div>
-          <div class="form-item">
-            <label for="res_endereco">Endereço</label>
-            <input type="text" id="res_endereco" placeholder="Rua/av, número, complemento">
-          </div>
-          <div class="form-item">
-            <label for="res_bairro">Bairro</label>
-            <input type="text" id="res_bairro" placeholder="Nome do bairro">
-          </div>
-          <div class="form-item">
-            <label for="res_cidade">Cidade</label>
-            <input type="text" id="res_cidade" placeholder="Nome da cidade">
-          </div>
-          <div class="form-item">
-            <label for="res_estado">Estado</label>
-            <input type="text" id="res_estado" placeholder="Sigla do Estado">
-          </div>
-        </div>
+              <div class="section-title">Dados do Declarante</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="res_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="res_nomeCompleto" placeholder="Nome completo do cliente">
+                </div>
+                <div class="form-item">
+                  <label for="res_cpfCnpj">CPF</label>
+                  <input type="text" id="res_cpfCnpj" placeholder="000.000.000-00">
+                </div>
+                <div class="form-item">
+                  <label for="res_endereco">Endereço</label>
+                  <input type="text" id="res_endereco" placeholder="Rua/av, número, complemento">
+                </div>
+                <div class="form-item">
+                  <label for="res_bairro">Bairro</label>
+                  <input type="text" id="res_bairro" placeholder="Nome do bairro">
+                </div>
+                <div class="form-item">
+                  <label for="res_cidade">Cidade</label>
+                  <input type="text" id="res_cidade" placeholder="Nome da cidade">
+                </div>
+                <div class="form-item">
+                  <label for="res_estado">Estado</label>
+                  <input type="text" id="res_estado" placeholder="Sigla do Estado">
+                </div>
+              </div>
 
-        <div class="doc-actions">
-          <button class="btn btn-residencia" type="button" onclick="gerarDeclaracaoResidencia()"> Gerar
-            Declaração de
-            Residência</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-residencia" type="button" onclick="gerarDeclaracaoResidencia()"> Gerar
+                  Declaração de
+                  Residência</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            6) DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS
            ========================= -->
-      <div class="doc-card hidden" id="doc-deposito">
-        <div class="head">
-          <div class="doc-title-pill doc-title-dep">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
-        </div>
+            <div class="doc-card hidden" id="doc-deposito">
+              <div class="head">
+                <div class="doc-title-pill doc-title-dep">DECLARAÇÃO DE DEPÓSITO PARA TERCEIROS</div>
+              </div>
 
-        <div class="section-title">Dados do Declarante</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="dep_nomeCompleto">Nome Completo</label>
-            <input type="text" id="dep_nomeCompleto" placeholder="Nome completo do declarante">
-          </div>
-          <div class="form-item">
-            <label for="dep_cpfCnpj">CPF/CNPJ</label>
-            <input type="text" id="dep_cpfCnpj" placeholder="000.000.000-00">
-          </div>
+              <div class="section-title">Dados do Declarante</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="dep_nomeCompleto">Nome Completo</label>
+                  <input type="text" id="dep_nomeCompleto" placeholder="Nome completo do declarante">
+                </div>
+                <div class="form-item">
+                  <label for="dep_cpfCnpj">CPF/CNPJ</label>
+                  <input type="text" id="dep_cpfCnpj" placeholder="000.000.000-00">
+                </div>
 
-        </div>
+              </div>
 
-        <div class="section-title">Dados do Depósito</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="dep_valor">Valor do depósito</label>
-            <input type="text" id="dep_valor" inputmode="decimal" placeholder="Ex: 300 ou 300,00">
-          </div>
-          <div class="form-item">
-            <label for="dep_valorExtenso">Valor por extenso (opcional)</label>
-            <input type="text" id="dep_valorExtenso" placeholder="Ex: trezentos reais">
-          </div>
-          <div class="form-item">
-            <label for="dep_dataDeposito">Data do depósito</label>
-            <input type="text" id="dep_dataDeposito" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10">
-          </div>
-        </div>
+              <div class="section-title">Dados do Depósito</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="dep_valor">Valor do depósito</label>
+                  <input type="text" id="dep_valor" inputmode="decimal" placeholder="Ex: 300 ou 300,00">
+                </div>
+                <div class="form-item">
+                  <label for="dep_valorExtenso">Valor por extenso (opcional)</label>
+                  <input type="text" id="dep_valorExtenso" placeholder="Ex: trezentos reais">
+                </div>
+                <div class="form-item">
+                  <label for="dep_dataDeposito">Data do depósito</label>
+                  <input type="text" id="dep_dataDeposito" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10">
+                </div>
+              </div>
 
-        <div class="section-title">Dados Bancários (San Marino)</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="dep_banco">Banco</label>
-            <input type="text" id="dep_banco" placeholder="Ex: ITAU" value="ITAU">
-          </div>
-          <div class="form-item">
-            <label for="dep_agencia">Agência</label>
-            <input type="text" id="dep_agencia" placeholder="Ex: 0280" value="0280">
-          </div>
-          <div class="form-item">
-            <label for="dep_conta">Conta Corrente</label>
-            <input type="text" id="dep_conta" placeholder="Ex: 00110-8" value="00110-8">
-          </div>
-        </div>
+              <div class="section-title">Dados Bancários (San Marino)</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="dep_banco">Banco</label>
+                  <input type="text" id="dep_banco" placeholder="Ex: ITAU" value="ITAU">
+                </div>
+                <div class="form-item">
+                  <label for="dep_agencia">Agência</label>
+                  <input type="text" id="dep_agencia" placeholder="Ex: 0280" value="0280">
+                </div>
+                <div class="form-item">
+                  <label for="dep_conta">Conta Corrente</label>
+                  <input type="text" id="dep_conta" placeholder="Ex: 00110-8" value="00110-8">
+                </div>
+              </div>
 
-        <div class="section-title">Dados do Veículo e do Faturamento</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="dep_chassiPlaca">Chassi/Placa</label>
-            <input type="text" id="dep_chassiPlaca" placeholder="Informe o chassi e/ou placa">
-          </div>
-          <div class="form-item">
-            <label for="dep_faturadoNome">Faturado em nome de</label>
-            <input type="text" id="dep_faturadoNome" placeholder="Nome / Razão social">
-          </div>
-          <div class="form-item">
-            <label for="dep_faturadoCpfCnpj">CPF/CNPJ do faturado</label>
-            <input type="text" id="dep_faturadoCpfCnpj" placeholder="000.000.000-00">
-          </div>
-        </div>
+              <div class="section-title">Dados do Veículo e do Faturamento</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="dep_chassiPlaca">Chassi/Placa</label>
+                  <input type="text" id="dep_chassiPlaca" placeholder="Informe o chassi e/ou placa">
+                </div>
+                <div class="form-item">
+                  <label for="dep_faturadoNome">Faturado em nome de</label>
+                  <input type="text" id="dep_faturadoNome" placeholder="Nome / Razão social">
+                </div>
+                <div class="form-item">
+                  <label for="dep_faturadoCpfCnpj">CPF/CNPJ do faturado</label>
+                  <input type="text" id="dep_faturadoCpfCnpj" placeholder="000.000.000-00">
+                </div>
+              </div>
 
-        <div class="section-title">Local e Data (linha superior)</div>
-        <div class="form-grid">
-          <div class="form-item">
-            <label for="dep_cidade">Cidade</label>
-            <input type="text" id="dep_cidade" placeholder="Ex: Porto Alegre" value="">
-          </div>
-          <div class="form-item">
-            <label for="dep_dia">Dia</label>
-            <input type="text" id="dep_dia" inputmode="numeric" placeholder="Ex: 13" maxlength="2">
-          </div>
-          <div class="form-item">
-            <label for="dep_mesExtenso">Mês (por extenso)</label>
-            <input type="text" id="dep_mesExtenso" placeholder="Ex: abril">
-          </div>
-          <div class="form-item">
-            <label for="dep_ano">Ano</label>
-            <input type="text" id="dep_ano" inputmode="numeric" placeholder="2026" maxlength="9">
-          </div>
-        </div>
+              <div class="section-title">Local e Data (linha superior)</div>
+              <div class="form-grid">
+                <div class="form-item">
+                  <label for="dep_cidade">Cidade</label>
+                  <input type="text" id="dep_cidade" placeholder="Ex: Porto Alegre" value="">
+                </div>
+                <div class="form-item">
+                  <label for="dep_dia">Dia</label>
+                  <input type="text" id="dep_dia" inputmode="numeric" placeholder="Ex: 13" maxlength="2">
+                </div>
+                <div class="form-item">
+                  <label for="dep_mesExtenso">Mês (por extenso)</label>
+                  <input type="text" id="dep_mesExtenso" placeholder="Ex: abril">
+                </div>
+                <div class="form-item">
+                  <label for="dep_ano">Ano</label>
+                  <input type="text" id="dep_ano" inputmode="numeric" placeholder="2026" maxlength="9">
+                </div>
+              </div>
 
-        <p class="helper"> <strong></strong></p>
+              <p class="helper"> <strong></strong></p>
 
-        <div class="doc-actions">
-          <button class="btn btn-deposito" type="button" onclick="gerarDeclaracaoDepositoTerceiros()">
-            Gerar
-            Declaração de Depósito para Terceiros</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-deposito" type="button" onclick="gerarDeclaracaoDepositoTerceiros()">
+                  Gerar
+                  Declaração de Depósito para Terceiros</button>
+              </div>
+            </div>
 
-      <!-- =========================
+            <!-- =========================
            7) ORÇAMENTO DETRAN
            ========================= -->
-      <div class="doc-card hidden" id="doc-orcamento">
-        <div class="head no-print">
-          <div class="doc-title-pill"
-            style="color: #f59e0b; background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3);">
-            ORÇAMENTO DETRAN</div>
-        </div>
+            <div class="doc-card hidden" id="doc-orcamento">
+              <div class="head no-print">
+                <div class="doc-title-pill"
+                  style="color: #f59e0b; background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3);">
+                  ORÇAMENTO DETRAN</div>
+              </div>
 
-        <div class="orc-card" id="printable-orcamento">
-          <header class="orc-header">
-            <h1>ORÇAMENTO PARA TRANSFERÊNCIA OU EMPLACAMENTO DE VEÍCULOS</h1>
-          </header>
+              <div class="orc-card" id="printable-orcamento">
+                <header class="orc-header">
+                  <h1>ORÇAMENTO PARA TRANSFERÊNCIA OU EMPLACAMENTO DE VEÍCULOS</h1>
+                </header>
 
-          <div class="orc-grid">
-            <div class="orc-field">
-              <label class="orc-label">Despachante:</label>
-              <input type="text" class="orc-input" id="orc_despachante" value="RAMIRO ILHA" style="color: #000;">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Loja:</label>
-              <input type="text" class="orc-input" id="orc_loja" value="SAN MARINO VEÍCULOS" style="color: #000;">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Data do Recibo:</label>
-              <input type="text" class="orc-input" id="orc_dataRecibo" style="color: #000;">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Placas/Chassis:</label>
-              <input type="text" class="orc-input" id="orc_placa" placeholder="Ex: JDO1234">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Ano/Modelo/Cor:</label>
-              <input type="text" class="orc-input" id="orc_anoModeloCor" placeholder="Ex: 2025/2026">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Veículo:</label>
-              <input type="text" class="orc-input" id="orc_veiculo" placeholder="Ex: TITANO RANCH">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">Proprietário:</label>
-              <input type="text" class="orc-input" id="orc_proprietario">
-            </div>
-            <div class="orc-field">
-              <label class="orc-label">CPF/CNPJ:</label>
-              <input type="text" class="orc-input" id="orc_cpfCnpj">
-            </div>
-          </div>
+                <div class="orc-grid">
+                  <div class="orc-field">
+                    <label class="orc-label">Despachante:</label>
+                    <input type="text" class="orc-input" id="orc_despachante" value="RAMIRO ILHA" style="color: #000;">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Loja:</label>
+                    <input type="text" class="orc-input" id="orc_loja" value="SAN MARINO VEÍCULOS" style="color: #000;">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Data do Recibo:</label>
+                    <input type="text" class="orc-input" id="orc_dataRecibo" style="color: #000;">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Placas/Chassis:</label>
+                    <input type="text" class="orc-input" id="orc_placa" placeholder="Ex: JDO1234">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Ano/Modelo/Cor:</label>
+                    <input type="text" class="orc-input" id="orc_anoModeloCor" placeholder="Ex: 2025/2026">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Veículo:</label>
+                    <input type="text" class="orc-input" id="orc_veiculo" placeholder="Ex: TITANO RANCH">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">Proprietário:</label>
+                    <input type="text" class="orc-input" id="orc_proprietario">
+                  </div>
+                  <div class="orc-field">
+                    <label class="orc-label">CPF/CNPJ:</label>
+                    <input type="text" class="orc-input" id="orc_cpfCnpj">
+                  </div>
+                </div>
 
-          <div style="margin: 0.5rem 0;">
-            <label class="orc-label">Observações:</label>
-            <div id="orc_obs" class="orc-field obs-placeholder" contenteditable="true"
-              style="min-height: 1.8rem; font-size: 0.75rem; font-weight: 900; background: #fbfbfb;"
-              placeholder="digite aqui as observações"></div>
-          </div>
+                <div style="margin: 0.5rem 0;">
+                  <label class="orc-label">Observações:</label>
+                  <div id="orc_obs" class="orc-field obs-placeholder" contenteditable="true"
+                    style="min-height: 1.8rem; font-size: 0.75rem; font-weight: 900; background: #fbfbfb;"
+                    placeholder="digite aqui as observações"></div>
+                </div>
 
-          <table class="orc-table">
-            <thead>
-              <tr>
-                <th>SERVIÇOS</th>
-                <th style="width: 70px; text-align: center;">SOMA?</th>
-                <th style="width: 140px; text-align: right;">VALORES (R$)</th>
-              </tr>
-            </thead>
-            <tbody id="orc-body">
-              <tr>
-                <td>Honorários devidos ao despachante</td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: right;" class="orc-price">150,00</td>
-              </tr>
-              <tr>
-                <td>Serviços Prestados pela Concessionária:</td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: right;" class="orc-price">850,00</td>
-              </tr>
-              <tr>
-                <td>IPVA/RS - Parcela Anual 2026</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price" contenteditable="true"
-                  oninput="updateOrcamentoTotal()">0,00</td>
-              </tr>
-              <tr>
-                <td>Taxa de EMPLACAMENTO ou TRANSFERÊNCIA de propriedade</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price" contenteditable="true"
-                  oninput="updateOrcamentoTotal()">1.330,00</td>
-              </tr>
-              <tr>
-                <td>Taxa Vistoria – DETRAN/RS</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">114,11</td>
-              </tr>
-              <tr>
-                <td>Taxa de Expedição – CRLV</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">360,00</td>
-              </tr>
-              <tr>
-                <td>Escolha de Placa (Opcional ) – DETRAN/RS</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">519,33</td>
-              </tr>
-              <tr>
-                <td>Confecção Placa Metálica Oficial – Agente credenciado</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">370,00</td>
-              </tr>
-              <tr>
-                <td>Comunicação de Venda</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">50,98</td>
-              </tr>
-              <tr>
-                <td>Seguro Placa Verde</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price">20,00</td>
-              </tr>
-              <tr>
-                <td>Cartório/Cópias</td>
-                <td style="text-align: center;"><input type="checkbox" class="orc-check"
-                    onchange="updateOrcamentoTotal()" checked></td>
-                <td style="text-align: right;" class="orc-price" contenteditable="true"
-                  oninput="updateOrcamentoTotal()">0,00</td>
-              </tr>
-              <tr style="background: #fdf2f2;">
-                <td style="font-weight: 900; color: #dc2626;">DESCONTO</td>
-                <td style="text-align: center;"></td>
-                <td style="text-align: right; color: #dc2626;" class="orc-price" contenteditable="true"
-                  id="orc_desconto" oninput="updateOrcamentoTotal()">0,00</td>
-              </tr>
-            </tbody>
-          </table>
+                <table class="orc-table">
+                  <thead>
+                    <tr>
+                      <th>SERVIÇOS</th>
+                      <th style="width: 70px; text-align: center;">SOMA?</th>
+                      <th style="width: 140px; text-align: right;">VALORES (R$)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="orc-body">
+                    <tr>
+                      <td>Honorários devidos ao despachante</td>
+                      <td style="text-align: center;"></td>
+                      <td style="text-align: right;" class="orc-price">150,00</td>
+                    </tr>
+                    <tr>
+                      <td>Serviços Prestados pela Concessionária:</td>
+                      <td style="text-align: center;"></td>
+                      <td style="text-align: right;" class="orc-price">850,00</td>
+                    </tr>
+                    <tr>
+                      <td>IPVA/RS - Parcela Anual 2026</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price" contenteditable="true"
+                        oninput="updateOrcamentoTotal()">
+                        0,00</td>
+                    </tr>
+                    <tr>
+                      <td>Taxa de EMPLACAMENTO ou TRANSFERÊNCIA de propriedade</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price" contenteditable="true"
+                        oninput="updateOrcamentoTotal()">
+                        1.330,00</td>
+                    </tr>
+                    <tr>
+                      <td>Taxa Vistoria – DETRAN/RS</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">114,11</td>
+                    </tr>
+                    <tr>
+                      <td>Taxa de Expedição – CRLV</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">360,00</td>
+                    </tr>
+                    <tr>
+                      <td>Escolha de Placa (Opcional ) – DETRAN/RS</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">519,33</td>
+                    </tr>
+                    <tr>
+                      <td>Confecção Placa Metálica Oficial – Agente credenciado</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">370,00</td>
+                    </tr>
+                    <tr>
+                      <td>Comunicação de Venda</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">50,98</td>
+                    </tr>
+                    <tr>
+                      <td>Seguro Placa Verde</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price">20,00</td>
+                    </tr>
+                    <tr>
+                      <td>Cartório/Cópias</td>
+                      <td style="text-align: center;"><input type="checkbox" class="orc-check"
+                          onchange="updateOrcamentoTotal()" checked></td>
+                      <td style="text-align: right;" class="orc-price" contenteditable="true"
+                        oninput="updateOrcamentoTotal()">
+                        0,00</td>
+                    </tr>
+                    <tr style="background: #fdf2f2;">
+                      <td style="font-weight: 900; color: #dc2626;">DESCONTO</td>
+                      <td style="text-align: center;"></td>
+                      <td style="text-align: right; color: #dc2626;" class="orc-price" contenteditable="true"
+                        id="orc_desconto" oninput="updateOrcamentoTotal()">0,00</td>
+                    </tr>
+                  </tbody>
+                </table>
 
-          <div class="orc-total-box">
-            <div style="font-weight: 900; text-transform: uppercase;">Valor Consolidado:</div>
-            <div class="orc-total-amt" id="orc-total">R$ 0,00</div>
-          </div>
+                <div class="orc-total-box">
+                  <div style="font-weight: 900; text-transform: uppercase;">Valor Consolidado:</div>
+                  <div class="orc-total-amt" id="orc-total">R$ 0,00</div>
+                </div>
 
-          <div class="orc-legal">
-            <div style="color: red; text-align: center; font-weight: 900; margin-bottom: 0.5rem;">É
-              DIREITO DO
-              CONSUMIDOR A LIVRE ESCOLHA DE DESPACHANTE.</div>
-            <p>PODE O CLIENTE OPTAR PELA CONTRATAÇÃO DE OUTRO PROFISSIONAL QUE NÃO O INDICADO PELA
-              CONCESSIONÁRIA.</p>
-            <p>CASO O CLIENTE OPTE PELA CONTRATAÇÃO DE OUTRO DESPACHANTE (DIVERSO DO INDICADO), A
-              CONCESSIONÁRIA FICA
-              DESOBRIGADA DAS SEGUINTES RESPONSABILIDADES, CABENDO-AS AO CONSUMIDOR:</p>
-            <p>a) AO DESLOCAMENTO, RETIRADA, LOCOMOÇÃO, CONDUTOR E SEGURO DO VEÍCULO;</p>
-            <p>b) PELO FORNECIMENTO DE PLACAS VERDES PARA A CIRCULAÇÃO DO VEÍCULO ADQUIRIDO ANTES DE
-              EMPLACADO,
-              PROVIDÊNCIAS QUE FICARÃO A CARGO DO CLIENTE, INCLUSIVE COM A CONTRATAÇÃO DE GUINCHO/AUTO
-              PLATAFORMAS, CASO
-              NECESSÁRIA, PARA A RETIRADA DO VEÍCULO DA CONCESSIONÁRIA.</p>
-            <p>A CONCESSIONÁRIA NÃO SE RESPONSABILIZA POR EVENTUAL ATRASO NO REGISTRO E EMPLACAMENTO DO
-              VEÍCULO, BEM
-              COMO POR EVENTUAIS PREJUÍZOS E ENTRAVES QUE VENHAM A OCORRER.</p>
-          </div>
+                <div class="orc-legal">
+                  <div style="color: red; text-align: center; font-weight: 900; margin-bottom: 0.5rem;">É
+                    DIREITO DO
+                    CONSUMIDOR A LIVRE ESCOLHA DE DESPACHANTE.</div>
+                  <p>PODE O CLIENTE OPTAR PELA CONTRATAÇÃO DE OUTRO PROFISSIONAL QUE NÃO O INDICADO PELA
+                    CONCESSIONÁRIA.</p>
+                  <p>CASO O CLIENTE OPTE PELA CONTRATAÇÃO DE OUTRO DESPACHANTE (DIVERSO DO INDICADO), A
+                    CONCESSIONÁRIA FICA
+                    DESOBRIGADA DAS SEGUINTES RESPONSABILIDADES, CABENDO-AS AO CONSUMIDOR:</p>
+                  <p>a) AO DESLOCAMENTO, RETIRADA, LOCOMOÇÃO, CONDUTOR E SEGURO DO VEÍCULO;</p>
+                  <p>b) PELO FORNECIMENTO DE PLACAS VERDES PARA A CIRCULAÇÃO DO VEÍCULO ADQUIRIDO ANTES DE
+                    EMPLACADO,
+                    PROVIDÊNCIAS QUE FICARÃO A CARGO DO CLIENTE, INCLUSIVE COM A CONTRATAÇÃO DE GUINCHO/AUTO
+                    PLATAFORMAS, CASO
+                    NECESSÁRIA, PARA A RETIRADA DO VEÍCULO DA CONCESSIONÁRIA.</p>
+                  <p>A CONCESSIONÁRIA NÃO SE RESPONSABILIZA POR EVENTUAL ATRASO NO REGISTRO E EMPLACAMENTO DO
+                    VEÍCULO, BEM
+                    COMO POR EVENTUAIS PREJUÍZOS E ENTRAVES QUE VENHAM A OCORRER.</p>
+                </div>
 
-          <div class="orc-sigs">
-            <div>
-              <div class="orc-sig-line">Responsável Técnico</div>
+                <div class="orc-sigs">
+                  <div>
+                    <div class="orc-sig-line">Responsável Técnico</div>
+                  </div>
+                  <div>
+                    <div class="orc-sig-line">Assinatura do Cliente</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="doc-actions no-print">
+                <button class="btn btn-acordo" type="button" onclick="gerarOrcamentoDetran()"
+                  style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #111827;"> Gerar PDF do
+                  Orçamento</button>
+              </div>
             </div>
-            <div>
-              <div class="orc-sig-line">Assinatura do Cliente</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="doc-actions no-print">
-          <button class="btn btn-acordo" type="button" onclick="gerarOrcamentoDetran()"
-            style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #111827;"> Gerar PDF do
-            Orçamento</button>
-        </div>
-      </div>
-
-      <!-- =========================
+            <!-- =========================
            8) TEXTO CONTRATUAL
            ========================= -->
-      <div class="doc-card hidden" id="doc-contrato">
-        <div class="head">
-          <div class="doc-title-pill doc-title-contrato">TEXTO CONTRATUAL</div>
-        </div>
+            <div class="doc-card hidden" id="doc-contrato">
+              <div class="head">
+                <div class="doc-title-pill doc-title-contrato">TEXTO CONTRATUAL</div>
+              </div>
 
-        <div class="section-title"
-          style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 15px;">
-          Escolha a Modalidade de Venda, copie o texto e cole no contrato</div>
+              <div class="section-title"
+                style="border-top: none; margin-top: 0; padding-top: 0; text-align: center; margin-bottom: 15px;">
+                Escolha a Modalidade de Venda, copie o texto e cole no contrato</div>
 
-        <div class="tabs-contrato">
-          <button class="tab-contrato active" id="tab-tradicional" type="button"
-            onclick="selecionarModalidade('tradicional')">
-            Garantia em Dobro
-          </button>
-          <button class="tab-contrato" id="tab-outlet" type="button" onclick="selecionarModalidade('outlet')">
-            Outlet
-          </button>
-        </div>
+              <div class="tabs-contrato">
+                <button class="tab-contrato active" id="tab-tradicional" type="button"
+                  onclick="selecionarModalidade('tradicional')">
+                  Garantia em Dobro
+                </button>
+                <button class="tab-contrato" id="tab-outlet" type="button" onclick="selecionarModalidade('outlet')">
+                  Outlet
+                </button>
+              </div>
 
-        <textarea class="texto-contratual" id="texto-contratual" readonly></textarea>
+              <textarea class="texto-contratual" id="texto-contratual" readonly></textarea>
 
-        <div class="doc-actions">
-          <button class="btn btn-contrato" type="button" onclick="copiarTextoContratual()"> Copiar
-            Texto</button>
-        </div>
-      </div>
+              <div class="doc-actions">
+                <button class="btn btn-contrato" type="button" onclick="copiarTextoContratual()"> Copiar
+                  Texto</button>
+              </div>
+            </div>
 
 
-      <!-- =========================
+            <!-- =========================
            9) CALCULADORA DE JUROS (Cartão)
            ========================= -->
-      <div class="doc-card hidden" id="doc-calculadora">
+            <div class="doc-card hidden" id="doc-calculadora">
 
 
 
-        <!-- Campo de valor em cima -->
-        <div class="calc-input-grid">
-          <div class="form-item" style="gap:6px; margin:0;">
-            <label style="color: var(--muted); font-weight:900;">Digite o valor no campo ao lado</label>
-          </div>
+              <!-- Campo de valor em cima -->
+              <div class="calc-input-group">
+                <label class="calc-label">Digite o valor no campo ao lado</label>
+                <div class="calc-input-wrap">
+                  <span class="calc-prefix">R$</span>
+                  <input id="calc_baseValue" class="calc-input" type="text" inputmode="decimal"
+                    placeholder="Ex.: 10.000,00" />
+                </div>
+              </div>
 
-          <div class="calc-input-wrap">
-            <span class="calc-prefix">R$</span>
-            <input id="calc_baseValue" class="calc-input" type="text" inputmode="decimal"
-              placeholder="Ex.: 10.000,00" />
-          </div>
+              <!-- Botões de banco -->
+              <div class="calc-bank-row" aria-label="Seleção de operadora">
+                <button class="calc-bank-btn rede" id="calc_btnRede" type="button" title="Selecionar REDE">
+                  <span class="calc-bank-dot"></span> REDE
+                </button>
+                <button class="calc-bank-btn banri" id="calc_btnBanri" type="button" title="Selecionar BANRICOMPRAS">
+                  <span class="calc-bank-dot"></span> BANRICOMPRAS
+                </button>
+              </div>
 
-          <button class="btn" id="calc_btnLimpar" type="button" style="min-width:unset; width:100%;">Limpar</button>
-        </div>
+              <div id="calc_emptyState" class="calc-empty-state">
+                Selecione <strong>REDE</strong> ou <strong>BANRICOMPRAS</strong> para exibir as taxas e o
+                cálculo.
+              </div>
 
-        <!-- Botões de banco -->
-        <div class="calc-bank-row" aria-label="Seleção de operadora">
-          <button class="calc-bank-btn rede" id="calc_btnRede" type="button" title="Selecionar REDE">
-            <span class="calc-bank-dot"></span> REDE
-          </button>
-          <button class="calc-bank-btn banri" id="calc_btnBanri" type="button" title="Selecionar BANRICOMPRAS">
-            <span class="calc-bank-dot"></span> BANRICOMPRAS
-          </button>
-        </div>
+              <div id="calc_content" class="hidden">
+                <div class="calc-table-wrap" aria-label="Tabela (rolagem horizontal no mobile)">
+                  <table class="calc-sheet" aria-label="Tabela de taxas e cálculo">
+                    <thead>
+                      <tr>
+                        <th style="width:34%;">Modalidade/Parcelas</th>
+                        <th class="center" style="width:14%;">Taxa</th>
+                        <th class="center" style="width:14%;">Fator</th>
+                        <th class="center" style="width:16%;">Valor a cobrar</th>
+                        <th class="center calc-highlight calc-sep" style="width:12%;">Quantidade de parcelas
+                        </th>
+                        <th class="center calc-highlight" style="width:14%;">Valor da parcela</th>
+                      </tr>
+                    </thead>
+                    <tbody id="calc_tbody"></tbody>
+                  </table>
+                </div>
 
-        <div id="calc_emptyState" class="calc-empty-state">
-          Selecione <strong>REDE</strong> ou <strong>BANRICOMPRAS</strong> para exibir as taxas e o
-          cálculo.
-        </div>
+                <div class="calc-rotate-note">
+                  No celular em <strong>modo retrato</strong>, deslize a tabela para o lado (rolagem
+                  horizontal). Se preferir,
+                  gire a tela para <strong>horizontal</strong> para ver tudo de uma vez.
+                </div>
+              </div>
 
-        <div id="calc_content" class="hidden">
-          <div class="calc-table-wrap" aria-label="Tabela (rolagem horizontal no mobile)">
-            <table class="calc-sheet" aria-label="Tabela de taxas e cálculo">
-              <thead>
-                <tr>
-                  <th style="width:34%;">Modalidade/Parcelas</th>
-                  <th class="center" style="width:14%;">Taxa</th>
-                  <th class="center" style="width:14%;">Fator</th>
-                  <th class="center" style="width:16%;">Valor a cobrar</th>
-                  <th class="center calc-highlight calc-sep" style="width:12%;">Quantidade de parcelas
-                  </th>
-                  <th class="center calc-highlight" style="width:14%;">Valor da parcela</th>
-                </tr>
-              </thead>
-              <tbody id="calc_tbody"></tbody>
-            </table>
-          </div>
-
-          <div class="calc-rotate-note">
-            No celular em <strong>modo retrato</strong>, deslize a tabela para o lado (rolagem
-            horizontal). Se preferir,
-            gire a tela para <strong>horizontal</strong> para ver tudo de uma vez.
-          </div>
-        </div>
-
-      </div>
+            </div>
 
 
-      <!-- =========================
+            <!-- =========================
            10) LINKS ÚTEIS
            ========================= -->
-      <div class="doc-card hidden" id="doc-links">
-        <div style="height: 10px;"></div>
+            <div class="doc-card hidden" id="doc-links">
+              <div style="height: 10px;"></div>
 
-        <div class="link-section">
-          <div class="cover-grid">
-            <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill">TABELA FIPE</div>
-            </a>
-            <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill">VALOR DE IPVA</div>
-            </a>
-            <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
-              class="cover-btn" style="text-decoration: none;">
-              <div class="cover-doc-pill">SITUAÇÃO DO DETRAN</div>
-            </a>
-            <a href="https://www.vichinsky.com.br/hp12c/hp12c.php" target="_blank" class="cover-btn"
-              style="text-decoration: none;">
-              <div class="cover-doc-pill">HP12C ONLINE</div>
-            </a>
+              <div class="link-section">
+                <div class="cover-grid" style="grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                  <!-- Coluna 1: Links de Consulta -->
+                  <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="https://veiculos.fipe.org.br/" target="_blank" class="cover-btn"
+                      style="text-decoration: none;">
+                      <div class="cover-doc-pill">TABELA FIPE</div>
+                    </a>
+                    <a href="https://www.sefaz.rs.gov.br/apps/ipva/principal/tabs/meus-veiculos" target="_blank"
+                      class="cover-btn" style="text-decoration: none;">
+                      <div class="cover-doc-pill">VALOR DE IPVA</div>
+                    </a>
+                    <a href="https://pcsdetran.rs.gov.br/login?redirectUrl=%2Fconsulta-veiculo" target="_blank"
+                      class="cover-btn" style="text-decoration: none;">
+                      <div class="cover-doc-pill">SITUAÇÃO DO DETRAN</div>
+                    </a>
+                  </div>
+
+                  <!-- Coluna 2: Links WhatsApp -->
+                  <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="https://wa.me/555191896086" target="_blank" class="cover-btn"
+                      style="text-decoration: none;">
+                      <div class="cover-doc-pill"><i class="fa-brands fa-whatsapp"></i>&nbsp; WHATS AGENDAMENTO OFICINA
+                      </div>
+                    </a>
+                    <a href="https://wa.me/555199415144" target="_blank" class="cover-btn"
+                      style="text-decoration: none;">
+                      <div class="cover-doc-pill"><i class="fa-brands fa-whatsapp"></i>&nbsp; WHATS SETOR DE PEÇAS</div>
+                    </a>
+                    <a href="https://wa.me/555199601435" target="_blank" class="cover-btn"
+                      style="text-decoration: none;">
+                      <div class="cover-doc-pill"><i class="fa-brands fa-whatsapp"></i>&nbsp; WHATS VENDAS DE SEGUROS
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
-        </div>
 
-      </div>
+        </section>
+      </main>
 
     </div>
 
     <div class="footer">
-      Desenvolvido por Alberto Mateus para o Grupo San Marino
-      | <span style="opacity: 0.85;">Visitas: <span id="visitas-count">...</span></span>
+      <div>© <b>Central de Apoio</b> • Grupo San Marino</div>
+      <div><span>Desenvolvido por Alberto Mateus</span></div>
     </div>
   </div>
 
@@ -2822,81 +3631,97 @@
     }
 
     /* =========================
-       CAPA (abre 1 documento por vez)
+       UI CONTROLS & STATE
+       ========================= */
+    const root = document.documentElement;
+    const shell = document.getElementById("shell");
+    const pageTitle = document.getElementById("pageTitle");
+    const pageSubtitle = document.getElementById("page subtitle");
+    // Sidebar
+    const LS_SIDEBAR = "central_sidebar_collapsed";
+
+    const savedCollapsed = localStorage.getItem(LS_SIDEBAR);
+    if (savedCollapsed === "1") shell.classList.add("collapsed");
+
+    document.getElementById("btnSidebar").addEventListener("click", () => {
+      shell.classList.toggle("collapsed");
+      localStorage.setItem(LS_SIDEBAR, shell.classList.contains("collapsed") ? "1" : "0");
+    });
+
+    /* =========================
+       SUBTITLES MAP
+       ========================= */
+    const subtitles = {
+      "gerador": "",
+      "calculadora": "",
+      "bancos": "",
+      "certidoes": "",
+      "venda-direta": "",
+      "plataformas": "",
+      "cartas": "",
+      "seminovos": "",
+      "pos-vendas": "",
+      "lojas": "",
+      "gestor": "",
+      "links": ""
+    };
+
+    /* =========================
+        (alternarSecao)
        ========================= */
     function alternarSecao(secao) {
-      // Esconder todas as seções e cards
-      document.getElementById('secao-gerador').classList.add('hidden');
-      document.getElementById('doc-calculadora').classList.add('hidden');
-      document.getElementById('doc-contrato').classList.add('hidden');
-      document.getElementById('doc-links').classList.add('hidden');
-      document.getElementById('secao-bancos').classList.add('hidden');
-      document.getElementById('secao-certidoes').classList.add('hidden');
-      document.getElementById('secao-venda-direta').classList.add('hidden');
-      document.getElementById('secao-plataformas').classList.add('hidden');
-      document.getElementById('secao-cartas').classList.add('hidden');
-      document.getElementById('secao-seminovos').classList.add('hidden');
-      document.getElementById('secao-gestor').classList.add('hidden');
-      document.getElementById('secao-pos-vendas').classList.add('hidden');
-      document.getElementById('secao-lojas').classList.add('hidden');
-      document.getElementById('dados-cliente-global').classList.add('hidden');
+      // 1. Esconder tudo
+      const secoes = ['secao-gerador', 'doc-calculadora', 'doc-contrato', 'doc-links', 'secao-bancos',
+        'secao-certidoes', 'secao-venda-direta', 'secao-plataformas', 'secao-cartas',
+        'secao-seminovos', 'secao-gestor', 'secao-pos-vendas', 'secao-lojas', 'dados-cliente-global'];
+      secoes.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
 
-      // Esconder todos os cards de documentos individuais
-      const cards = document.querySelectorAll('.doc-card');
-      cards.forEach(c => c.classList.add('hidden'));
+      // 2. Esconder documentos específicos e dados globais (limpar tela)
+      const specificDocs = document.querySelectorAll('#docArea .doc-card, #dados-cliente-global');
+      specificDocs.forEach(c => c.classList.add('hidden'));
 
-      // Remover classe active de todos os botões de navegação
-      document.getElementById('btn-gerador').classList.remove('active');
-      document.getElementById('btn-calculadora').classList.remove('active');
-      document.getElementById('btn-links').classList.remove('active');
-      document.getElementById('btn-bancos').classList.remove('active');
-      document.getElementById('btn-certidoes').classList.remove('active');
-      document.getElementById('btn-venda-direta').classList.remove('active');
-      document.getElementById('btn-plataformas').classList.remove('active');
-      document.getElementById('btn-cartas').classList.remove('active');
-      document.getElementById('btn-seminovos').classList.remove('active');
-      document.getElementById('btn-gestor').classList.remove('active');
-      document.getElementById('btn-pos-vendas').classList.remove('active');
-      document.getElementById('btn-lojas').classList.remove('active');
+      // 2. Atualizar Navegação (Sidebar)
+      const navLinks = document.querySelectorAll('.nav a');
+      navLinks.forEach(a => a.classList.remove('active'));
 
+      const targetLink = document.getElementById('btn-' + secao);
+      if (targetLink) targetLink.classList.add('active');
+
+      // 3. Atualizar Títulos da Main
+      if (pageTitle && targetLink) {
+        pageTitle.textContent = targetLink.querySelector('span').textContent;
+      }
+      if (pageSubtitle) {
+        pageSubtitle.textContent = subtitles[secao] || "";
+      }
+
+      // 4. Mostrar Seção Alvo
       if (secao === 'gerador') {
         document.getElementById('secao-gerador').classList.remove('hidden');
-        document.getElementById('btn-gerador').classList.add('active');
       } else if (secao === 'calculadora') {
         document.getElementById('doc-calculadora').classList.remove('hidden');
-        document.getElementById('btn-calculadora').classList.add('active');
       } else if (secao === 'links') {
         document.getElementById('doc-links').classList.remove('hidden');
-        document.getElementById('btn-links').classList.add('active');
-      } else if (secao === 'bancos') {
-        document.getElementById('secao-bancos').classList.remove('hidden');
-        document.getElementById('btn-bancos').classList.add('active');
-      } else if (secao === 'certidoes') {
-        document.getElementById('secao-certidoes').classList.remove('hidden');
-        document.getElementById('btn-certidoes').classList.add('active');
-      } else if (secao === 'venda-direta') {
-        document.getElementById('secao-venda-direta').classList.remove('hidden');
-        document.getElementById('btn-venda-direta').classList.add('active');
-      } else if (secao === 'plataformas') {
-        document.getElementById('secao-plataformas').classList.remove('hidden');
-        document.getElementById('btn-plataformas').classList.add('active');
-      } else if (secao === 'cartas') {
-        document.getElementById('secao-cartas').classList.remove('hidden');
-        document.getElementById('btn-cartas').classList.add('active');
-      } else if (secao === 'seminovos') {
-        document.getElementById('secao-seminovos').classList.remove('hidden');
-        document.getElementById('btn-seminovos').classList.add('active');
-      } else if (secao === 'gestor') {
-        document.getElementById('secao-gestor').classList.remove('hidden');
-        document.getElementById('btn-gestor').classList.add('active');
-      } else if (secao === 'pos-vendas') {
-        document.getElementById('secao-pos-vendas').classList.remove('hidden');
-        document.getElementById('btn-pos-vendas').classList.add('active');
-      } else if (secao === 'lojas') {
-        document.getElementById('secao-lojas').classList.remove('hidden');
-        document.getElementById('btn-lojas').classList.add('active');
+      } else {
+        const el = document.getElementById('secao-' + secao);
+        if (el) el.classList.remove('hidden');
       }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    /* =========================
+       BUSCA / FILTRO
+       ========================= */
+
+
+    /* =========================
+       FAVORITOS (Placeholder)
+       ========================= */
+
 
     async function copiarLink(url) {
       try {
@@ -2920,7 +3745,8 @@
         'doc-quitacao': 'btn-doc-quitacao',
         'doc-residencia': 'btn-doc-residencia',
         'doc-deposito': 'btn-doc-deposito',
-        'doc-orcamento': 'btn-doc-orcamento'
+        'doc-orcamento': 'btn-doc-orcamento',
+        'doc-contrato': 'btn-doc-contrato'
       };
 
       if (btnIdMap[docId]) {
@@ -2928,10 +3754,13 @@
         if (btn) btn.classList.add('active');
       }
 
-      // Esconder apenas os cards de documentos, mantendo o submenu visível se necessário
+      // Esconder apenas os cards de documentos
+      // Esconder apenas os cards de documentos (formulários e dados globais)
+      // Mas NÃO esconder o card que contém os botões de seleção no topo
       const cards = document.querySelectorAll('.doc-card');
       cards.forEach(c => {
-        if (c.id !== 'doc-calculadora' && c.id !== 'doc-contrato' && c.id !== 'doc-links') {
+        // Se o card não tiver ID (é o card de botões) ou for calculadora/links, não esconde
+        if (c.id && c.id !== 'doc-calculadora' && c.id !== 'doc-links') {
           c.classList.add('hidden');
         }
       });
@@ -2940,10 +3769,15 @@
       if (el) {
         el.classList.remove('hidden');
         // Mostrar dados do cliente se for um documento do gerador
-        if (docId !== 'doc-calculadora' && docId !== 'doc-contrato' && docId !== 'doc-links') {
+        const geradorDocs = ['doc-recebimento', 'doc-acordo', 'doc-instrumento', 'doc-quitacao', 'doc-residencia', 'doc-deposito', 'doc-orcamento'];
+        if (geradorDocs.includes(docId)) {
           document.getElementById('dados-cliente-global').classList.remove('hidden');
+          document.getElementById('dados-cliente-global').style.marginTop = "30px";
         }
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Scroll suave para o início do formulário, mantendo um pouco dos botões visíveis
+        const topOffset = el.getBoundingClientRect().top + window.pageYOffset - 150;
+        window.scrollTo({ top: topOffset, behavior: 'smooth' });
       }
 
       // Se abrir o card de contrato, inicializar com o texto tradicional
@@ -4146,10 +4980,9 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       const calcContent = document.getElementById("calc_content");
       const calcTbody = document.getElementById("calc_tbody");
       const calcBaseInput = document.getElementById("calc_baseValue");
-      const calcBtnLimpar = document.getElementById("calc_btnLimpar");
 
       // Se o card não existir (caso alguém remova), sai sem erro
-      if (!calcBtnBanri || !calcBtnRede || !calcEmptyState || !calcContent || !calcTbody || !calcBaseInput || !calcBtnLimpar) return;
+      if (!calcBtnBanri || !calcBtnRede || !calcEmptyState || !calcContent || !calcTbody || !calcBaseInput) return;
 
       // Dados (iguais aos da planilha)
       const CALC_BANRI = [
@@ -4263,11 +5096,7 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       calcBaseInput.addEventListener("input", () => calc_render());
       calcBaseInput.addEventListener("blur", () => { calc_formatBRLInput(calcBaseInput); calc_render(); });
 
-      calcBtnLimpar.addEventListener("click", () => {
-        calcBaseInput.value = "";
-        calc_render();
-        calcBaseInput.focus();
-      });
+
 
       // Inicial: sem escolha
       calc_setModo(null);
@@ -4279,11 +5108,11 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       fetch('https://api.counterapi.dev/v1/albertomateus-sanmarino/visitas/up')
         .then(res => res.json())
         .then(data => {
-          const el = document.getElementById('visitas-count');
+          const el = document.getElementById('visits-count');
           if (el && data.count) el.innerText = data.count.toLocaleString('pt-BR');
         })
         .catch(() => {
-          const el = document.getElementById('visitas-count');
+          const el = document.getElementById('visits-count');
           if (el) el.innerText = '0';
         });
     });
