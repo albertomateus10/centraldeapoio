@@ -80,9 +80,9 @@
       --glow: radial-gradient(900px 420px at 20% -10%, rgba(74, 144, 226, .18), transparent 60%),
         radial-gradient(880px 460px at 85% 10%, rgba(31, 58, 95, .10), transparent 62%);
     }
+  </style>
 
-
-
+  <style>
     /* =========================
        RESET / BASE
        ========================= */
@@ -530,6 +530,50 @@
     .search .s-ico svg {
       width: 16px;
       height: 16px;
+    }
+
+    /* Estilos para a Busca Global no Cabeçalho */
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .search-input-container {
+      width: 0;
+      overflow: hidden;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-container.active {
+      width: 200px;
+      opacity: 1;
+    }
+
+    .search-input-container input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input-container input:focus {
+      border-color: var(--accent);
+    }
+
+    .icon-btn.search-active {
+      background: var(--brand-soft);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .pill-btn {
@@ -2346,6 +2390,19 @@
         </div>
 
         <div class="topbar-actions">
+          <div class="search-wrapper">
+            <div class="search-input-container" id="searchContainer">
+              <input type="text" id="globalSearchInput" placeholder="Localizar..." autocomplete="off">
+            </div>
+            <button class="icon-btn" id="btnSearch" title="Localizar (Ctrl+F)" aria-label="Localizar">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
+
           <div class="chip" title="Informações">
             <small>Visitas:</small> <b id="visits-count">...</b>
           </div>
@@ -2770,7 +2827,7 @@
               </a>
               <a href="https://adm.autoavaliar.com.br/index.php" target="_blank" class="cover-btn"
                 style="text-decoration: none;">
-                <div class="cover-doc-pill">Leilão do AutoAvaliar</div>
+                <div class="cover-doc-pill">LEILÃO DO AUTOAVALIAR</div>
               </a>
               <a href="https://albertomateus10.github.io/contratodecompradeveiculos/" target="_blank" class="cover-btn"
                 style="text-decoration: none;">
@@ -2782,9 +2839,10 @@
           <!-- Seção: Pós Vendas (Submenu) -->
           <div class="cover hidden col-12" id="secao-pos-vendas" style="margin-top: 20px;">
             <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-              <button class="cover-btn" type="button">
+              <a href="https://drive.google.com/drive/folders/1fvCZW4TcYDNnjDGnI8LQnx6BMSqUwuTL" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
                 <div class="cover-doc-pill">CATÁLOGO DE ACESSÓRIOS</div>
-              </button>
+              </a>
 
               <a href="https://drive.google.com/drive/folders/1pVktoHOniUgT5LQfnjxWhDGAB1r3-LVn" target="_blank"
                 class="cover-btn" style="text-decoration: none;">
@@ -3872,11 +3930,63 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Reset de busca ao trocar de seção
+      if (typeof filterContent === 'function') {
+        const searchContainer = document.getElementById('searchContainer');
+        const btnSearch = document.getElementById('btnSearch');
+        const globalSearchInput = document.getElementById('globalSearchInput');
+
+        if (searchContainer && searchContainer.classList.contains('active')) {
+          searchContainer.classList.remove('active');
+          btnSearch.classList.remove('search-active');
+          globalSearchInput.value = '';
+          filterContent('');
+        }
+      }
     }
 
     /* =========================
-       BUSCA / FILTRO
+        BUSCA / FILTRO
        ========================= */
+    const btnSearch = document.getElementById('btnSearch');
+    const searchContainer = document.getElementById('searchContainer');
+    const globalSearchInput = document.getElementById('globalSearchInput');
+
+    if (btnSearch && searchContainer && globalSearchInput) {
+      btnSearch.addEventListener('click', () => {
+        searchContainer.classList.toggle('active');
+        btnSearch.classList.toggle('search-active');
+        if (searchContainer.classList.contains('active')) {
+          globalSearchInput.focus();
+        } else {
+          globalSearchInput.value = '';
+          filterContent('');
+        }
+      });
+
+      globalSearchInput.addEventListener('input', (e) => {
+        filterContent(e.target.value);
+      });
+    }
+
+    function filterContent(query) {
+      const q = query.toLowerCase().trim();
+
+      // Filtra links da sidebar e conteúdo principal
+      const targets = document.querySelectorAll('.nav a, .cover-btn, .link-section, .card, .doc-card:not(.hidden)');
+
+      targets.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (q === '' || text.includes(q)) {
+          item.style.display = "";
+          item.classList.remove('hidden-by-search');
+        } else {
+          item.style.display = "none";
+          item.classList.add('hidden-by-search');
+        }
+      });
+    }
 
 
     /* =========================
