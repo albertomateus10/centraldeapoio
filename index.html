@@ -3986,22 +3986,77 @@
       });
     }
 
-    function filterContent(query) {
-      const q = query.toLowerCase().trim();
+    function removeAcentos(str) {
+      if (!str) return '';
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
 
-      // Filtra links da sidebar e conteúdo principal
-      const targets = document.querySelectorAll('.nav a, .cover-btn, .link-section, .card, .doc-card:not(.hidden)');
+    function filterContent(query) {
+      const q = removeAcentos(query.toLowerCase().trim());
+
+      // Se a busca estiver vazia, volta para o estado normal (apenas a seção ativa)
+      if (q === '') {
+        const activeLink = document.querySelector('.nav a.active');
+        if (activeLink) {
+          const secaoId = activeLink.getAttribute('onclick').match(/'([^']+)'/)[1];
+          alternarSecao(secaoId);
+        }
+        return;
+      }
+
+      // 1. Mostrar todos os contêineres que podem ter resultados
+      const containers = document.querySelectorAll('.cover, .doc-card, .link-section, .grid-tiles');
+      containers.forEach(c => c.classList.remove('hidden'));
+
+      // 2. Ocultar todos os botões de ação e links secundários que NÃO são alvos de pesquisa
+      const actionBtns = document.querySelectorAll('.btn, .card, .link-section a');
+      actionBtns.forEach(item => {
+        if (!item.classList.contains('cover-btn')) {
+          item.style.display = "none";
+          item.classList.add('hidden-by-search');
+        }
+      });
+
+      // 3. Filtrar apenas botões de navegação (Sidebar e Submenus)
+      const targets = document.querySelectorAll('.nav a, .cover-btn');
+      let foundAny = false;
 
       targets.forEach(item => {
-        const text = item.innerText.toLowerCase();
-        if (q === '' || text.includes(q)) {
+        const text = removeAcentos(item.innerText.toLowerCase());
+        if (text.includes(q)) {
           item.style.display = "";
           item.classList.remove('hidden-by-search');
+          foundAny = true;
+
+          // Se for um botão de documento dentro do gerador, garantir que os dados do cliente apareçam (mas vazios/ocultos se não clicar)
+          if (item.closest('#secao-gerador')) {
+            // Não mostramos o formulário completo, apenas o card de botões da seção
+            document.getElementById('secao-gerador').classList.remove('hidden');
+          }
         } else {
           item.style.display = "none";
           item.classList.add('hidden-by-search');
         }
       });
+
+      // 4. Esconder seções/cards que não têm nenhum botão de NAVEGAÇÃO visível
+      const parents = document.querySelectorAll('.cover, .doc-card:not(#dados-cliente-global), .link-section');
+      parents.forEach(p => {
+        // Verifica se existe algum botão de navegaçao visível (.nav a ou .cover-btn)
+        const hasVisibleNav = p.querySelector('.nav a:not([style*="display: none"]), .cover-btn:not([style*="display: none"])');
+
+        if (!hasVisibleNav) {
+          p.classList.add('hidden');
+        } else {
+          p.classList.remove('hidden');
+        }
+      });
+
+      // 5. Garantir que o card de dados globais só apareça se estivermos no gerador e houver resultados lá
+      const geradorTemResultado = document.querySelector('#secao-gerador:not(.hidden)');
+      if (!geradorTemResultado) {
+        document.getElementById('dados-cliente-global').classList.add('hidden');
+      }
     }
 
 
