@@ -2196,6 +2196,121 @@
       box-shadow: none !important;
       /* Também removendo sombra para um efeito mais limpo se desejado, ou manter se preferir */
     }
+
+    /* Estilos de Validação */
+    .validation-error {
+      color: #dc2626;
+      font-size: 10px;
+      margin-top: 4px;
+      display: none;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .input-error {
+      border-color: #dc2626 !important;
+      background-color: rgba(220, 38, 38, 0.02) !important;
+    }
+
+    .input-error:focus {
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
+    }
+
+    /* ===== SISTEMA DE NOTIFICAÇÕES (PREMIUM TOASTS) ===== */
+    #toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      background: #ffffff;
+      min-width: 320px;
+      max-width: 420px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 20px 25px -5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-left: 5px solid #e2e8f0;
+      animation: toastIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @keyframes toastIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast-exiting {
+      transform: translateX(120%) scale(0.9);
+      opacity: 0;
+    }
+
+    .toast i {
+      font-size: 20px;
+    }
+
+    .toast.success {
+      border-left-color: #10b981;
+    }
+
+    .toast.success i:first-child {
+      color: #10b981;
+    }
+
+    .toast.error {
+      border-left-color: #ef4444;
+    }
+
+    .toast.error i:first-child {
+      color: #ef4444;
+    }
+
+    .toast.info {
+      border-left-color: #3b82f6;
+    }
+
+    .toast.info i:first-child {
+      color: #3b82f6;
+    }
+
+    .toast span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .toast .fa-xmark {
+      font-size: 14px;
+      color: #94a3b8;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .toast:hover .fa-xmark {
+      opacity: 1;
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -2895,11 +3010,15 @@
                 </div>
                 <div class="form-item">
                   <label for="acordo_chassi">Chassi</label>
-                  <input type="text" id="acordo_chassi" placeholder="17 caracteres">
+                  <input type="text" id="acordo_chassi" placeholder="17 caracteres" maxlength="17">
+                  <span id="error-acordo_chassi" class="validation-error">O Chassi deve ter exatamente 17
+                    caracteres.</span>
                 </div>
                 <div class="form-item">
                   <label for="acordo_renavam">Renavam</label>
-                  <input type="text" id="acordo_renavam" placeholder="11 caracteres">
+                  <input type="text" id="acordo_renavam" placeholder="11 caracteres" maxlength="11">
+                  <span id="error-acordo_renavam" class="validation-error">O Renavam deve ter exatamente 11
+                    caracteres.</span>
                 </div>
                 <div class="form-item">
                   <label for="acordo_cor">Cor</label>
@@ -2966,7 +3085,9 @@
                 </div>
                 <div class="form-item">
                   <label for="rec_chassi">Chassi</label>
-                  <input type="text" id="rec_chassi" placeholder="17 caracteres">
+                  <input type="text" id="rec_chassi" placeholder="17 caracteres" maxlength="17">
+                  <span id="error-rec_chassi" class="validation-error">O Chassi deve ter exatamente 17
+                    caracteres.</span>
                 </div>
                 <div class="form-item">
                   <label for="rec_cor">Cor</label>
@@ -3021,7 +3142,9 @@
                 </div>
                 <div class="form-item">
                   <label for="quit_chassi">Chassi</label>
-                  <input type="text" id="quit_chassi" placeholder="17 caracteres">
+                  <input type="text" id="quit_chassi" placeholder="17 caracteres" maxlength="17">
+                  <span id="error-quit_chassi" class="validation-error">O Chassi deve ter exatamente 17
+                    caracteres.</span>
                 </div>
                 <div class="form-item">
                   <label for="quit_cor">Cor</label>
@@ -3066,6 +3189,8 @@
                 <div class="form-item">
                   <label for="quit_veiculoAdquiridoChassi">Chassi do veículo adquirido</label>
                   <input type="text" id="quit_veiculoAdquiridoChassi" placeholder="17 caracteres" maxlength="17">
+                  <span id="error-quit_veiculoAdquiridoChassi" class="validation-error">O Chassi deve ter exatamente 17
+                    caracteres.</span>
                 </div>
                 <div class="form-item">
                   <label for="quit_contratoNumero">Contrato nº</label>
@@ -3122,7 +3247,9 @@
                 </div>
                 <div class="form-item">
                   <label for="inst_chassi">Chassi</label>
-                  <input type="text" id="inst_chassi" placeholder="17 caracteres">
+                  <input type="text" id="inst_chassi" placeholder="17 caracteres" maxlength="17">
+                  <span id="error-inst_chassi" class="validation-error">O Chassi deve ter exatamente 17
+                    caracteres.</span>
                 </div>
               </div>
 
@@ -4429,11 +4556,13 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       }
 
       if (dados.chassi && dados.chassi.length !== 17) {
+        validations['acordo_chassi']();
         showToast('O campo Chassi deve ter exatamente 17 caracteres.', 'error');
         return;
       }
 
       if (dados.renavam && dados.renavam.length !== 11) {
+        validations['acordo_renavam']();
         showToast('O campo Renavam deve ter exatamente 11 caracteres.', 'error');
         return;
       }
@@ -4499,6 +4628,7 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       }
 
       if (dados.chassi && dados.chassi.length !== 17) {
+        validations['rec_chassi']();
         showToast('O campo Chassi deve ter exatamente 17 caracteres.', 'error');
         return;
       }
@@ -4688,6 +4818,7 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       }
 
       if (dados.chassi && dados.chassi.length !== 17) {
+        validations['inst_chassi']();
         showToast('O campo Chassi deve ter exatamente 17 caracteres.', 'error');
         return;
       }
@@ -4727,11 +4858,13 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       }
 
       if (dados.chassi && dados.chassi.length !== 17) {
+        validations['quit_chassi']();
         showToast('O campo Chassi deve ter exatamente 17 caracteres.', 'error');
         return;
       }
 
       if (dados.veiculoAdquiridoChassi && dados.veiculoAdquiridoChassi.length !== 17) {
+        validations['quit_veiculoAdquiridoChassi']();
         showToast('O campo Chassi do veículo adquirido deve ter exatamente 17 caracteres.', 'error');
         return;
       }
@@ -4881,10 +5014,47 @@ Declaro que tive oportunidade de vistoriar o veículo antes da compra e que conc
       }
     }
 
+
     /* =========================
        Inicialização
        ========================= */
+
+    /* =========================
+       Validações de Chassi e Renavam
+       ========================= */
+    function setupFieldValidation(id, length) {
+      const el = document.getElementById(id);
+      const errorEl = document.getElementById('error-' + id);
+      if (!el || !errorEl) return null;
+
+      const validate = () => {
+        const val = el.value.trim();
+        if (val && val.length !== length) {
+          el.classList.add('input-error');
+          errorEl.style.display = 'block';
+          return false;
+        } else {
+          el.classList.remove('input-error');
+          errorEl.style.display = 'none';
+          return true;
+        }
+      };
+
+      el.addEventListener('input', validate);
+      el.addEventListener('blur', validate);
+      return validate;
+    }
+
+    const validations = {};
+
     window.addEventListener('DOMContentLoaded', () => {
+      // Configurar validações individuais
+      validations['acordo_chassi'] = setupFieldValidation('acordo_chassi', 17);
+      validations['acordo_renavam'] = setupFieldValidation('acordo_renavam', 11);
+      validations['rec_chassi'] = setupFieldValidation('rec_chassi', 17);
+      validations['quit_chassi'] = setupFieldValidation('quit_chassi', 17);
+      validations['quit_veiculoAdquiridoChassi'] = setupFieldValidation('quit_veiculoAdquiridoChassi', 17);
+      validations['inst_chassi'] = setupFieldValidation('inst_chassi', 17);
 
       // Forçar maiúsculas em todos os campos de input
       document.body.addEventListener('input', function (e) {
