@@ -2355,6 +2355,100 @@
     .toast:hover .fa-xmark {
       opacity: 1;
     }
+
+    .fa-whatsapp {
+      color: #25D366 !important;
+    }
+
+    /* =========================
+       RESPONSIVIDADE (MOBILE)
+       ========================= */
+    #sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 90;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --sidebar-w: 280px;
+      }
+
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        width: var(--sidebar-w);
+        z-index: 100;
+        border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 0;
+        box-shadow: var(--shadow-md);
+      }
+
+      .shell.mobile-open .sidebar {
+        transform: translateX(0);
+      }
+
+      .shell.mobile-open #sidebar-overlay {
+        display: block;
+        opacity: 1;
+      }
+
+      .topbar {
+        border-radius: var(--radius-lg);
+        padding: 8px 12px;
+        position: sticky;
+        top: 0;
+      }
+
+      .brand {
+        min-width: unset;
+      }
+
+      .brand-title {
+        display: none;
+      }
+
+      .topbar-center {
+        padding: 0 4px;
+      }
+
+      .title-pill h1 {
+        font-size: 11px;
+        letter-spacing: 0.2px;
+      }
+
+      .topbar-actions {
+        min-width: unset;
+        gap: 6px;
+      }
+
+      .chip {
+        display: none;
+      }
+
+      .main {
+        margin-top: 10px;
+        padding: 12px;
+        border-radius: var(--radius-lg);
+      }
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -2363,6 +2457,7 @@
 <body>
   <div class="app">
     <div id="toast-container"></div>
+    <div id="sidebar-overlay"></div>
     <div class="shell" id="shell">
 
       <!-- TOPBAR -->
@@ -2402,6 +2497,14 @@
               </svg>
             </button>
           </div>
+
+          <button class="icon-btn" id="btnHome" onclick="alternarSecao('gerador')" title="Início" aria-label="Início">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </button>
 
           <div class="chip" title="Informações">
             <small>Visitas:</small> <b id="visits-count">...</b>
@@ -2727,6 +2830,9 @@
                 style="text-decoration: none;">
                 <div class="cover-doc-pill">BNDES STRADA FREEDOM</div>
               </a>
+              <a href="#" target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">CONTRATO DE VD</div>
+              </a>
               <a href="https://ws.bndes.gov.br/cfi_catalogo/produto/04263917" target="_blank" class="cover-btn"
                 style="text-decoration: none;">
                 <div class="cover-doc-pill">BNDES STRADA ENDURANCE</div>
@@ -2764,6 +2870,10 @@
               <a href="https://linkentry-ames.fiat.com/pages/home/" target="_blank" class="cover-btn"
                 style="text-decoration: none;">
                 <div class="cover-doc-pill">LinkEntry</div>
+              </a>
+              <a href="https://drive.google.com/drive/folders/11Oyq1zN6VKhpaDZleNjchiB-Fdp0AyPZ?usp=sharing"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">Manuais do NBS</div>
               </a>
             </div>
           </div>
@@ -2844,6 +2954,10 @@
               <a href="https://albertomateus10.github.io/contratodecompradeveiculos/" target="_blank" class="cover-btn"
                 style="text-decoration: none;">
                 <div class="cover-doc-pill">CONTRATO DE COMPRA DE VEÍCULOS</div>
+              </a>
+              <a href="https://albertomateus10.github.io/procuracaoderepasse/" target="_blank" class="cover-btn"
+                style="text-decoration: none;">
+                <div class="cover-doc-pill">Procuração de Repasse</div>
               </a>
             </div>
           </div>
@@ -3885,8 +3999,16 @@
     if (savedCollapsed === "1") shell.classList.add("collapsed");
 
     document.getElementById("btnSidebar").addEventListener("click", () => {
-      shell.classList.toggle("collapsed");
-      localStorage.setItem(LS_SIDEBAR, shell.classList.contains("collapsed") ? "1" : "0");
+      if (window.innerWidth <= 900) {
+        shell.classList.toggle("mobile-open");
+      } else {
+        shell.classList.toggle("collapsed");
+        localStorage.setItem(LS_SIDEBAR, shell.classList.contains("collapsed") ? "1" : "0");
+      }
+    });
+
+    document.getElementById("sidebar-overlay").addEventListener("click", () => {
+      shell.classList.remove("mobile-open");
     });
 
     /* =========================
@@ -3953,6 +4075,9 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Fechar menu mobile se estiver aberto
+      shell.classList.remove("mobile-open");
 
       // Reset de busca ao trocar de seção
       if (typeof filterContent === 'function') {
@@ -4127,6 +4252,9 @@
         // Scroll suave para o início do formulário, mantendo um pouco dos botões visíveis
         const topOffset = el.getBoundingClientRect().top + window.pageYOffset - 150;
         window.scrollTo({ top: topOffset, behavior: 'smooth' });
+
+        // No mobile, fechar o menu ao abrir um documento (caso tenha sido navegação via busca ou atalho)
+        shell.classList.remove("mobile-open");
       }
 
       // Se abrir o card de contrato, inicializar com o texto tradicional
