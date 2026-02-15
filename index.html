@@ -2639,6 +2639,16 @@
             <span>Localização das Lojas</span>
           </a>
 
+          <a href="#acessorios" id="btn-acessorios" onclick="alternarSecao('acessorios')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M10 13a5 5 0 0 1 0-7l1.2-1.2a5 5 0 0 1 7 7L17 13" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+              <path d="M14 11a5 5 0 0 1 0 7L12.8 19.2a5 5 0 1 1-7-7L7 11" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" />
+            </svg>
+            <span>Catálogo de Acessórios</span>
+          </a>
+
           <a href="#links" id="btn-links" onclick="alternarSecao('links')">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M10 13a5 5 0 0 1 0-7l1.2-1.2a5 5 0 0 1 7 7L17 13" stroke="currentColor" stroke-width="1.8"
@@ -2965,11 +2975,6 @@
           <!-- Seção: Pós Vendas (Submenu) -->
           <div class="cover hidden col-12" id="secao-pos-vendas" style="margin-top: 20px;">
             <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
-              <a href="https://drive.google.com/drive/folders/1fvCZW4TcYDNnjDGnI8LQnx6BMSqUwuTL" target="_blank"
-                class="cover-btn" style="text-decoration: none;">
-                <div class="cover-doc-pill">CATÁLOGO DE ACESSÓRIOS</div>
-              </a>
-
               <a href="https://drive.google.com/drive/folders/1pVktoHOniUgT5LQfnjxWhDGAB1r3-LVn" target="_blank"
                 class="cover-btn" style="text-decoration: none;">
                 <div class="cover-doc-pill">NORMAS DA GARANTIA</div>
@@ -3152,6 +3157,40 @@
          DADOS GLOBAIS DO CLIENTE
          ========================= -->
 
+
+          <!-- Seção: Catálogo de Acessórios (Submenu) -->
+          <div class="cover hidden col-12" id="secao-acessorios" style="margin-top: 20px;">
+            <div class="cover-grid" style="max-width: 900px; margin: 0 auto;">
+              <a href="https://docs.google.com/spreadsheets/d/1uyfpSzx-PHvC5CxaoBhvl0UAkOWmjinl/edit?usp=sharing&ouid=111425340034181852301&rtpof=true&sd=true"
+                target="_blank" class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">CATÁLOGO GERAL</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1qmTDng6uee5IfkempmkoLgt0b9ros-vY/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">FASTBACK</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1pUMybKyozoucig3txwNThiVpYFnTTPks/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">PULSE</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1S1X1TYLhCkPelz2BBrgWErmk1rJDzPWv/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">TORO</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1eiWgVvv9OdyNWqKUvuXhFUWJL6XiDXIS/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">STRADA</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1zxKdhjsFpRCmPyFV1SSXvuxnuG5Pp-UD/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">ARGO</div>
+              </a>
+              <a href="https://drive.google.com/file/d/1c1qSc5EKP59wkuikTdVub5vy_uLlsOzj/view" target="_blank"
+                class="cover-btn" style="text-decoration: none;">
+                <div class="cover-doc-pill">MOBI</div>
+              </a>
+            </div>
+          </div>
 
           <div class="doc-area col-12" id="docArea">
 
@@ -4027,6 +4066,7 @@
       "rh-dp": "",
       "lojas": "",
       "gestor": "clique nos botões abaixo para acessar as ferramentas de apoio ao gestor",
+      "acessorios": "clique nos botões abaixo para visualizar o catálogo desejado",
       "links": ""
     };
 
@@ -4037,7 +4077,7 @@
       // 1. Esconder tudo
       const secoes = ['secao-gerador', 'doc-calculadora', 'doc-contrato', 'doc-links', 'secao-bancos',
         'secao-certidoes', 'secao-venda-direta', 'secao-plataformas', 'secao-cartas',
-        'secao-seminovos', 'secao-gestor', 'secao-pos-vendas', 'secao-rh-dp', 'secao-lojas', 'dados-cliente-global'];
+        'secao-seminovos', 'secao-gestor', 'secao-pos-vendas', 'secao-rh-dp', 'secao-lojas', 'secao-acessorios', 'dados-cliente-global'];
       secoes.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
